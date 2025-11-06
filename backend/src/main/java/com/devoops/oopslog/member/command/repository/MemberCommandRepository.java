@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MemberCommandRepository extends JpaRepository<Member,Long> {
 
+    Member findByMemberId(String memberId);
 }
