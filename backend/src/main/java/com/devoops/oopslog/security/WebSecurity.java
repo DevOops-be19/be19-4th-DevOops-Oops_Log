@@ -21,11 +21,15 @@ import java.util.Collections;
 public class WebSecurity {
     private Environment env;
     private final JwtAuthenticationProvider jwtAuthenticationProvider;
+    private final JwtUtil jwtUtil;
+
     @Autowired
-    public WebSecurity( Environment env,
-                        JwtAuthenticationProvider jwtAuthenticationProvider) {
+    public WebSecurity(Environment env,
+                       JwtAuthenticationProvider jwtAuthenticationProvider,
+                       JwtUtil jwtUtil) {
         this.env = env;     // JWT Token의 payload에 만료시간 만들다가 추가
         this.jwtAuthenticationProvider = jwtAuthenticationProvider;
+        this.jwtUtil = jwtUtil;
     }
 
     @Bean
@@ -38,14 +42,9 @@ public class WebSecurity {
         /* 설명. Spring Security 모듈 추가 후 default 로그인 페이지 제거 및 인가 설정 */
         http.csrf(csrf -> csrf.disable());
         http.authorizeHttpRequests(authz ->
-                        authz.requestMatchers("/**")
-                                .permitAll()
-                                .requestMatchers(HttpMethod.GET,"/health").permitAll()
-//                                        .requestMatchers(HttpMethod.POST,"/users/**").permitAll()
-//                                        .requestMatchers(HttpMethod.GET,"/test").permitAll()
-//                                        .requestMatchers("/actuator/**").permitAll()
-//                     .requestMatchers(HttpMethod.GET,"/users/**").hasRole("ENTERPRISE")
-//                                        .requestMatchers(HttpMethod.GET,"/test1/**","/test2/**").hasAnyRole("ADMIN","ENTERPRISE")
+                                authz.requestMatchers("/**")
+                                        .permitAll()
+                                        .requestMatchers(HttpMethod.GET, "/health").permitAll()
                                         .anyRequest()
                                         .authenticated()
                 )
@@ -53,14 +52,13 @@ public class WebSecurity {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-                // authenticationFilter를 추가하는 과정
-                http.addFilter(getAuthenticationFilter(authenticationManager()));
+        // authenticationFilter를 추가하는 과정
+        http.addFilter(new AuthenticationFilter(authenticationManager(),env));
+
+        // JwtFilter를 통한 토큰 검증 필터 추가
+        http.addFilterBefore(new JwtFilter(jwtUtil),UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
-    }
-
-    private Filter getAuthenticationFilter(AuthenticationManager authenticationManager) {
-        return new AuthenticationFilter(authenticationManager,env);
     }
 
 }

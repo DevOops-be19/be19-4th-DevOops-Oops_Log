@@ -4,6 +4,9 @@ package com.devoops.oopslog.security;
 import com.devoops.oopslog.member.command.dto.LoginDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +18,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
@@ -63,12 +67,27 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         log.info("List<String> 형태로 뽑아낸 로그인 한 회원의 권한들 : {}",roles);
 
         // JWT 토큰 발행
-        Claims clasim
+        Claims claims = Jwts.claims().setSubject(id);
+        claims.put("auth",roles);
+
+        String token = Jwts.builder()
+                .setClaims(claims)
+                .setExpiration(new java.util.Date(System.currentTimeMillis() + Long.parseLong(env.getProperty(("token.expiration_time")))))
+                .signWith(SignatureAlgorithm.HS512,env.getProperty("token.secret"))
+                .compact();
+
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        log.info("token : {}",token);
+        response.addHeader("token", token);
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         log.info("로그인 인증 실패 : {}", failed.getMessage());
+        // 인증 실패 응답
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write("{\"error\": \"" + failed.getMessage() + "\"}");
         super.unsuccessfulAuthentication(request, response, failed);
     }
 }
