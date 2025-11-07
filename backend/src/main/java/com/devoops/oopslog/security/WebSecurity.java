@@ -42,8 +42,7 @@ public class WebSecurity {
         /* 설명. Spring Security 모듈 추가 후 default 로그인 페이지 제거 및 인가 설정 */
         http.csrf(csrf -> csrf.disable());
         http.authorizeHttpRequests(authz ->
-                                authz.requestMatchers("/**")
-                                        .permitAll()
+                                   authz.requestMatchers("/**").permitAll()
                                         .requestMatchers(HttpMethod.GET, "/health").permitAll()
                                         .anyRequest()
                                         .authenticated()
