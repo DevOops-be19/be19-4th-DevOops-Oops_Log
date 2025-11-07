@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devoops.oopslog.member.query.mapper.MemberQueryMapper">
+    <select id="findMemberIdById" parameterType="com.devoops.oopslog.member.query.dto.ResponseIdDTO" resultType="string">
+        SELECT
+               a.member_id
+          FROM member a
+         WHERE a.email = #{email}
+           AND a.name = #{name}
+           AND a.birth = #{birth}
+    </select>
+
+
+</mapper>

@@ -55,8 +55,14 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberCommandRepository.findByMemberId(username);
 
-        if (member == null) throw new UsernameNotFoundException(username + " - 아이디가 존재하지 않음");
-        if(member.getUser_state() == 'S') throw new LockedException(username + " - 정지된 회원");
+        // 존재하지 않는 아이디
+        if (member == null) throw new UsernameNotFoundException(username + " - 회원정보가 존재하지 않음");
+
+        // 정지된 회원
+        if (member.getUser_state() == 'S') throw new LockedException(username + " - 정지된 회원");
+
+        // 5회 이상 로그인 시도
+
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));

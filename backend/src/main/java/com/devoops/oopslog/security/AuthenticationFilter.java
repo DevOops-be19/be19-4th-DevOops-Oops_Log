@@ -81,6 +81,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         log.info("token : {}",token);
         response.addHeader("token", token);
 
+        // 성공 객체 반환
         UserImpl user = (UserImpl) authResult.getPrincipal();
         response.setStatus(HttpServletResponse.SC_OK);
         response.setContentType("application/json;charset=UTF-8");
