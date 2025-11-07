@@ -52,11 +52,14 @@ public class JwtUtil {
 
         // 토큰에 들어있던 member_id로 유효성 검증
         UserDetails userDetails = memberCommandService.loadUserByUsername(claims.getSubject());
+//        log.info("userDetails: {}",userDetails.getUsername());
+//        log.info("userDetails: {}",userDetails.getAuthorities());
 
         // 토큰에 있는 권한 추출
 
 
 
+        //
 
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }

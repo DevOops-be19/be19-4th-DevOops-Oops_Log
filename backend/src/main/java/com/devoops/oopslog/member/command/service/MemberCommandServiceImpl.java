@@ -1,10 +1,13 @@
 package com.devoops.oopslog.member.command.service;
 
 import com.devoops.oopslog.member.command.dto.SignUpDTO;
+import com.devoops.oopslog.member.command.dto.UserDetailInfoDTO;
+import com.devoops.oopslog.member.command.dto.UserImpl;
 import com.devoops.oopslog.member.command.entity.Member;
 import com.devoops.oopslog.member.command.repository.MemberCommandRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -51,13 +54,19 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberCommandRepository.findByMemberId(username);
-        if (member == null) {
-            throw new UsernameNotFoundException(username + "아이디가 존재하지 않음");
-        }
+
+        if (member == null) throw new UsernameNotFoundException(username + " - 아이디가 존재하지 않음");
+        if(member.getUser_state() == 'S') throw new LockedException(username + " - 정지된 회원");
+
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+//        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+
+        // 커스텀한 User 객체 이용
+        UserImpl userImpl = new UserImpl(member.getMemberId(), member.getMemberPw(), grantedAuthorities);
+        userImpl.setUserInfo(new UserDetailInfoDTO(member.getId()));
+        return userImpl;
         // 사용자의 id,pw,권한,하위 정보들을 provider로 전송
-        return new User(member.getMemberId(), member.getMemberPw(), true, true, true, true, grantedAuthorities);
+//        return new User(member.getMemberId(), member.getMemberPw(), true, true, true, true, grantedAuthorities);
     }
 }

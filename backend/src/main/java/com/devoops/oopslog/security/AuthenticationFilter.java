@@ -2,6 +2,7 @@ package com.devoops.oopslog.security;
 
 
 import com.devoops.oopslog.member.command.dto.LoginDTO;
+import com.devoops.oopslog.member.command.dto.UserImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -79,6 +80,14 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         log.info("token : {}",token);
         response.addHeader("token", token);
+
+        UserImpl user = (UserImpl) authResult.getPrincipal();
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write("{");
+        response.getWriter().write("\"success\": \"로그인 성공\",");
+        response.getWriter().write("\"id\": \""+user.getId()+"\"");
+        response.getWriter().write("}");
     }
 
     @Override
@@ -88,6 +97,6 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write("{\"error\": \"" + failed.getMessage() + "\"}");
-        super.unsuccessfulAuthentication(request, response, failed);
+//        super.unsuccessfulAuthentication(request, response, failed);
     }
 }

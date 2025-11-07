@@ -8,8 +8,8 @@ import lombok.*;
 @Setter
 @ToString
 public class SignUpDTO {
-    private String member_id;
-    private String member_pw;
+    private String memberId;
+    private String memberPw;
     private String email;
     private String name;
     private String birth;

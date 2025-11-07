@@ -51,6 +51,9 @@ public class WebSecurity {
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
+
+
+
         // authenticationFilter를 추가하는 과정
         http.addFilter(new AuthenticationFilter(authenticationManager(),env));
 
