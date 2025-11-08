@@ -37,7 +37,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-<<<<<<< HEAD
 
     // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
     implementation 'org.modelmapper:modelmapper:3.2.0'
@@ -50,10 +49,11 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
     // https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-jackson
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5'
-=======
+
     // https://mvnrepository.com/artifact/org.modelmapper/modelmapper
     implementation 'org.modelmapper:modelmapper:3.2.0'
->>>>>>> b8fc612 (modelmapper 추가)
+    // validation 및 dto에 사용
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 tasks.named('test') {

@@ -1,4 +1,4 @@
-package com.devoops.oopslog.notice.query.dto;
+package com.devoops.oopslog.notice.command.dto;
 
 import lombok.*;
 
@@ -9,7 +9,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-public class NoticeQueryDTO {
+public class NoticeCommandCreateDTO {
+
     //    id, title, content, create_date, modify_date, is_deleted, user_id(FK)
 
     private Long noticeId;
@@ -24,8 +25,8 @@ public class NoticeQueryDTO {
 
     private String noticeIsDeleted;
 
+    private Long noticeUserId;
+
     private String name;
 
-
-    // 댓글 추가해야함
 }
