@@ -10,4 +10,7 @@
             LIMIT #{limit} OFFSET #{offset}
         </if>
     </select>
+    <select id="selectAllTag" resultType="com.devoops.oopslog.admin.query.dto.AllTagDTO">
+        SELECT * FROM tag
+    </select>
 </mapper>
