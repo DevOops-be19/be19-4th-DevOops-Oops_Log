@@ -1,5 +1,6 @@
 package com.devoops.oopslog.member.command.service;
 
+import com.devoops.oopslog.member.command.dto.ModifyDTO;
 import com.devoops.oopslog.member.command.dto.TemporaryPwResponseDTO;
 import com.devoops.oopslog.member.command.dto.VerifyPwDTO;
 import com.devoops.oopslog.member.query.dto.FindPwDTO;
@@ -13,4 +14,6 @@ public interface MemberCommandService extends UserDetailsService {
     TemporaryPwResponseDTO verifyPw(VerifyPwDTO verifyPwDTO);
 
     void saveLoginHistory(Long id, String ipAddress, Character isSucceed);
+
+    void modifyMemberInfo(ModifyDTO modifyDTO);
 }

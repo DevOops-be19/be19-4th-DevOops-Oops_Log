@@ -94,6 +94,7 @@ public class MemberCommandServiceImpl implements MemberCommandService {
 
     @Override
 //    @Async
+    @Transactional
     public void saveLoginHistory(Long id, String ipAddress, Character isSucceed) {
         LocalDateTime now = LocalDateTime.now();
         LoginHistory loginHistory = new LoginHistory();
@@ -104,6 +105,16 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         loginHistory.setUser_id(id);
         log.info("로그인 이력: {}",loginHistory);
         loginHistoryCommandRepository.save(loginHistory);
+    }
+
+    @Override
+    @Transactional
+    public void modifyMemberInfo(ModifyDTO modifyDTO) {
+        Member member = memberCommandRepository.findById(modifyDTO.getId()).get();
+        modifyDTO.setMemberPw(bCryptPasswordEncoder.encode(modifyDTO.getMemberPw()));
+        log.info("수정할 member 엔티티: {}",member);
+
+        modelMapper.map(modifyDTO, member);
     }
 
 
