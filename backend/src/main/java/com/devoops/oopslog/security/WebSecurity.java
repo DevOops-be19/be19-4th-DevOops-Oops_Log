@@ -1,5 +1,6 @@
 package com.devoops.oopslog.security;
 
+import com.devoops.oopslog.member.command.service.MemberCommandService;
 import jakarta.servlet.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -22,14 +23,17 @@ public class WebSecurity {
     private Environment env;
     private final JwtAuthenticationProvider jwtAuthenticationProvider;
     private final JwtUtil jwtUtil;
+    private final MemberCommandService memberCommandService;
 
     @Autowired
     public WebSecurity(Environment env,
                        JwtAuthenticationProvider jwtAuthenticationProvider,
-                       JwtUtil jwtUtil) {
+                       JwtUtil jwtUtil,
+                       MemberCommandService memberCommandService) {
         this.env = env;     // JWT Token의 payload에 만료시간 만들다가 추가
         this.jwtAuthenticationProvider = jwtAuthenticationProvider;
         this.jwtUtil = jwtUtil;
+        this.memberCommandService = memberCommandService;
     }
 
     @Bean
@@ -55,7 +59,7 @@ public class WebSecurity {
 
 
         // authenticationFilter를 추가하는 과정
-        http.addFilter(new AuthenticationFilter(authenticationManager(),env));
+        http.addFilter(new AuthenticationFilter(authenticationManager(),env,memberCommandService));
 
         // JwtFilter를 통한 토큰 검증 필터 추가
         http.addFilterBefore(new JwtFilter(jwtUtil),UsernamePasswordAuthenticationFilter.class);

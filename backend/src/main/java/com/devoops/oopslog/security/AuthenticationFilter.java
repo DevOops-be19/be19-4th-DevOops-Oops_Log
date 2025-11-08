@@ -3,6 +3,8 @@ package com.devoops.oopslog.security;
 
 import com.devoops.oopslog.member.command.dto.LoginDTO;
 import com.devoops.oopslog.member.command.dto.UserImpl;
+import com.devoops.oopslog.member.command.service.MemberCommandService;
+import com.devoops.oopslog.member.command.service.MemberCommandServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -23,6 +25,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,13 +34,16 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    Environment env;
+    private final Environment env;
+    private final MemberCommandService memberCommandService;
 
     public AuthenticationFilter(AuthenticationManager authenticationManager,
-                                Environment env) {
+                                Environment env,
+                                MemberCommandService memberCommandService) {
         // authenticationManager를 인지시킴
         super(authenticationManager);
         this.env = env;
+        this.memberCommandService = memberCommandService;
     }
 
 
@@ -89,15 +96,64 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         response.getWriter().write("\"success\": \"로그인 성공\",");
         response.getWriter().write("\"id\": \""+user.getId()+"\"");
         response.getWriter().write("}");
+
+        // 로그인 이력 저장
+        String ipAddress = getClientIp(request);
+        memberCommandService.saveLoginHistory(user.getId(),ipAddress,'Y');
     }
+
+
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        log.info("로그인 인증 실패 : {}", failed.getMessage());
+        log.info("로그인 인증 실패 : {}", failed.toString());
         // 인증 실패 응답
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write("{\"error\": \"" + failed.getMessage() + "\"}");
+        // 로그인 이력 저장
+        String ipAddress = getClientIp(request);
+//        memberCommandService.saveLoginHistory(0L,ipAddress,'N');      // 실패했을때 member id가 넘어오지를 않음, 추후에 수정 필요
 //        super.unsuccessfulAuthentication(request, response, failed);
+    }
+
+    public static String getClientIp(HttpServletRequest request) throws UnknownHostException {
+        String ip = request.getHeader("X-Forwarded-For");
+
+        if (ip == null || ip.isBlank() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.isBlank() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.isBlank() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (ip == null || ip.isBlank() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (ip == null || ip.isBlank() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("X-Real-IP");
+        }
+        if (ip == null || ip.isBlank() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("X-RealIP");
+        }
+        if (ip == null || ip.isBlank() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("REMOTE_ADDR");
+        }
+        if (ip == null || ip.isBlank() || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr(); // fallback
+        }
+
+        // X-Forwarded-For는 콤마로 여러 IP가 들어올 수 있음 → 첫 번째가 클라이언트
+        if (ip != null && ip.contains(",")) {
+            ip = ip.split(",")[0].trim();
+        }
+        if(ip.equals("0:0:0:0:0:0:0:1")) {
+            InetAddress inet = InetAddress.getLocalHost();
+            ip = inet.getHostName() + "/" + inet.getHostAddress();
+        }
+
+        return ip;
     }
 }

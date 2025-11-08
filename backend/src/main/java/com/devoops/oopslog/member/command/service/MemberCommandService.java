@@ -11,4 +11,6 @@ public interface MemberCommandService extends UserDetailsService {
     void signUpMember(SignUpDTO signUpDTO);
 
     TemporaryPwResponseDTO verifyPw(VerifyPwDTO verifyPwDTO);
+
+    void saveLoginHistory(Long id, String ipAddress, Character isSucceed);
 }

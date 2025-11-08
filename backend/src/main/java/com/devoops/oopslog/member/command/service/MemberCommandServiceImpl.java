@@ -1,12 +1,15 @@
 package com.devoops.oopslog.member.command.service;
 
 import com.devoops.oopslog.member.command.dto.*;
+import com.devoops.oopslog.member.command.entity.LoginHistory;
 import com.devoops.oopslog.member.command.entity.Member;
+import com.devoops.oopslog.member.command.repository.LoginHistoryCommandRepository;
 import com.devoops.oopslog.member.command.repository.MemberCommandRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,17 +31,20 @@ import java.util.UUID;
 @Slf4j
 public class MemberCommandServiceImpl implements MemberCommandService {
     private final MemberCommandRepository memberCommandRepository;
+    private final LoginHistoryCommandRepository loginHistoryCommandRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ModelMapper modelMapper;
     private final RedisTemplate<String, String> redisTemplate;
 
     public MemberCommandServiceImpl(MemberCommandRepository memberCommandRepository,
                                     BCryptPasswordEncoder bCryptPasswordEncoder,
-                                    ModelMapper modelMapper, RedisTemplate<String, String> redisTemplate) {
+                                    ModelMapper modelMapper, RedisTemplate<String, String> redisTemplate,
+                                    LoginHistoryCommandRepository loginHistoryCommandRepository) {
         this.memberCommandRepository = memberCommandRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.modelMapper = modelMapper;
         this.redisTemplate = redisTemplate;
+        this.loginHistoryCommandRepository = loginHistoryCommandRepository;
     }
 
     @Override
@@ -62,11 +68,11 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     public TemporaryPwResponseDTO verifyPw(VerifyPwDTO verifyPwDTO) {
         // 인증번호 검사
         String savedVerifyCode = redisTemplate.opsForValue().get(verifyPwDTO.getEmail());
-        log.info("클라이언트,서버 인증코드: {}, {}",verifyPwDTO.getVerifyCode(),savedVerifyCode);
+        log.info("클라이언트,서버 인증코드: {}, {}", verifyPwDTO.getVerifyCode(), savedVerifyCode);
         if (savedVerifyCode == null) {
             throw new IllegalArgumentException("인증번호가 만료되었거나 존재하지 않습니다.");
         }
-        if(!savedVerifyCode.equals(verifyPwDTO.getVerifyCode())) {
+        if (!savedVerifyCode.equals(verifyPwDTO.getVerifyCode())) {
             throw new RuntimeException("인증번호가 다릅니다.");
         }
         log.info("인증번호 확인 완료");
@@ -80,10 +86,24 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         // 랜덤 난수(8자리로 자름)
         UUID uuid = UUID.randomUUID();
         String temPw = uuid.toString().substring(0, 8);
-        log.info("임시 비밀번호: {}",temPw);
+        log.info("임시 비밀번호: {}", temPw);
         member.setMemberPw(bCryptPasswordEncoder.encode(temPw));
 
         return new TemporaryPwResponseDTO(temPw);
+    }
+
+    @Override
+//    @Async
+    public void saveLoginHistory(Long id, String ipAddress, Character isSucceed) {
+        LocalDateTime now = LocalDateTime.now();
+        LoginHistory loginHistory = new LoginHistory();
+
+        loginHistory.setLogin_ip(ipAddress);
+        loginHistory.setLogin_is_succeed(isSucceed);
+        loginHistory.setLogin_success_date(now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        loginHistory.setUser_id(id);
+        log.info("로그인 이력: {}",loginHistory);
+        loginHistoryCommandRepository.save(loginHistory);
     }
 
 
