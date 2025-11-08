@@ -1,8 +1,6 @@
 package com.devoops.oopslog.member.command.service;
 
-import com.devoops.oopslog.member.command.dto.SignUpDTO;
-import com.devoops.oopslog.member.command.dto.UserDetailInfoDTO;
-import com.devoops.oopslog.member.command.dto.UserImpl;
+import com.devoops.oopslog.member.command.dto.*;
 import com.devoops.oopslog.member.command.entity.Member;
 import com.devoops.oopslog.member.command.repository.MemberCommandRepository;
 import org.modelmapper.ModelMapper;
@@ -15,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -37,6 +36,7 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     }
 
     @Override
+    @Transactional
     public void signUpMember(SignUpDTO signUpDTO) {
         LocalDateTime now = LocalDateTime.now();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
@@ -51,6 +51,7 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         memberCommandRepository.save(member);
     }
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberCommandRepository.findByMemberId(username);
@@ -64,6 +65,7 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         // 5회 이상 로그인 시도
 
 
+        // 회원 권한 꺼내기
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 //        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
@@ -75,4 +77,5 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         // 사용자의 id,pw,권한,하위 정보들을 provider로 전송
 //        return new User(member.getMemberId(), member.getMemberPw(), true, true, true, true, grantedAuthorities);
     }
+
 }

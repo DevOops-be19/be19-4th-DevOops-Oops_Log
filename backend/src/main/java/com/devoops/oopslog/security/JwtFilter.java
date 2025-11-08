@@ -26,7 +26,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String authorizationHeader = request.getHeader("Authorization");
         // 토큰 존재하는지 검사
         if(authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")){
-            log.info("토큰 인증 실패");
+//            log.info("토큰 인증 실패");
             filterChain.doFilter(request,response);
             return;
         }
