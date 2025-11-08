@@ -1,5 +1,6 @@
 package com.devoops.oopslog.security;
 
+import com.devoops.oopslog.member.command.dto.UserImpl;
 import com.devoops.oopslog.member.command.service.MemberCommandService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -32,7 +33,8 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
         UserDetails userDetails = memberCommandService.loadUserByUsername(member_id);
         // BCrypt 암호 매칭
         if(!passwordEncoder.matches(member_pw, userDetails.getPassword())){
-            throw new BadCredentialsException("비밀번호가 일치하지 않습니다.");
+            UserImpl userImpl = (UserImpl) userDetails;
+            throw new BadCredentialsException("비밀번호가 일치하지 않습니다. ,"+userImpl.getId());
         }
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }

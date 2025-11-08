@@ -92,7 +92,7 @@ public class MemberQueryServiceImpl implements MemberQueryService {
         MailDTO mailDTO = new MailDTO();
         mailDTO.setAddress(findMemberDTO.getEmail());
         mailDTO.setSubject("요청하신 인증번호 입니다.");
-        mailDTO.setContent("<h2>요청하신 인증번호 입니다.</h2><br><hr><br><p>회원님이 요청하신 인증번호는 </p><br><b>"+ranNum+"</b><br><br><p>입니다.</p><br><p>3분 내로 인증번호를 입력해주시길 바랍니다.</p><br><p>인증이 완료 되면 임시 비밀번호로 로그인 후 비밀번호를 변경해 주십시오.</p>");
+        mailDTO.setContent("<h2>요청하신 인증번호 입니다.</h2><hr><br><p>회원님이 요청하신 인증번호는 </p><br><b>"+ranNum+"</b><br><br><p>입니다.</p><br><p>3분 내로 인증번호를 입력해주시길 바랍니다.</p><br><p>인증이 완료 되면 임시 비밀번호로 로그인 후 비밀번호를 변경해 주십시오.</p>");
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true,"UTF-8");

@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -50,7 +51,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
-            LoginDTO credential = new ObjectMapper().readValue(request.getInputStream(),LoginDTO.class);
+            LoginDTO credential = new ObjectMapper().readValue(request.getInputStream(), LoginDTO.class);
 
             return getAuthenticationManager().authenticate(
                     new UsernamePasswordAuthenticationToken(credential.getMember_id(), credential.getMember_pw(), new ArrayList<>()));
@@ -72,20 +73,20 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 //                .map(role->role.getAuthority())
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
-        log.info("List<String> 형태로 뽑아낸 로그인 한 회원의 권한들 : {}",roles);
+        log.info("List<String> 형태로 뽑아낸 로그인 한 회원의 권한들 : {}", roles);
 
         // JWT 토큰 발행
         Claims claims = Jwts.claims().setSubject(id);
-        claims.put("auth",roles);
+        claims.put("auth", roles);
 
         String token = Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(new java.util.Date(System.currentTimeMillis() + Long.parseLong(env.getProperty(("token.expiration_time")))))
-                .signWith(SignatureAlgorithm.HS512,env.getProperty("token.secret"))
+                .signWith(SignatureAlgorithm.HS512, env.getProperty("token.secret"))
                 .compact();
 
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        log.info("token : {}",token);
+        log.info("token : {}", token);
         response.addHeader("token", token);
 
         // 성공 객체 반환
@@ -94,14 +95,13 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write("{");
         response.getWriter().write("\"success\": \"로그인 성공\",");
-        response.getWriter().write("\"id\": \""+user.getId()+"\"");
+        response.getWriter().write("\"id\": \"" + user.getId() + "\"");
         response.getWriter().write("}");
 
         // 로그인 이력 저장
         String ipAddress = getClientIp(request);
-        memberCommandService.saveLoginHistory(user.getId(),ipAddress,'Y');
+        memberCommandService.saveLoginHistory(user.getId(), ipAddress, 'Y');
     }
-
 
 
     @Override
@@ -111,10 +111,15 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write("{\"error\": \"" + failed.getMessage() + "\"}");
-        // 로그인 이력 저장
-        String ipAddress = getClientIp(request);
-//        memberCommandService.saveLoginHistory(0L,ipAddress,'N');      // 실패했을때 member id가 넘어오지를 않음, 추후에 수정 필요
+
+        if (failed instanceof BadCredentialsException) {
+            // 로그인 이력 저장
+            Long id = Long.parseLong(failed.getMessage().split(",")[1]);
+            String ipAddress = getClientIp(request);
+            memberCommandService.saveLoginHistory(id, ipAddress, 'N');      // 실패했을때 비밀번호 불일치 Exception 일 시 실패한 id 값을 이력에 저장
+        }
 //        super.unsuccessfulAuthentication(request, response, failed);
+
     }
 
     public static String getClientIp(HttpServletRequest request) throws UnknownHostException {
@@ -149,9 +154,9 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         if (ip != null && ip.contains(",")) {
             ip = ip.split(",")[0].trim();
         }
-        if(ip.equals("0:0:0:0:0:0:0:1")) {
+        if (ip.equals("0:0:0:0:0:0:0:1")) {
             InetAddress inet = InetAddress.getLocalHost();
-            ip = inet.getHostName() + "/" + inet.getHostAddress();
+            ip = inet.getHostAddress();
         }
 
         return ip;
