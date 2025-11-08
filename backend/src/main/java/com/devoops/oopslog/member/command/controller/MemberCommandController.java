@@ -1,7 +1,9 @@
 package com.devoops.oopslog.member.command.controller;
 
 import com.devoops.oopslog.member.command.dto.SignUpDTO;
+import com.devoops.oopslog.member.command.dto.TemporaryPwResponseDTO;
 import com.devoops.oopslog.member.command.dto.UserImpl;
+import com.devoops.oopslog.member.command.dto.VerifyPwDTO;
 import com.devoops.oopslog.member.command.service.MemberCommandService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +41,12 @@ public class MemberCommandController {
     public ResponseEntity<?> signUp(@RequestBody SignUpDTO signUpDTO) {
         memberCommandService.signUpMember(signUpDTO);
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("verify-pw")
+    public ResponseEntity<?> verifyPw(@RequestBody VerifyPwDTO verifyPwDTO) {
+        TemporaryPwResponseDTO temporaryPwResponseDTO = memberCommandService.verifyPw(verifyPwDTO);
+        return  ResponseEntity.ok().body(temporaryPwResponseDTO);
     }
 
 
