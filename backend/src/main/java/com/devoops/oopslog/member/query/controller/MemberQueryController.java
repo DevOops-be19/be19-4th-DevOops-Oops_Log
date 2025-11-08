@@ -20,7 +20,7 @@ public class MemberQueryController {
 
     @PostMapping("/find-id")
     public ResponseEntity<?> findMemberId(@RequestBody FindIdDTO findIdDTO){
-        ResponseIdDTO responseIdDTO = memberQueryService.findMemberId(findIdDTO);
-        return ResponseEntity.ok().body(responseIdDTO);
+        memberQueryService.findMemberId(findIdDTO);
+        return ResponseEntity.ok().build();
     }
 }
