@@ -1,10 +1,10 @@
 <template>
   <div class="app-fixed">
-    <HeaderView />
+    <HeaderView v-if="!route.matched.some(r => r.meta.isAdmin)"/>
     <main class="app-fixed-main">
       <RouterView />
     </main>
-    <FooterView />
+    <FooterView v-if="!route.matched.some(r => r.meta.isAdmin)"/>
   </div>
 </template>
 

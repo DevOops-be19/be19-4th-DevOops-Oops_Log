@@ -18,24 +18,16 @@ export default {
 
 <style>
 .admin-layout {
-  display: flex;
-  height: 100vh;
+  height: 100svh;       /* 모바일 뷰포트 대응 */
+  position: relative;
+  overflow: hidden;     /* 배경 이펙트가 삐져나가도 스크롤 안생김 */
 }
 
-.admin-layout > :first-child {
-  width: 20%; /* 전체 화면의 1/5 */
-  min-width: 200px; /* 너무 작아지는 걸 방지 */
-  max-width: 300px; /* 너무 커지는 걸 방지 */
-  background-color: #28344b;
-  color: white;
-  height: 100vh;
-}
-
-/* 우측 콘텐츠 */
 .admin-content {
-  width: 80%; /* 나머지 공간 */
-  padding: 5rem;
-  overflow-y: auto; /* 내용이 길면 스크롤 */
+  position: absolute;
+  inset: var(--header-h) 0 calc(var(--footer-h) + var(--safe-bottom)) 0;
+  overflow: auto;       /* 여기서만 스크롤 */
+  -webkit-overflow-scrolling: touch;
 }
 </style>
 
