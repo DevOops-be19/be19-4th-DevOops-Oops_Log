@@ -83,4 +83,45 @@ public class ReportSerivceImpl implements ReportService {
 
         return reportRepository.save(report);
     }
+
+    @Override
+    public void updateReportState(Long reportId, String state){
+        ReportEntity report = reportRepository.findById(reportId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 신고가 존재하지 않습니다."));
+
+        // 현재 상태가 U일 때만 변경 허용
+        if (!"U".equals(report.getState())) {
+            throw new IllegalStateException("이미 처리된 신고입니다.");
+        }
+
+        // 상태 변경
+        report.setState(state);
+
+        // 승인(Y) 시 대상 블라인드 처리
+        if ("Y".equals(state)) {
+            // oops 게시글일 경우
+            if (report.getOopsId() != null) {
+                OopsRecordEntity oops = report.getOopsId();
+                oops.setIsDeleted("Y");
+                oopsRecordRepository.save(oops);
+            }
+
+            // ooh 게시글일 경우
+            if (report.getOohId() != null) {
+                OohRecordEntity ooh = report.getOohId();
+                ooh.setIsDeleted("Y");
+                oohRecordRepository.save(ooh);
+            }
+
+            // 댓글일 경우
+            if (report.getCommentId() != null) {
+                CommentsEntity comment = report.getCommentId();
+                comment.setIsDeleted("Y");
+                commentsRepository.save(comment);
+            }
+        }
+
+        // 반려(N)은 아무 동작도 안 함
+        reportRepository.save(report);
+    }
 }

@@ -5,4 +5,6 @@ import com.devoops.oopslog.report.command.entity.ReportEntity;
 
 public interface ReportService {
     ReportEntity createReport(ReportRequestDTO dto);
+
+    void updateReportState(Long reportId, String state);
 }
