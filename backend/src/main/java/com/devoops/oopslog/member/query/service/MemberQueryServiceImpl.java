@@ -72,15 +72,14 @@ public class MemberQueryServiceImpl implements MemberQueryService {
 
     @Override
     public FindPwResponseDTO findMemberPw(FindPwDTO findPwDTO) throws MessagingException, UnsupportedEncodingException {
-        FindIdDTO findIdDTO = new FindIdDTO(findPwDTO.getEmail(),findPwDTO.getName(),findPwDTO.getBirth());
         // DB 에서 일치하는 회원 조회
-        FindMemberDTO findMemberDTO = memberQueryMapper.findMemberById(findIdDTO);
+        FindMemberDTO findMemberDTO = memberQueryMapper.findMemberPwById(findPwDTO);
         log.info("findMemberDTO: {}",findMemberDTO);
 
         // 추후에 예외처리 필요
         // 일치하는 회원 정보가 없을 시
         if(findMemberDTO == null){
-//            throw new RuntimeException("일치하는 회원 정보가 없습니다.");
+            throw new RuntimeException("일치하는 회원 정보가 없습니다.");
         }
 
         // redis에 key:value를 email:RandomNumber 로 가지는 데이터 생성(with TTL)

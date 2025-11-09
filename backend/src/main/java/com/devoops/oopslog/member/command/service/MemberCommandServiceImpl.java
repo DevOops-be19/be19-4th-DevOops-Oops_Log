@@ -114,7 +114,15 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         modifyDTO.setMemberPw(bCryptPasswordEncoder.encode(modifyDTO.getMemberPw()));
         log.info("수정할 member 엔티티: {}",member);
 
-        modelMapper.map(modifyDTO, member);
+        if(!member.getMemberId().equals(modifyDTO.getMemberId())) {
+            member.setMemberId(modifyDTO.getMemberId());
+        }
+        if(!member.getMemberPw().equals(modifyDTO.getMemberPw())) {
+            member.setMemberPw(bCryptPasswordEncoder.encode(modifyDTO.getMemberPw()));
+        }
+        if(!member.getEmail().equals(modifyDTO.getEmail())) {
+            member.setEmail(modifyDTO.getEmail());
+        }
     }
 
 
