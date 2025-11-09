@@ -1,4 +1,4 @@
-package com.devoops.oopslog.member.command.dto;
+package com.devoops.oopslog.member.query.dto;
 
 import lombok.*;
 
@@ -7,11 +7,9 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class SignUpDTO {
+public class FindPwDTO {
     private String memberId;
-    private String memberPw;
     private String email;
     private String name;
     private String birth;
-    private Character gender;
 }

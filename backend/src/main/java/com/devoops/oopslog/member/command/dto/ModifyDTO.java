@@ -7,11 +7,9 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class SignUpDTO {
+public class ModifyDTO {
+    private Long id;
     private String memberId;
     private String memberPw;
     private String email;
-    private String name;
-    private String birth;
-    private Character gender;
 }
