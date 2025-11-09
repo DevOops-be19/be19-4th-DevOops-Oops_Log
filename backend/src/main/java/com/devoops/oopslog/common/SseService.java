@@ -17,7 +17,7 @@ public class SseService {
     }
 
     public SseEmitter sseSubscribe(Long id) {
-        SseEmitter emitter = new SseEmitter(1000000L);
+        SseEmitter emitter = new SseEmitter(1800000L);
 
         emitter.onCompletion(() -> {
             sseRepository.delete(id);

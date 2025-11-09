@@ -118,7 +118,7 @@ public class MemberCommandServiceImpl implements MemberCommandService {
             member.setMemberId(modifyDTO.getMemberId());
         }
         if(!member.getMemberPw().equals(modifyDTO.getMemberPw())) {
-            member.setMemberPw(bCryptPasswordEncoder.encode(modifyDTO.getMemberPw()));
+            member.setMemberPw(modifyDTO.getMemberPw());
         }
         if(!member.getEmail().equals(modifyDTO.getEmail())) {
             member.setEmail(modifyDTO.getEmail());
