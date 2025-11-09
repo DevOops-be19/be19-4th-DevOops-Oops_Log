@@ -18,9 +18,10 @@ export default {
 
 <style>
 .admin-layout {
-  height: 100svh;       /* 모바일 뷰포트 대응 */
-  position: relative;
-  overflow: hidden;     /* 배경 이펙트가 삐져나가도 스크롤 안생김 */
+  position: fixed;  /* 화면에 고정 */
+  inset: 0;         /* 전체 뷰포트 덮기 */
+  display: flex;
+  overflow: hidden; /* 내부 스크롤만 허용 */
 }
 
 .admin-content {
