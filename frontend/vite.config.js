@@ -6,13 +6,20 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueDevTools(),
-  ],
+  plugins: [vue()],
+  server: {
+    port: 5173, // 기본 포트
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080', // Spring Boot 서버 주소
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''), // "/api"를 제거하고 백엔드로 전달
+      },
+    },
+  },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)), // ✅ @ → src 폴더
     },
   },
    server: {

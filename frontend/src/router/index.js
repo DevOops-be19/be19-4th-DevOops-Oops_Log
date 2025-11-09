@@ -1,4 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import adminRoutes from './modules/admin.routes';
+
+const routes = [
+  ...adminRoutes, 
+];
 
 
 // Imports 각각 위치 맞춰서

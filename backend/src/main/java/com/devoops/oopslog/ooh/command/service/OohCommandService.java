@@ -5,17 +5,25 @@ import com.devoops.oopslog.ooh.command.dto.OohCommandCreateDTO;
 import com.devoops.oopslog.ooh.command.dto.OohCommandResponseDTO;
 import com.devoops.oopslog.ooh.command.entity.OohCommandEntity;
 import com.devoops.oopslog.ooh.command.repository.OohCommandRepository;
+import com.devoops.oopslog.tag.command.entity.OohTag;
+import com.devoops.oopslog.tag.command.entity.OohTagPK;
+import com.devoops.oopslog.tag.command.entity.OopsTag;
+import com.devoops.oopslog.tag.command.entity.OopsTagPK;
+import com.devoops.oopslog.tag.command.repository.OohTagRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OohCommandService {
 
     private final OohCommandRepository oohCommandRepository;
     private final MemberCommandRepository memberCommandRepository;
+    private final OohTagRepository oohTagRepository;
 
     @Transactional
     public OohCommandCreateDTO insertOoh(OohCommandCreateDTO oohCommandCreateDTO) {
@@ -27,6 +35,9 @@ public class OohCommandService {
             throw new IllegalArgumentException("제목은 필수입니다.");
         if (oohCommandCreateDTO.getOohContent() == null || oohCommandCreateDTO.getOohContent().isBlank())
             throw new IllegalArgumentException("내용은 필수입니다.");
+        if (oohCommandCreateDTO.getTagIds() != null && oohCommandCreateDTO.getTagIds().size() > 3) {
+            throw new IllegalArgumentException("태그는 최대 3개까지만 선택할 수 있습니다.");
+        }
 
         // 회원 정보 없으면 저장 못하게함
         boolean exists = memberCommandRepository.existsById(oohCommandCreateDTO.getOohUserId());
@@ -46,6 +57,25 @@ public class OohCommandService {
         entity.setOohModifyDate(oohCommandCreateDTO.getOohModifyDate());
 
         OohCommandEntity saved =  oohCommandRepository.save(entity);
+
+        if (oohCommandCreateDTO.getTagIds() != null && !oohCommandCreateDTO.getTagIds().isEmpty()) {
+            log.info("tagIds: {}", oohCommandCreateDTO.getTagIds());
+
+            for (Long tagId : oohCommandCreateDTO.getTagIds()) {
+
+
+                // 복합키 생성
+                log.info("생성된 oopsID: {}", saved.getOohId());
+                log.info("태그: {}", tagId);
+                OohTagPK oohTagPK = new OohTagPK(tagId, saved.getOohId());
+
+                // 관계 엔티티 생성 및 저장
+                OohTag oohTag = new OohTag();
+                oohTag.setOohTagPK(oohTagPK);
+
+                oohTagRepository.save(oohTag);
+            }
+        }
 
         String name = memberCommandRepository.findById(saved.getOohUserId())
                 .map(m -> m.getName())

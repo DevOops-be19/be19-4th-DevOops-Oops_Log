@@ -9,6 +9,10 @@
 </template>
 
 <script setup>
+  import {ref} from 'vue';
+  import {RouterView, useRoute} from 'vue-router';
+
+const route = useRoute();
 import FooterView from './components/common/FooterView.vue';
 import HeaderView from './components/common/HeaderView.vue';
 </script>
