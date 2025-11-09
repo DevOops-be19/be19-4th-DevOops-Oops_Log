@@ -5,17 +5,29 @@ import com.devoops.oopslog.oops.command.dto.OopsCommandCreateDTO;
 import com.devoops.oopslog.oops.command.dto.OopsCommandResponseDTO;
 import com.devoops.oopslog.oops.command.entity.OopsCommandEntity;
 import com.devoops.oopslog.oops.command.repository.OopsCommandRepository;
+import com.devoops.oopslog.tag.command.entity.OohTag;
+import com.devoops.oopslog.tag.command.entity.OohTagPK;
+import com.devoops.oopslog.tag.command.entity.OopsTag;
+import com.devoops.oopslog.tag.command.entity.OopsTagPK;
+import com.devoops.oopslog.tag.command.repository.OohTagRepository;
+import com.devoops.oopslog.tag.command.repository.OopsTagRepository;
+import com.devoops.oopslog.tag.command.repository.TagRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class OopsCommandService {
 
     private final OopsCommandRepository oopsCommandRepository;
     private final MemberCommandRepository memberCommandRepository;
+    private final OohTagRepository oohTagRepository;
+    private final OopsTagRepository oopsTagRepository;
+    private final TagRepository tagRepository;
 
     @Transactional
     public OopsCommandCreateDTO insertOops(OopsCommandCreateDTO oopsCommandCreateDTO) {
@@ -27,6 +39,9 @@ public class OopsCommandService {
             throw new IllegalArgumentException("제목은 필수입니다.");
         if (oopsCommandCreateDTO.getOopsContent() == null || oopsCommandCreateDTO.getOopsContent().isBlank())
             throw new IllegalArgumentException("내용은 필수입니다.");
+        if (oopsCommandCreateDTO.getTagIds() != null && oopsCommandCreateDTO.getTagIds().size() > 3) {
+            throw new IllegalArgumentException("태그는 최대 3개까지만 선택할 수 있습니다.");
+        }
 
         // 회원 정보 없으면 저장 못하게함
         boolean exists = memberCommandRepository.existsById(oopsCommandCreateDTO.getOopsUserId());
@@ -41,11 +56,31 @@ public class OopsCommandService {
         entity.setOopsContent(oopsCommandCreateDTO.getOopsContent());
 
         entity.setOopsIsPrivate(oopsCommandCreateDTO.getOopsIsPrivate()
-                !=null ? oopsCommandCreateDTO.getOopsIsPrivate() : "N");
+                != null ? oopsCommandCreateDTO.getOopsIsPrivate() : "N");
         entity.setOopsCreateDate(oopsCommandCreateDTO.getOopsCreateDate());
         entity.setOopsModifyDate(oopsCommandCreateDTO.getOopsModifyDate());
 
-        OopsCommandEntity saved =  oopsCommandRepository.save(entity);
+        OopsCommandEntity saved = oopsCommandRepository.save(entity);
+
+
+        if (oopsCommandCreateDTO.getTagIds() != null && !oopsCommandCreateDTO.getTagIds().isEmpty()) {
+            log.info("tagIds: {}", oopsCommandCreateDTO.getTagIds());
+
+            for (Long tagId : oopsCommandCreateDTO.getTagIds()) {
+
+
+                // 복합키 생성
+                log.info("생성된 oopsID: {}", saved.getOopsId());
+                log.info("태그: {}", tagId);
+                OopsTagPK oopsTagPK = new OopsTagPK(tagId, saved.getOopsId());
+
+                // 관계 엔티티 생성 및 저장
+                OopsTag oopsTag = new OopsTag();
+                oopsTag.setOopsTagPK(oopsTagPK);
+
+                oopsTagRepository.save(oopsTag);
+            }
+        }
 
         String name = memberCommandRepository.findById(saved.getOopsUserId())
                 .map(m -> m.getName())
@@ -87,9 +122,26 @@ public class OopsCommandService {
             oops.setOopsIsPrivate(oopsCommandResponseDTO.getOopsIsPrivate());
             // "Y"/"N"만 오게 검증하려면 별도 Validator 사용해서 코드 수정하기
         }
+        if (oopsCommandResponseDTO.getTagIds() != null && oopsCommandResponseDTO.getTagIds().size() > 3) {
+            throw new IllegalArgumentException("태그는 최대 3개까지만 선택할 수 있습니다.");
+        }
 
         // 수정할 정보
         OopsCommandEntity saved = oopsCommandRepository.save(oops);
+
+        if (oopsCommandResponseDTO.getTagIds() != null && !oopsCommandResponseDTO.getTagIds().isEmpty()) {
+            for (Long tagId : oopsCommandResponseDTO.getTagIds()) {
+
+                // 복합키 생성
+                OopsTagPK oopsTagPK = new OopsTagPK(tagId, saved.getOopsId());
+
+                // 관계 엔티티 생성 및 저장
+                OopsTag oopsTag = new OopsTag();
+                oopsTag.setOopsTagPK(oopsTagPK);
+
+                oopsTagRepository.save(oopsTag);
+            }
+        }
 
 
         String name = memberCommandRepository.findById(saved.getOopsUserId())
