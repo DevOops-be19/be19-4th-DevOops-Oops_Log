@@ -81,6 +81,22 @@ public class OohCommandService {
             }
         }
 
+//        // ===== 감정 태그 저장 (relatedTags: ["우울","슬픔","걱정"]) =====
+//        if (oohCommandCreateDTO.getEmoTagIds() != null && !oohCommandCreateDTO.getEmoTagIds().isEmpty()) {
+//            List<String> relatedTags = oohCommandCreateDTO.getEmoTagIds();
+//
+//            // 1️⃣ 태그 이름 목록으로 id 조회
+//            List<Long> emoTagIds = tagRepository.findIdsByNames(relatedTags); // 아래 mapper 참고
+//
+//            // 2️⃣ 조회된 태그 id를 ooh_tag에 저장
+//            for (Long emoTagId : emoTagIds) {
+//                OohTagPK oohTagPK = new OohTagPK(emoTagId, saved.getOohId());
+//                OohTag oohTag = new OohTag();
+//                oohTag.setOohTagPK(oohTagPK);
+//                oohTagRepository.save(oohTag);
+//            }
+//        }
+
         String name = memberCommandRepository.findById(saved.getOohUserId())
                 .map(m -> m.getName())
                 .orElse(null);

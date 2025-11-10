@@ -42,21 +42,22 @@ public class AiController {
                     .body(Map.of("error", "content 필드는 필수입니다."));
         }
 
-        // AI 감정 피드백 생성
+        //  AI 감정 피드백 생성
         String feedback = aiService.getAiFeedback(content);
 
-        // 감정 태그 추천
+        // 감정 태그 추천 (JSON 문자열)
         String relatedTagsJson = aiService.getRelatedEmoTags(content);
 
-        // 3️JSON 문자열을 실제 Map으로 변환
+        // 🔹 JSON 문자열을 실제 Map으로 변환
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> relatedTagsMap;
         try {
             relatedTagsMap = mapper.readValue(relatedTagsJson, Map.class);
         } catch (Exception e) {
-            relatedTagsMap = Map.of("raw", relatedTagsJson); // 파싱 실패 시 원본 그대로
+            relatedTagsMap = Map.of("raw", relatedTagsJson);
         }
-        // JSON 형태로 결과 반환
+
+        // 🔹 최종 응답 JSON 구성
         Map<String, Object> response = new HashMap<>();
         response.put("feedback", feedback);
         response.put("relatedTags", relatedTagsMap.get("tags"));
