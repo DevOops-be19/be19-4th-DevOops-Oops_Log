@@ -1,6 +1,6 @@
 <script>
 import { RouterView, RouterLink } from 'vue-router'
-import Sidebar from './components_1/Sidebar.vue';
+import Sidebar from '../../components/admin/Sidebar.vue';
 
 export default {
   components: { Sidebar }
