@@ -1,12 +1,10 @@
 package com.devoops.oopslog.ooh.command.dto;
 
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
+
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -33,7 +31,7 @@ public class OohCommandCreateDTO {
     private List<Long> tagIds;
 
     @Size(max = 3, message = "감정태그는 최대 3개까지만 선택할 수 있습니다.")
-    private List<Long> emoTagIds;
+    private List<String> emoTagIds;
 
 }
 
