@@ -1,8 +1,71 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+
+// Imports 각각 위치 맞춰서
+
+//common
+import MainView from '../components/pages/MainView.vue';
+import AboutView from '../components/pages/AboutView.vue';
+import ContactView from '../components/pages/ContactView.vue';
+import NoticeView from '../components/pages/NoticeView.vue';
+
+// 형석님
+
+// 지현님
+
+// 건일님
+import AdminMember from '@/views/admin/components_1/AdminMember.vue';
+import AdminReport from '@/views/admin/components_1/AdminReport.vue';
+import AdminTag from '@/views/admin/components_1/AdminTag.vue';
+// 서진님
+
+// 순우님
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [],
+  routes: [
+    { path: '/',
+      redirect: '/main'
+    },
+    { 
+      path: '/main',
+      name: 'Main',
+      component: MainView
+    },
+    { 
+      path: '/about',
+      name: 'About',
+      component: AboutView
+    },
+    { 
+      path: '/contact',
+      name: 'Contact',
+      component: ContactView
+    },
+    { 
+      path: '/notice',
+      name: 'Notice',
+      component: NoticeView
+    },
+    {
+      path: '/admin',
+      component: () => import('@/views/admin/AdminLayout.vue'),
+      meta: { isAdmin: true },
+      children: [
+        { path: '', redirect: '/admin/member'},  
+        { path: 'member', component: AdminMember },
+        { path: 'report', component: AdminReport },
+        { path: 'tag', component: AdminTag}
+      ]
+    },
+
+
+    // { 
+    //   path: '/',
+    //   name: '',
+    //   component: 
+    // },
+],
 })
 
 export default router
