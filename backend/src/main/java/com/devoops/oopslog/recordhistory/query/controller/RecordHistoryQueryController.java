@@ -28,4 +28,13 @@ public class RecordHistoryQueryController {
 
         return ResponseEntity.ok().body(recordHistoryList);
     }
+
+    @GetMapping("/ooh-daily-count")
+    public ResponseEntity<List<RequestRecordHistoryDTO>> oohDailyCount(){
+        long userId = 20;   // 임시값
+        List<RequestRecordHistoryDTO> recordHistoryList =
+                recordHistoryQueryService.getOohCalendarStats(userId);
+
+        return ResponseEntity.ok().body(recordHistoryList);
+    }
 }

@@ -16,9 +16,19 @@ public class RecordHistoryCommandController {
     }
 
     @GetMapping("/count-ooh")
-    public void dailyCountOohRecord() {
+    public String dailyCountOohRecord() {
         long userId = 20; // 임시값
-//        recordHistoryCommandService.saveRecordHistory(userId, );
+        String result = recordHistoryCommandService.saveOohRecordHistory(userId);
+
+        return result;
+    }
+
+    @GetMapping("/count-oops")
+    public String dailyCountOopsRecord() {
+        long userId = 20; // 임시값
+        String result = recordHistoryCommandService.saveOopsRecordHistory(userId);
+
+        return result;
     }
 
 }
