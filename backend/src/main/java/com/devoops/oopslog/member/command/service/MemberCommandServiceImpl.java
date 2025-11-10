@@ -125,6 +125,13 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         }
     }
 
+    @Override
+    @Transactional
+    public void stopMember(Long id) {
+        Member member = memberCommandRepository.findById(id).get();
+        memberCommandRepository.delete(member);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
