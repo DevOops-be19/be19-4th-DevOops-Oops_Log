@@ -4,6 +4,7 @@ import com.devoops.oopslog.ooh.command.repository.OohCommandRepository;
 import com.devoops.oopslog.oops.command.repository.OopsCommandRepository;
 import com.devoops.oopslog.recordhistory.command.entity.RecordHistory;
 import com.devoops.oopslog.recordhistory.command.repository.RecordHistoryRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ public class RecordHistoryCommandServiceImpl implements RecordHistoryCommandServ
     }
 
     @Override
+    @Transactional
     public String saveOohRecordHistory(long userId) {
 
         List<Object[]> results = oohCommandRepository.countPostsByUserGroupByDate(userId);
@@ -63,6 +65,7 @@ public class RecordHistoryCommandServiceImpl implements RecordHistoryCommandServ
     }
 
     @Override
+    @Transactional
     public String saveOopsRecordHistory(long userId) {
         List<Object[]> results = oopsCommandRepository.countPostsByUserGroupByDate(userId);
         for (Object[] row : results) {

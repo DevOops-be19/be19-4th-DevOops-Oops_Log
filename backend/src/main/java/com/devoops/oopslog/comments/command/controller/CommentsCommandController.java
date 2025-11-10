@@ -22,15 +22,15 @@ public class CommentsCommandController {
     public String writeCommentAtOops(@RequestBody CommentCommandDTO newComment,
                                      @PathVariable int oops_id){
 
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if(!(authentication.getPrincipal() instanceof UserImpl)){
-//            throw new RuntimeException("잘못된 id");
-//        }
-//        UserImpl userImpl = (UserImpl)authentication.getPrincipal();
-//
-//
-//        long userId = userImpl.getId();
-        long userId = 20;   // 임시값 지정
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(!(authentication.getPrincipal() instanceof UserImpl)){
+            throw new RuntimeException("잘못된 id");
+        }
+        UserImpl userImpl = (UserImpl)authentication.getPrincipal();
+
+
+        long userId = userImpl.getId();
+//        long userId = 20;   // 임시값 지정
         String result = commentsCommandService.registOopsComment(newComment, oops_id, userId);
 
         return result;
@@ -40,16 +40,16 @@ public class CommentsCommandController {
     public String writeCommentAtOoh(@RequestBody CommentCommandDTO newComment,
                                      @PathVariable int ooh_id){
 
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if(!(authentication.getPrincipal() instanceof UserImpl)){
-//            throw new RuntimeException("잘못된 id");
-//        }
-//        UserImpl userImpl = (UserImpl)authentication.getPrincipal();
-//
-//
-//        long userId = userImpl.getId();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(!(authentication.getPrincipal() instanceof UserImpl)){
+            throw new RuntimeException("잘못된 id");
+        }
+        UserImpl userImpl = (UserImpl)authentication.getPrincipal();
 
-        long userId = 20;   // 임시값 지정
+
+        long userId = userImpl.getId();
+
+//        long userId = 20;   // 임시값 지정
         String result = commentsCommandService.registOohComment(newComment, ooh_id, userId);
 
         return result;
@@ -59,14 +59,14 @@ public class CommentsCommandController {
     public String writeCommentAtNotice(@RequestBody CommentCommandDTO newComment,
                                      @PathVariable int notice_id){
 
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if(!(authentication.getPrincipal() instanceof UserImpl)){
-//            throw new RuntimeException("잘못된 id");
-//        }
-//        UserImpl userImpl = (UserImpl)authentication.getPrincipal();
-//        long userId = userImpl.getId();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(!(authentication.getPrincipal() instanceof UserImpl)){
+            throw new RuntimeException("잘못된 id");
+        }
+        UserImpl userImpl = (UserImpl)authentication.getPrincipal();
+        long userId = userImpl.getId();
 
-        long userId = 20;   // 임시값 지정
+//        long userId = 20;   // 임시값 지정
 
         String result = commentsCommandService.registNoticeComment(newComment, notice_id, userId);
 

@@ -1,8 +1,11 @@
 package com.devoops.oopslog.recordhistory.command.controller;
 
+import com.devoops.oopslog.member.command.dto.UserImpl;
 import com.devoops.oopslog.recordhistory.command.service.RecordHistoryCommandService;
 import com.devoops.oopslog.recordhistory.query.service.RecordHistoryQueryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,7 +20,15 @@ public class RecordHistoryCommandController {
 
     @GetMapping("/count-ooh")
     public String dailyCountOohRecord() {
-        long userId = 20; // 임시값
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(!(authentication.getPrincipal() instanceof UserImpl)){
+            throw new RuntimeException("잘못된 id");
+        }
+        UserImpl userImpl = (UserImpl)authentication.getPrincipal();
+
+
+        long userId = userImpl.getId();
+//        long userId = 20; // 임시값
         String result = recordHistoryCommandService.saveOohRecordHistory(userId);
 
         return result;
@@ -25,7 +36,15 @@ public class RecordHistoryCommandController {
 
     @GetMapping("/count-oops")
     public String dailyCountOopsRecord() {
-        long userId = 20; // 임시값
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(!(authentication.getPrincipal() instanceof UserImpl)){
+            throw new RuntimeException("잘못된 id");
+        }
+        UserImpl userImpl = (UserImpl)authentication.getPrincipal();
+
+
+        long userId = userImpl.getId();
+//        long userId = 20; // 임시값
         String result = recordHistoryCommandService.saveOopsRecordHistory(userId);
 
         return result;
