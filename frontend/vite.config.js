@@ -1,35 +1,25 @@
 import { fileURLToPath, URL } from 'node:url'
-
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import vueDevTools from 'vite-plugin-vue-devtools'
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
   server: {
     port: 5173, // 기본 포트
+    // Vue에서 /api로 호출하면 스프링(8080)으로 프록시
     proxy: {
       '/api': {
-        target: 'http://localhost:8080', // Spring Boot 서버 주소
+        target: 'http://localhost:8080',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''), // "/api"를 제거하고 백엔드로 전달
+        // 프론트의 /api/* → 백엔드의 /* 로 전달
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)), // ✅ @ → src 폴더
-    },
-  },
-   server: {
-    // Vue에서 /api 로 호출하면 스프링(8080)으로 
-    proxy: {
-      '/api': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
+      '@': fileURLToPath(new URL('./src', import.meta.url)), // @ → src
     },
   },
 })
