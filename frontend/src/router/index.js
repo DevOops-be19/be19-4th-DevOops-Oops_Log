@@ -4,19 +4,19 @@ import { createRouter, createWebHistory } from 'vue-router'
 // Imports 각각 위치 맞춰서
 
 //common
-import MainView from '../components/pages/MainView.vue';
-import AboutView from '../components/pages/AboutView.vue';
-import ContactView from '../components/pages/ContactView.vue';
-import NoticeView from '../components/pages/NoticeView.vue';
+import MainView from '../components/view/MainView.vue';
+import AboutView from '../components/view/AboutView.vue';
+import ContactView from '../components/view/ContactView.vue';
+import NoticeView from '../components/view/NoticeView.vue';
 
 // 형석님
 
 // 지현님
 
 // 건일님
-import AdminMember from '@/views/admin/components_1/AdminMember.vue';
-import AdminReport from '@/views/admin/components_1/AdminReport.vue';
-import AdminTag from '@/views/admin/components_1/AdminTag.vue';
+import AdminMember from '@/components/admin/AdminMember.vue';
+import AdminReport from '@/components/admin/AdminReport.vue';
+import AdminTag from '@/components/admin/AdminTag.vue';
 // 서진님
 
 // 순우님
@@ -49,7 +49,7 @@ const router = createRouter({
     },
     {
       path: '/admin',
-      component: () => import('@/views/admin/AdminLayout.vue'),
+      component: () => import('@/components/view/AdminLayout.vue'),
       meta: { isAdmin: true },
       children: [
         { path: '', redirect: '/admin/member'},  
