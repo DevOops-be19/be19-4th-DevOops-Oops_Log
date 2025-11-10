@@ -32,3 +32,4 @@
 //    @JoinColumn(name = "ooh_id")
 //    private OohRecord oohRecord;
 //}
+
