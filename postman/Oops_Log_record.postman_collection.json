@@ -1,0 +1,538 @@
+{
+	"info": {
+		"_postman_id": "e6c39e51-0cda-46bf-b42d-801d91d006a5",
+		"name": "Oops_Log_record",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48692114",
+		"_collection_link": "https://thdgudtjr0415-2428537.postman.co/workspace/%EC%86%A1%ED%98%95%EC%84%9D's-Workspace~da7967c4-e4e3-493f-85ef-31e1dda47f6b/collection/48692114-e6c39e51-0cda-46bf-b42d-801d91d006a5?action=share&source=collection_link&creator=48692114"
+	},
+	"item": [
+		{
+			"name": "공지사항 조회 및 검색",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/notice/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"notice",
+						"all"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": "점검",
+							"disabled": true
+						},
+						{
+							"key": "content",
+							"value": "공지",
+							"disabled": true
+						},
+						{
+							"key": "size",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "공지사항 작성",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"noticeUserId\": 1,\r\n  \"noticeTitle\": \"점검 안내\",\r\n  \"noticeContent\": \"11월 10일 02:00~04:00 서버 점검이 진행됩니다.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/notice/insertNotice",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"notice",
+						"insertNotice"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "공지사항 수정",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"noticeContent\": \"점검 시간: 02:30~04:30으로 변경되었습니다.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/notice/updateNotice/23",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"notice",
+						"updateNotice",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "공지사항 소프트 삭제",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/notice/deleteNotice/23",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"notice",
+						"deleteNotice",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "공지사항 하드삭제",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/notice/hardDeleteNotice/23",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"notice",
+						"hardDeleteNotice",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ooh 기록 조회 및 검색",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/ooh/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ooh",
+						"all"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "10",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "3",
+							"disabled": true
+						},
+						{
+							"key": "title",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "content",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ooh 기록 작성",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"oohUserId\": 2,\r\n  \"oohTitle\": \"오늘 첫 팀 발표 성공!\",\r\n  \"oohContent\": \"팀원들과의 협업이 잘 돼서 발표 완벽하게 끝냈다 😊\",\r\n  \"oohIsPrivate\": \"N\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ooh/insertOoh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ooh",
+						"insertOoh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ooh 기록 수정",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"oohTitle\": \"발표 피드백 반영 완료\",\r\n  \"oohContent\": \"질문받은 부분 정리해서 문서 업데이트까지 마침\",\r\n  \"oohIsPrivate\": \"N\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ooh/updateOoh/24",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ooh",
+						"updateOoh",
+						"24"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ooh 기록 소프트 삭제",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ooh/deleteOoh/25",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ooh",
+						"deleteOoh",
+						"25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ooh 기록 하드 삭제",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ooh/hardDeleteOoh/25",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ooh",
+						"hardDeleteOoh",
+						"25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Oops 기록 조회 및 검색",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/oops/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"oops",
+						"all"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "content",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "size",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Oops 기록 작성",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"oopsUserId\": 2,\r\n  \"oopsTitle\": \"발표 중 자료 일부 누락 😅\",\r\n  \"oopsContent\": \"긴장해서 마지막 슬라이드를 깜빡하고 넘기지 못했다. 다음엔 리허설 때 체크리스트 꼭 만들자!\",\r\n  \"oopsIsPrivate\": \"N\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/oops/insertOops",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"oops",
+						"insertOops"
+					],
+					"query": [
+						{
+							"key": "title",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "content",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": null,
+							"disabled": true
+						},
+						{
+							"key": "size",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Oops 기록 수정",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"oopsTitle\": \"발표 중 자료 일부 누락2 😅\",\r\n  \"oopsContent\": \"긴장해서 마지막 슬라이드를 깜빡하고 넘기지 못했다. 다음엔 리허설 때 체크리스트 꼭 만들자!\",\r\n  \"oopsIsPrivate\": \"N\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/oops/updateOops/25",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"oops",
+						"updateOops",
+						"25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Oops 기록 소프트 삭제",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/oops/deleteOops/25",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"oops",
+						"deleteOops",
+						"25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Oops 기록 하드 삭제",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/oops/hardDeleteOops/25",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"oops",
+						"hardDeleteOops",
+						"25"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

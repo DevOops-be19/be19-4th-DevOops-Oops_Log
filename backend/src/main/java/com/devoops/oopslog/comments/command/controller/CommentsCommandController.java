@@ -57,7 +57,7 @@ public class CommentsCommandController {
         }
         UserImpl userImpl = (UserImpl)authentication.getPrincipal();
 
-        String result = commentsCommandService.registNoticeComment(newComment, notice_id, userId);
+        String result = commentsCommandService.registNoticeComment(newComment, notice_id, userImpl.getId());
 
         return result;
     }
