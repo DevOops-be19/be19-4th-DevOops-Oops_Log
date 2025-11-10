@@ -6,10 +6,10 @@ import com.devoops.oopslog.bookmark.command.repository.BookmarkCommandRepository
 import com.devoops.oopslog.member.command.entity.Member;
 import com.devoops.oopslog.member.command.repository.MemberCommandRepository;
 
-import com.devoops.oopslog.ooh.command.entity.OohRecord;
-import com.devoops.oopslog.ooh.command.repository.OohRecordCommandRepository;
-import com.devoops.oopslog.oops.command.entity.OopsRecord;
-import com.devoops.oopslog.oops.command.repository.OopsRecordCommandRepository;
+import com.devoops.oopslog.ooh.command.entity.OohCommandEntity;
+import com.devoops.oopslog.ooh.command.repository.OohCommandRepository;
+import com.devoops.oopslog.oops.command.entity.OopsCommandEntity;
+import com.devoops.oopslog.oops.command.repository.OopsCommandRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,19 +19,27 @@ import java.util.NoSuchElementException;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class BookmarkCommandService {
 
     // CUD용 JPA 리포지토리
     private final BookmarkCommandRepository bookmarkCommandRepository;
     // 의존하는 공통 엔티티 리포지토리
     private final MemberCommandRepository memberCommandRepository;
-    private final OohRecordCommandRepository oohRecordCommandRepository;
-    private final OopsRecordCommandRepository oopsRecordCommandRepository;
+    private final OohCommandRepository oohCommandRepository;
+    private final OopsCommandRepository oopsCommandRepository;
 
     private static final String TYPE_OOH = "ooh";
     private static final String TYPE_OOPS = "oops";
 
+    public BookmarkCommandService(BookmarkCommandRepository bookmarkCommandRepository,
+                                       MemberCommandRepository memberCommandRepository,
+                                       OohCommandRepository oohCommandRepository,
+                                       OopsCommandRepository oopsCommandRepository) {
+        this.bookmarkCommandRepository = bookmarkCommandRepository;
+        this.memberCommandRepository = memberCommandRepository;
+        this.oohCommandRepository = oohCommandRepository;
+        this.oopsCommandRepository = oopsCommandRepository;
+    }
     /**
      * 북마크 추가 C (JPA)
      */
@@ -51,14 +59,14 @@ public class BookmarkCommandService {
         bookmark.setUser(user);
 
         if (TYPE_OOH.equalsIgnoreCase(recordType)) {
-            OohRecord ooh = oohRecordCommandRepository.findById(recordId)
+            OohCommandEntity ooh = oohCommandRepository.findById(recordId)
                     .orElseThrow(() -> new NoSuchElementException("Ooh 게시글을 찾을 수 없습니다."));
             if (bookmarkCommandRepository.existsByUserAndOohRecord(user, ooh)) {
                 throw new IllegalStateException("이미 북마크한 Ooh 게시글입니다.");
             }
             bookmark.setOohRecord(ooh);
         } else if (TYPE_OOPS.equalsIgnoreCase(recordType)) {
-            OopsRecord oops = oopsRecordCommandRepository.findById(recordId)
+            OopsCommandEntity oops = oopsCommandRepository.findById(recordId)
                     .orElseThrow(() -> new NoSuchElementException("Oops 게시글을 찾을 수 없습니다."));
             if (bookmarkCommandRepository.existsByUserAndOopsRecord(user, oops)) {
                 throw new IllegalStateException("이미 북마크한 Oops 게시글입니다.");
@@ -89,11 +97,11 @@ public class BookmarkCommandService {
                 .orElseThrow(() -> new NoSuchElementException("사용자를 찾을 수 없습니다."));
 
         if (TYPE_OOH.equalsIgnoreCase(recordType)) {
-            OohRecord ooh = oohRecordCommandRepository.findById(recordId)
+            OohCommandEntity ooh = oohCommandRepository.findById(recordId)
                     .orElseThrow(() -> new NoSuchElementException("Ooh 게시글을 찾을 수 없습니다."));
             bookmarkCommandRepository.deleteByUserAndOohRecord(user, ooh);
         } else if (TYPE_OOPS.equalsIgnoreCase(recordType)) {
-            OopsRecord oops = oopsRecordCommandRepository.findById(recordId)
+            OopsCommandEntity oops = oopsCommandRepository.findById(recordId)
                     .orElseThrow(() -> new NoSuchElementException("Oops 게시글을 찾을 수 없습니다."));
             bookmarkCommandRepository.deleteByUserAndOopsRecord(user, oops);
         } else {

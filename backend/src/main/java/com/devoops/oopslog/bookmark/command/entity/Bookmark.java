@@ -2,8 +2,8 @@ package com.devoops.oopslog.bookmark.command.entity;
 
 import com.devoops.oopslog.member.command.entity.Member;
 
-import com.devoops.oopslog.ooh.command.entity.OohRecord;
-import com.devoops.oopslog.oops.command.entity.OopsRecord;
+import com.devoops.oopslog.ooh.command.entity.OohCommandEntity;
+import com.devoops.oopslog.oops.command.entity.OopsCommandEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,9 +26,9 @@ public class Bookmark {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "oops_id")
-    private OopsRecord oopsRecord;
+    private OopsCommandEntity oopsRecord;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ooh_id")
-    private OohRecord oohRecord;
+    private OohCommandEntity oohRecord;
 }
