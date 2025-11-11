@@ -35,12 +35,22 @@
 
     <li class="menu-item">
       <span class="icon"><UsersIcon /></span>
-      <a href="/community">커뮤니티 피드</a>
+      <a href="/oops">Oops_Log</a>
+    </li>
+
+      <li class="menu-item">
+      <span class="icon"><UsersIcon /></span>
+      <a href="/ooh">Ooh_Log</a>
     </li>
 
     <li class="menu-item">
       <span class="icon"><BellIcon /></span>
       <a href="/notice">공지사항</a>
+    </li>
+
+    <li class="menu-item">
+      <span class="icon"><BellIcon /></span>
+      <a href="/mypage">마이페이지</a>
     </li>
 
     <template #footer>

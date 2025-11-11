@@ -31,3 +31,6 @@ export async function hardDeleteOoh(id) {
   const { data } = await api.delete(`/ooh/hardDeleteOoh/${id}`);
   return data;
 }
+
+
+/* 태그 아이디 기록작성, 수정 할때 넣어줘야하는거 기억하기 */

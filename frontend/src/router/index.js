@@ -12,6 +12,7 @@ import ContactView from '../components/view/ContactView.vue';
 import NoticeView from '../components/view/NoticeView.vue';
 import NoticeRegistView from '../components/view/NoticeRegistView.vue';
 import NoticeEditView from '../components/view/NoticeEditView.vue';
+import MyPageView from '../components/view/MyPageView.vue';
 
 // 지현님
 import LoginView from '@/components/view/LoginView.vue';
@@ -64,9 +65,9 @@ const router = createRouter({
       // meta: { requiresAuth: true, adminOnly: true } // 이건 권한 생기면 
     },
     { 
-      path: '/',
-      name: '',
-      component: 
+      path: '/mypage',
+      name: 'Mypage',
+      component: MyPageView
     },
 
 

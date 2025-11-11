@@ -115,4 +115,13 @@ input::placeholder { color: #a09286; }
   .bar { border-radius: 16px; padding: 12px 14px; }
   .submit { height: 34px; padding: 0 14px; }
 }
+
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+input[type="search"]::-ms-clear { display: none; width: 0; height: 0; }
+input[type="search"]::-ms-reveal { display: none; width: 0; height: 0; }
 </style>
