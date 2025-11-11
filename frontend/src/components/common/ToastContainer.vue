@@ -1,7 +1,7 @@
 <template>
   <div class="toast-wrapper">
     <transition name="fade-up">
-      <div v-if="toastStore.show" class="toast">
+      <div v-if="toastStore.show" class="toast" @mouseenter="toastStore.pauseToast" @mouseleave="toastStore.resumeToast">
         {{ toastStore.message }}
       </div>
     </transition>
@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { useToastStore } from '@/stores/userToast';
+import { useToastStore } from '@/stores/useToast';
 
 const toastStore = useToastStore();
 

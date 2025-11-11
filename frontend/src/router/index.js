@@ -22,6 +22,7 @@ import OohRegistView from '../components/view/OohRegistView.vue';
 
 // 지현님
 import LoginView from '@/components/view/LoginView.vue';
+import SignUpView from '@/components/view/SignUpView.vue';
 
 // 건일님
 import AdminMember from '@/components/admin/AdminMember.vue';
@@ -114,6 +115,11 @@ const router = createRouter({
       path: '/login',
       name: 'Login',
       component: LoginView
+    },
+    { 
+      path: '/signup',
+      name: 'Signup',
+      component: SignUpView
     },
 
     // { 

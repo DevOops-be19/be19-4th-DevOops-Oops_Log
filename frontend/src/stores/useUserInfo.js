@@ -4,8 +4,7 @@ import { ref, computed } from 'vue'
 
 export const useUserStore = defineStore(
   'userInfo',()=>{
-    const userId= ref(0)
-    const token=ref('')
+    const id= ref(0)
     const memberId=ref('')
     const email=ref('')
     const name=ref('')
@@ -13,18 +12,38 @@ export const useUserStore = defineStore(
     const gender=ref('')
     const signUpDate = ref('')
     const auth = ref([])
+    const token=ref('')
 
-    const setUserInfo = (getId,getMemberId,getEmail,getName,getBirth,getGender,getSignUpDate,getToken,getAuth)=>{
-      userId.value = getId
+    const setUserInfo = (getId,getMemberId,getEmail,getName,getBirth,getGender,getSignUpDate,getAuth,getToken)=>{
+      id.value = getId
       memberId.value = getMemberId
       email.value = getEmail
       name.value = getName
       birth.value = getBirth
       gender.value = getGender
       signUpDate.value = getSignUpDate
-      token.value = getToken
       auth.value = getAuth
+      token.value = getToken
     }
 
-    return {userId,token,memberId,email,name,birth,gender,signUpDate,auth,setUserInfo}
-  })
+    const clearUserInfo = () => {
+      id.value = 0
+      token.value = ''
+      memberId.value = ''
+      email.value = ''
+      name.value = ''
+      birth.value = ''
+      gender.value = ''
+      signUpDate.value = ''
+      auth.value = []
+    }
+
+    return {id,token,memberId,email,name,birth,gender,signUpDate,auth,setUserInfo,clearUserInfo}
+  },
+  {
+    persist: {
+      enabled: true, //storage 저장유무
+      storage: sessionStorage
+    }
+  }
+  )
