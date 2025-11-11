@@ -67,7 +67,7 @@ const router = createRouter({
    // router/index.js
     {
       path: '/mypage',
-      component: () => import('../views/mypage/MyPageLayout.vue'),
+      component: () => import('../components/view/MyPageView.vue'),
       redirect: { name: 'mypage-info' },
       children: [
         { path: 'info',      name:'mypage-info',      component: () => import('../components/mypage/InfoTab.vue'),      meta:{label:'개인정보 수정'} },
