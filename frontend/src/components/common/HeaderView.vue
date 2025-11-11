@@ -44,7 +44,8 @@
     </li>
 
     <template #footer>
-      <blockquote class="quote">"실수는 버그가 아니라 성장의 패치노트입니다."</blockquote>
+      <blockquote class="quote">"실수는 버그가 아니라 <br> 
+      </br>성장의 패치노트입니다."</blockquote>
     </template>
   </MobileNav>
 </template>
@@ -110,7 +111,12 @@ const open = ref(false)
 }
 .hello{ color:#55433B; opacity:.9; line-height:1.7; margin:4px 0 8px; }
 .quote{
-  margin-top: 8px; padding: 12px 14px; border-radius: 8px;
-  background: rgba(0,0,0,.04); color:#55433B; font-size:14px;
+  margin-top: 8px; 
+  padding: 12px 14px; 
+  border-radius: 8px;
+  background: rgba(0,0,0,.04);
+  color:#55433B;
+  font-size:14px;
+  text-align: center;
 }
 </style>
