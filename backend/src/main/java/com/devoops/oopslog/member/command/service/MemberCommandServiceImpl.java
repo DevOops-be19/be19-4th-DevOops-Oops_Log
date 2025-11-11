@@ -149,10 +149,10 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         Member member = memberCommandRepository.findByMemberId(username);
 
         // 존재하지 않는 아이디
-        if (member == null) throw new UsernameNotFoundException(username + " - 회원정보가 존재하지 않음");
+        if (member == null) throw new UsernameNotFoundException("회원정보가 존재하지 않습니다.");
 
         // 정지된 회원
-        if (member.getUser_state() == 'S') throw new LockedException(username + " - 정지된 회원");
+        if (member.getUser_state() == 'S') throw new LockedException("정지된 회원입니다.");
 
         // 5회 이상 로그인 시도
 
