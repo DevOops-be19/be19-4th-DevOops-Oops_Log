@@ -1,9 +1,6 @@
 package com.devoops.oopslog.achivement.query.service;
 
-import com.devoops.oopslog.achivement.query.dto.AchivementSummaryDTO;
-import com.devoops.oopslog.achivement.query.dto.OohRecordCountDTO;
-import com.devoops.oopslog.achivement.query.dto.OopsRecordCountDTO;
-import com.devoops.oopslog.achivement.query.dto.TagCountDTO;
+import com.devoops.oopslog.achivement.query.dto.*;
 import com.devoops.oopslog.achivement.query.mapper.AchivementReadMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,28 +19,25 @@ public class AchivementReadServiceImpl implements AchivementReadService {
 
 
     @Override
-    public List<OopsRecordCountDTO> getDailyUserOopsRecord(Long userId, int year, int month) {
-        return achivementReadMapper.selectDailyUserOopsRecord(userId, year, month);
-    }
-
-    @Override
-    public List<OohRecordCountDTO> getDailyUserOohRecord(Long userId, int year, int month) {
-        return achivementReadMapper.selectDailyUserOohRecord(userId, year, month);
-    }
-
-    @Override
-    public AchivementSummaryDTO getUserAchivementSummary(Long userId) {
+    public AchivementSummaryDTO getUserAchivementSummary(Long userId, int year, int month) {
+        List<OopsRecordCountDTO> topOopsRecords = achivementReadMapper.selectDailyUserOopsRecord(userId, year, month);
+        List<OohRecordCountDTO> topOohRecords =  achivementReadMapper.selectDailyUserOohRecord(userId, year, month);
         int oopsCount = achivementReadMapper.countOopsRecord(userId);
         int oohCount = achivementReadMapper.countOohRecord(userId);
-
-        List<TagCountDTO> topOopsTags = achivementReadMapper.selectTopOopsTag(userId);
-        List<TagCountDTO> topOohTags = achivementReadMapper.selectTopOohTag(userId);
+        List<TagCountDTO> topOopsTags = achivementReadMapper.selectTopOopsTagByMonth(userId, year, month);
+        List<TagCountDTO> topOohTags = achivementReadMapper.selectTopOohTagByMonth(userId, year, month);
+        List<FindYearMonthDTO> findYearOops = achivementReadMapper.findYearMonthOopsById(userId);
+        List<FindYearMonthDTO> findYearOoh = achivementReadMapper.findYearMonthOohById(userId);
 
         AchivementSummaryDTO summary = new AchivementSummaryDTO();
+        summary.setOopsRecords(topOopsRecords);
+        summary.setOohRecords(topOohRecords);
         summary.setOopsCount(oopsCount);
         summary.setOohCount(oohCount);
         summary.setTopOopsTags(topOopsTags);
         summary.setTopOohTags(topOohTags);
+        summary.setFindYearOops(findYearOops);
+        summary.setFindYearOoh(findYearOoh);
 
         return summary;
     }
