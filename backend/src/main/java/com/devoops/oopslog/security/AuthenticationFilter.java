@@ -96,7 +96,18 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         response.setContentType("application/json;charset=UTF-8");
         response.getWriter().write("{");
         response.getWriter().write("\"success\": \"로그인 성공\",");
-        response.getWriter().write("\"id\": \"" + user.getId() + "\"");
+        response.getWriter().write("\"id\": \"" + user.getId() + "\",");
+        response.getWriter().write("\"memberId\": \"" + user.getMemberId() + "\",");
+        response.getWriter().write("\"email\": \"" + user.getEmail() + "\",");
+        response.getWriter().write("\"name\": \"" + user.getName() + "\",");
+        response.getWriter().write("\"birth\": \"" + user.getBirth() + "\",");
+        response.getWriter().write("\"gender\": \"" + user.getGender() + "\",");
+        response.getWriter().write("\"signUpDate\": \"" + user.getSignUpDate() + "\",");
+        response.getWriter().write("\"roles\": [");
+        for (String role : roles) {
+            response.getWriter().write("\""+role+"\", ");
+        }
+        response.getWriter().write("]");
         response.getWriter().write("}");
 
         // 로그인 이력 저장

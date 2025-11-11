@@ -170,7 +170,16 @@ public class MemberCommandServiceImpl implements MemberCommandService {
 
         // 커스텀한 User 객체 이용
         UserImpl userImpl = new UserImpl(member.getMemberId(), member.getMemberPw(), grantedAuthorities);
-        userImpl.setUserInfo(new UserDetailInfoDTO(member.getId()));
+        userImpl.setUserInfo(new UserDetailInfoDTO(
+                member.getId(),
+                member.getMemberId(),
+                member.getEmail(),
+                member.getName(),
+                member.getBirth(),
+                member.getGender(),
+                member.getSign_up_date()
+        ));
+
         return userImpl;
         // 사용자의 id,pw,권한,하위 정보들을 provider로 전송
 //        return new User(member.getMemberId(), member.getMemberPw(), true, true, true, true, grantedAuthorities);
