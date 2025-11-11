@@ -3,8 +3,10 @@ package com.devoops.oopslog.member.command.service;
 import com.devoops.oopslog.member.command.dto.*;
 import com.devoops.oopslog.member.command.entity.LoginHistory;
 import com.devoops.oopslog.member.command.entity.Member;
+import com.devoops.oopslog.member.command.entity.UserAuth;
 import com.devoops.oopslog.member.command.repository.LoginHistoryCommandRepository;
 import com.devoops.oopslog.member.command.repository.MemberCommandRepository;
+import com.devoops.oopslog.member.command.repository.UserAuthCommandRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -35,16 +37,19 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ModelMapper modelMapper;
     private final RedisTemplate<String, String> redisTemplate;
+    private final UserAuthCommandRepository userAuthCommandRepository;
 
     public MemberCommandServiceImpl(MemberCommandRepository memberCommandRepository,
                                     BCryptPasswordEncoder bCryptPasswordEncoder,
                                     ModelMapper modelMapper, RedisTemplate<String, String> redisTemplate,
-                                    LoginHistoryCommandRepository loginHistoryCommandRepository) {
+                                    LoginHistoryCommandRepository loginHistoryCommandRepository,
+                                    UserAuthCommandRepository userAuthCommandRepository) {
         this.memberCommandRepository = memberCommandRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.modelMapper = modelMapper;
         this.redisTemplate = redisTemplate;
         this.loginHistoryCommandRepository = loginHistoryCommandRepository;
+        this.userAuthCommandRepository = userAuthCommandRepository;
     }
 
     @Override
@@ -60,7 +65,12 @@ public class MemberCommandServiceImpl implements MemberCommandService {
 
         member.setMemberPw(bCryptPasswordEncoder.encode(member.getMemberPw()));
 
-        memberCommandRepository.save(member);
+        memberCommandRepository.saveAndFlush(member);
+
+        // user_auth에 데이터 저장
+        Long userId = member.getId();
+        UserAuth userAuth = new UserAuth(userId,2L);
+        userAuthCommandRepository.save(userAuth);
     }
 
     @Override
