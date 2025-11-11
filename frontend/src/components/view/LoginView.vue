@@ -59,8 +59,8 @@ const signUp = () => {
 };
 
 const findId = () => {
-  toastStore.showToast("아이디 찾기 페이지로 이동합니다.");
-  // router.push("/find-id");
+  // toastStore.showToast("아이디 찾기 페이지로 이동합니다.");
+  router.push("/find-id");
 };
 
 const findPw = () => {

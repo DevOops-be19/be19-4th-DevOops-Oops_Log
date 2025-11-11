@@ -17,11 +17,13 @@ import MyPageView from '../components/view/MyPageView.vue';
 // 지현님
 import LoginView from '@/components/view/LoginView.vue';
 import SignUpView from '@/components/view/SignUpView.vue';
+import FindIdView from '@/components/view/FindIdView.vue';
 
 // 건일님
 import AdminMember from '@/components/admin/AdminMember.vue';
 import AdminReport from '@/components/admin/AdminReport.vue';
 import AdminTag from '@/components/admin/AdminTag.vue';
+
 // 서진님
 
 // 순우님
@@ -104,6 +106,16 @@ const router = createRouter({
       name: 'Signup',
       component: SignUpView
     },
+    { 
+      path: '/find-id',
+      name: 'FindId',
+      component: FindIdView
+    },
+    // { 
+    //   path: '/find-pw',
+    //   name: 'FindPw',
+    //   component: SignUpView
+    // },
 
     // { 
     //   path: '/',
