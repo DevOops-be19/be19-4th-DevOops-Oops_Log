@@ -48,6 +48,10 @@ import { computed, ref, watchEffect } from 'vue'
 import { useRouter } from 'vue-router'
 import NoticeComments from './NoticeComments.vue'
 import { softDeleteNotice, hardDeleteNotice } from '../api/notice'
+import { useUserStore } from '@/stores/useUserInfo'
+
+const userStore = useUserStore()
+console.log(userStore.auth);
 
 const props = defineProps({
   item: { type: Object, required: true },
