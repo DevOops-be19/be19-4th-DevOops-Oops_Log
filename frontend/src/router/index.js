@@ -63,6 +63,13 @@ const router = createRouter({
       component: NoticeEditView
       // meta: { requiresAuth: true, adminOnly: true } // 이건 권한 생기면 
     },
+    { 
+      path: '/',
+      name: '',
+      component: 
+    },
+
+
     {
       path: '/admin',
       component: () => import('@/components/view/AdminLayout.vue'),

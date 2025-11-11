@@ -8,6 +8,15 @@
       <h1 class="title">공지사항</h1>
       <p class="subtitle">Oops_Log의 소식과 안내를 전해드립니다</p>
 
+      <!-- 검색 버튼 -->
+      <SearchBar 
+        v-model="keyword"
+        @search="searchNow"
+        placeholder="제목 또는 내용 검색..."
+      />
+
+      <p>검색어: {{ keyword }}</p>
+
       <!-- ✅ 작성 버튼 (우측 상단) -->
       <button
         v-if="canWrite"
@@ -53,25 +62,32 @@ import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import NoticeRow from '../record/NoticeRow.vue'
 import { fetchNotices } from '../api/notice'
+import SearchBar from '../common/SearchBar.vue'
 
-/* ✅ 임시: 테스트용으로 항상 보이게 */
+const router = useRouter()
+
+/* 검색어 (v-model) */
+const keyword = ref('')
+
+function searchNow(q) {
+  console.log('검색 실행:', q)
+}
+
+/* 임시: 항상 보이게 */
 const canWrite = ref(true)
 
-/* 작성 페이지로 이동 (라우트 이름/경로는 프로젝트에 맞게) */
+/* 작성 페이지로 이동 */
 function goWrite() {
-  // 이름 라우팅이 있으면:
-  // router.push({ name: 'notice-write' })
-  // 경로 라우팅이면:
   router.push('/notice/insertNotice')
 }
-/* delete */
+
+/* 삭제 콜백 */
+const items = ref([])
 function onRowDeleted(id) {
   items.value = items.value.filter(n => (n.noticeId ?? n.id) !== id)
 }
 
-const router = useRouter()
-
-// 상단 고정 – 서버에 없으니 프론트 상수로
+/* 상단 고정 공지 */
 const pinned = {
   noticeId: 'pinned',
   noticeTitle: '새로운 감정 태그를 제안해주세요',
@@ -88,7 +104,7 @@ const pinned = {
   name: '관리자'
 }
 
-const items = ref([])
+/* 목록/무한스크롤 상태 */
 const page = ref(1)
 const size = ref(10)
 const hasNext = ref(true)
@@ -110,7 +126,6 @@ async function loadNext() {
 
   try {
     const { list, hasNextPage } = await fetchNotices({ page: page.value, size: size.value })
-    // pinned와 제목 같으면 중복 제거 + 삭제 숨김
     const filtered = list.filter(n => (n.noticeTitle !== pinned.noticeTitle) && (n.noticeIsDeleted !== 'Y'))
     items.value.push(...filtered)
     hasNext.value = hasNextPage
