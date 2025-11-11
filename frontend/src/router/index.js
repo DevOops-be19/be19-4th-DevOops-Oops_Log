@@ -20,6 +20,7 @@ import AdminTag from '@/components/admin/AdminTag.vue';
 // 서진님
 
 // 순우님
+import BookMark from '../components/bookmark/BookMark.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -46,6 +47,11 @@ const router = createRouter({
       path: '/notice',
       name: 'Notice',
       component: NoticeView
+    },
+    { 
+      path: '/bookmarks',
+      name: 'BookMark',
+      component: BookMark
     },
     {
       path: '/admin',
