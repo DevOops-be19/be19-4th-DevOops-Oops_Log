@@ -52,6 +52,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
             LoginDTO credential = new ObjectMapper().readValue(request.getInputStream(), LoginDTO.class);
+            log.info("attemptAuthentication: credential={}", credential);
 
             return getAuthenticationManager().authenticate(
                     new UsernamePasswordAuthenticationToken(credential.getMember_id(), credential.getMember_pw(), new ArrayList<>()));

@@ -3,6 +3,7 @@
     <HeaderView v-if="!route.matched.some(r => r.meta.isAdmin)"/>
     <main class="app-fixed-main">
       <RouterView />
+      <ToastContainer />
     </main>
     <FooterView v-if="!route.matched.some(r => r.meta.isAdmin)"/>
   </div>
@@ -15,6 +16,7 @@
 const route = useRoute();
 import FooterView from './components/common/FooterView.vue';
 import HeaderView from './components/common/HeaderView.vue';
+import ToastContainer from './components/common/ToastContainer.vue';
 </script>
 
 
@@ -26,7 +28,7 @@ import HeaderView from './components/common/HeaderView.vue';
   --paper-bg: #F6F1E0;
   --ink: #55433B;
   --header-h: 56px;   /* 헤더 높이 */
-  --footer-h: 44px;   /* 푸터 높이 */
+  --footer-h: 50px;   /* 푸터 높이 */
   --safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 
