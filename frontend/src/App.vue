@@ -16,13 +16,14 @@
 
   const userStore = useUserStore();
   /* 여기서 마지막 토큰 쪾 [ROLE_USER] 혹은 [ROLE_USER,ROLE_ADMIN]*/
-  userStore.setUserInfo(10,0,0,0,0,0,0,'토큰',['ROLE_USER'])
-  console.log("userStore id값: ",userStore)
+  /*userStore.setUserInfo(10,0,0,0,0,0,0,'토큰',['ROLE_USER'])*/
 
 const route = useRoute();
 import FooterView from './components/common/FooterView.vue';
 import HeaderView from './components/common/HeaderView.vue';
 import ToastContainer from './components/common/ToastContainer.vue';
+  console.log("현재회원: ",userStore.memberId);
+  console.log("토큰:",userStore.token)
 </script>
 
 
