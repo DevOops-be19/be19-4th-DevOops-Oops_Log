@@ -1,37 +1,56 @@
 <template>
   <div class="toast-wrapper">
-    <transition-group name="toast" tag="div" class="toast-list">
-      <div v-for="t in toasts" :key="t.id" class="toast-item" :class="t.type">
-        {{ t.message }}
+    <transition name="fade-up">
+      <div v-if="toastStore.show" class="toast">
+        {{ toastStore.message }}
       </div>
-    </transition-group>
+    </transition>
   </div>
 </template>
 
 <script setup>
-import { toasts } from './useToast.js';
+import { useToastStore } from '@/stores/userToast';
+
+const toastStore = useToastStore();
+
 </script>
 
 <style scoped>
-.toast-wrapper {
+.toast {
   position: fixed;
-  top: 20px;
+  bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 9999;
+  background: rgba(60, 50, 40, 0.9);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  font-size: 0.95rem;
 }
-.toast-list { display: flex; flex-direction: column; gap: 10px; }
-.toast-item {
-  min-width: 260px; padding: 12px 18px; border-radius: 10px;
-  font-family: 'Inter', sans-serif; font-size: 0.875rem;
-  color: #55433B; background: #F6F1E0; border: 1px solid #88AA82;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15); opacity: 0.95;
-}
-.toast-item.error { border-color: #55433B; }
-.toast-item.success { border-color: #88AA82; }
 
-/* 애니메이션 */
-.toast-enter-from { opacity: 0; transform: translateY(-10px); }
-.toast-enter-active, .toast-leave-active { transition: all 0.35s ease; }
-.toast-leave-to { opacity: 0; transform: translateY(-20px); }
+/* 부드러운 페이드 효과 */
+.fade-up-enter-active,
+.fade-up-leave-active {
+  transition: all 0.4s ease;
+}
+.fade-up-enter-from {
+  opacity: 0;
+  transform: translate(-50%, 60px); /* 아래에서 시작 */
+}
+
+.fade-up-enter-to {
+  opacity: 1;
+  transform: translate(-50%, 0); /* 제자리로 올라옴 */
+}
+
+.fade-up-leave-from {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.fade-up-leave-to {
+  opacity: 0;
+  transform: translate(-50%, 60px); /* 다시 아래로 내려가며 사라짐 */
+}
 </style>

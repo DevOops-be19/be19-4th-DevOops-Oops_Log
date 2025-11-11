@@ -26,5 +26,5 @@ export const useUserStore = defineStore(
       auth.value = getAuth
     }
 
-    return {userId,token,auth,setUserInfo}
+    return {userId,token,memberId,email,name,birth,gender,signUpDate,auth,setUserInfo}
   })
