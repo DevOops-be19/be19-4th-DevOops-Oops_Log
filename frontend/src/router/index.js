@@ -12,6 +12,7 @@ import ContactView from '../components/view/ContactView.vue';
 import NoticeView from '../components/view/NoticeView.vue';
 import NoticeRegistView from '../components/view/NoticeRegistView.vue';
 import NoticeEditView from '../components/view/NoticeEditView.vue';
+import MyPageView from '../components/view/MyPageView.vue';
 
 // 지현님
 import LoginView from '@/components/view/LoginView.vue';
@@ -64,6 +65,24 @@ const router = createRouter({
       component: NoticeEditView
       // meta: { requiresAuth: true, adminOnly: true } // 이건 권한 생기면 
     },
+   // router/index.js
+    {
+      path: '/mypage',
+      component: () => import('../components/view/MyPageView.vue'),
+      redirect: { name: 'mypage-info' },
+      children: [
+        { path: 'info',      name:'mypage-info',      component: () => import('../components/mypage/InfoTab.vue'),      meta:{label:'개인정보 수정'} },
+        { path: 'oops',      name:'mypage-oops',      component: () => import('../components/mypage/OopsTab.vue'),      meta:{label:'Oops 기록'} },
+        { path: 'ooh',       name:'mypage-ooh',       component: () => import('../components/mypage/OohTab.vue'),       meta:{label:'Ooh 기록'} },
+        { path: 'growth',    name:'mypage-growth',    component: () => import('../components/mypage/GrowthTab.vue'),    meta:{label:'성장 그래프', keepAlive:true} },
+        { path: 'reco',      name:'mypage-reco',      component: () => import('../components/mypage/RecommendTab.vue'), meta:{label:'추천게시글'} },
+        { path: 'bookmarks', name:'mypage-bookmarks', component: () => import('../components/mypage/BookmarksTab.vue'), meta:{label:'북마크기록'} },
+        { path: 'followers', name:'mypage-followers', component: () => import('../components/mypage/FollowersTab.vue'), meta:{label:'팔로우기록'} },
+        { path: 'settings',  name:'mypage-settings',  component: () => import('../components/mypage/SettingsTab.vue'),  meta:{label:'설정'} },
+      ]
+    },
+
+
     {
       path: '/admin',
       component: () => import('@/components/view/AdminLayout.vue'),

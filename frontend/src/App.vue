@@ -13,8 +13,10 @@
   import {ref} from 'vue';
   import {RouterView, useRoute} from 'vue-router';
   import { useUserStore } from './stores/useUserInfo';
-  import { onMounted } from 'vue';
-  const userStore = useUserStore()
+
+  const userStore = useUserStore();
+  /* 여기서 마지막 토큰 쪾 [ROLE_USER] 혹은 [ROLE_USER,ROLE_ADMIN]*/
+  /*userStore.setUserInfo(10,0,0,0,0,0,0,'토큰',['ROLE_USER'])*/
 
 const route = useRoute();
 import FooterView from './components/common/FooterView.vue';
