@@ -15,10 +15,9 @@
   import { useUserStore } from './stores/useUserInfo';
 
   const userStore = useUserStore();
-  userStore.setUserInfo(10,'토큰',['ROLE_USER'])
-  console.log("userStore id값: ",userStore.userId)
-  console.log("userStore token값: ",userStore.token)
-  console.log("userStore role값: ",userStore.auth)
+  /* 여기서 마지막 토큰 쪾 [ROLE_USER] 혹은 [ROLE_USER,ROLE_ADMIN]*/
+  userStore.setUserInfo(10,0,0,0,0,0,0,'토큰',['ROLE_USER'])
+  console.log("userStore id값: ",userStore)
 
 const route = useRoute();
 import FooterView from './components/common/FooterView.vue';
