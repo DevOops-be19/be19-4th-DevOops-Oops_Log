@@ -13,17 +13,15 @@
   import {ref} from 'vue';
   import {RouterView, useRoute} from 'vue-router';
   import { useUserStore } from './stores/useUserInfo';
-
-  const userStore = useUserStore();
-  userStore.setUserInfo(10,'토큰',['ROLE_USER'])
-  console.log("userStore id값: ",userStore.userId)
-  console.log("userStore token값: ",userStore.token)
-  console.log("userStore role값: ",userStore.auth)
+  import { onMounted } from 'vue';
+  const userStore = useUserStore()
 
 const route = useRoute();
 import FooterView from './components/common/FooterView.vue';
 import HeaderView from './components/common/HeaderView.vue';
 import ToastContainer from './components/common/ToastContainer.vue';
+  console.log("현재회원: ",userStore.memberId);
+  console.log("토큰:",userStore.token)
 </script>
 
 

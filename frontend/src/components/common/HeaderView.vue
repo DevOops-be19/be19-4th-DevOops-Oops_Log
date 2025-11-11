@@ -19,6 +19,11 @@
 
     <li class="menu-item">
       <span class="icon"><HomeIcon /></span>
+      <a href="/login">로그인</a>
+    </li>
+
+        <li class="menu-item">
+      <span class="icon"><HomeIcon /></span>
       <a href="/">홈</a>
     </li>
 
