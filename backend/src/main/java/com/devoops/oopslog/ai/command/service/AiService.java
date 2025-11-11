@@ -19,7 +19,7 @@ public class AiService {
     @Value("${openai.api.key}")
     private String openAiApiKey;
 
-    private static final String OPENAI_URL = "https://api.openai.com/v1/chat/completions";
+    private static final String OPENAI_URL = "https://openrouter.ai/api/v1/chat/completions";
     private static final String MODEL = "gpt-4o-mini";
 
     @Autowired
