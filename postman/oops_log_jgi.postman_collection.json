@@ -1,0 +1,360 @@
+{
+	"info": {
+		"_postman_id": "e45c5c59-0686-491b-9692-1252876ba5aa",
+		"name": "oops_log_jgi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41769590"
+	},
+	"item": [
+		{
+			"name": "관리자 전체회원조회",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"kang12131@example.com\",\r\n    \"pwd\": \"pwd045\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/admin/member?page=2&size=10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"member"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "관리자 전체신고조회",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/report/all?page=1&size=10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"report",
+						"all"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "관리자 해당신고조회",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/report/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"report",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "관리자 전체태그조회",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/admin/tag",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"tag"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "해당회원의 웁스와 옵스 게시글 개수 조회",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/achivement/20/daily?year=2024&month=8",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"achivement",
+						"20",
+						"daily"
+					],
+					"query": [
+						{
+							"key": "year",
+							"value": "2024"
+						},
+						{
+							"key": "month",
+							"value": "8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "해당회원의 성장페이지 요약 조회",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/achivement/summary/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"achivement",
+						"summary",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "사용자 게시글 신고",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"categoryId\": 1,\r\n  \"userId\": 6,\r\n  \"oopsId\": 12\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/report",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"report"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "관리자 게시글 신고상태변경",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/report/3/state?state=N",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"report",
+						"3",
+						"state"
+					],
+					"query": [
+						{
+							"key": "state",
+							"value": "N"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "관리자 태그 추가",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tagName\": \"자기개발\",\r\n    \"tagType\": \"ooh\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/admin/tag",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"tag"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "관리자 태그 삭제",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/admin/tag/63",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"tag",
+						"63"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "사용자 Ooh 기록 작성",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"oohUserId\": 2,\r\n  \"oohTitle\": \"오늘 첫 팀 발표 성공!\",\r\n  \"oohContent\": \"팀원들과의 협업이 잘 돼서 발표 완벽하게 끝냈다 😊\",\r\n  \"oohIsPrivate\": \"N\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ooh/insertOoh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ooh",
+						"insertOoh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "사용자 Oops 기록 작성",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"oopsUserId\": 2,\r\n  \"oopsTitle\": \"발표 중 자료 일부 누락 😅\",\r\n  \"oopsContent\": \"긴장해서 마지막 슬라이드를 깜빡하고 넘기지 못했다. 다음엔 리허설 때 체크리스트 꼭 만들자!\",\r\n  \"oopsIsPrivate\": \"N\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/oops/insertOops",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"oops",
+						"insertOops"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AI 응답 생성",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"content\":\"오늘 하루 너무 우울했어\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/ai/analyze",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ai",
+						"analyze"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
