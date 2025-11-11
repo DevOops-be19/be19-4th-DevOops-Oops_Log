@@ -12,7 +12,13 @@ import ContactView from '../components/view/ContactView.vue';
 import NoticeView from '../components/view/NoticeView.vue';
 import NoticeRegistView from '../components/view/NoticeRegistView.vue';
 import NoticeEditView from '../components/view/NoticeEditView.vue';
-import MyPageView from '../components/view/MyPageView.vue';
+import OopsView from '../components/view/OopsView.vue'
+import OopsEditView from '../components/view/OopsEditView.vue';
+import OopsRegistView from '../components/view/OopsRegistView.vue';
+import OohView from '../components/view/OohView.vue'
+import OohEditView from '../components/view/OohEditView.vue';
+import OohRegistView from '../components/view/OohRegistView.vue';
+
 
 // 지현님
 import LoginView from '@/components/view/LoginView.vue';
@@ -46,24 +52,35 @@ const router = createRouter({
       name: 'Contact',
       component: ContactView
     },
+   {
+  path: '/notice',
+  name: 'Notice',
+  component: NoticeView, // 공지 리스트 or 레이아웃
+  children: [
+    { path: 'insert', name: 'InsertNotice', component: NoticeRegistView},
+    { path: 'update/:id', name: 'UpdateNotice', component: NoticeEditView}
+  ]
+},
     { 
-      path: '/notice',
-      name: 'Notice',
-      component: NoticeView
-    },
+      path: '/oops',
+      name: 'Oops',
+      component: OopsView,
+      children: [
+        { path: 'insert', name: 'InsertOops', component: OopsRegistView},
+        { path: 'update/:id', name: 'UpdateOops', component: OopsEditView}
+      ]
+    }, 
     { 
-      path: '/notice/insertNotice',
-      name: 'InsertNotice',
-      component: NoticeRegistView
-      // meta: { requiresAuth: true, adminOnly: true } // 이건 권한 생기면 
+      path: '/ooh',
+      name: 'Ooh',
+      component: OohView,
+      children: [
+        { path: 'insert', name: 'InsertOoh', component: OohRegistView},
+        { path: 'update/:id', name: 'UpdateOoh', component: OohEditView}
+      ]
+    }, 
 
-    },
-    { 
-      path: '/notice/updateNotice/:id',
-      name: 'UpdateNotice',
-      component: NoticeEditView
-      // meta: { requiresAuth: true, adminOnly: true } // 이건 권한 생기면 
-    },
+
    // router/index.js
     {
       path: '/mypage',

@@ -8,15 +8,15 @@ export async function fetchOopsList({ page = 1, size = 10, title = '', content =
 }
 
 // 작성
-export async function createOops({ oopsUserId, oopsTitle, oopsContent, oopsIsPrivate = 'N' }) {
-  const body = { oopsUserId, oopsTitle, oopsContent, oopsIsPrivate };
+export async function createOops({ oopsUserId, oopsTitle, oopsContent, oopsIsPrivate = 'N', tagIds = [] }) {
+  const body = { oopsUserId, oopsTitle, oopsContent, oopsIsPrivate, tagIds };
   const { data } = await api.post('/oops/insertOops', body);
   return data;
 }
 
 // 수정
-export async function updateOops(id, { oopsTitle, oopsContent, oopsIsPrivate = 'N' }) {
-  const body = { oopsTitle, oopsContent, oopsIsPrivate };
+export async function updateOops(id, { oopsTitle, oopsContent, oopsIsPrivate = 'N', tagIds = [] }) {
+  const body = { oopsTitle, oopsContent, oopsIsPrivate, tagIds };
   const { data } = await api.put(`/oops/updateOops/${id}`, body);
   return data;
 }

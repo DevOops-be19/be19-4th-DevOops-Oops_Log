@@ -16,7 +16,7 @@
 
   const userStore = useUserStore();
   /* 여기서 마지막 토큰 쪾 [ROLE_USER] 혹은 [ROLE_USER,ROLE_ADMIN]*/
-  // userStore.setUserInfo(10,0,0,0,0,0,0,'토큰',['ROLE_USER'])
+  userStore.setUserInfo(23,0,0,0,0,0,0,'$2a$10$7kpLFEqxa6CYUABUoqf5zOgOGj5FJvOTzBpAaOZR8EfK5XUAadFli',['ROLE_USER'])
   console.log("userStore id값: ",userStore)
 
 const route = useRoute();
