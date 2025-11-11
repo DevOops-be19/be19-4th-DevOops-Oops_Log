@@ -11,6 +11,12 @@
 <script setup>
   import {ref} from 'vue';
   import {RouterView, useRoute} from 'vue-router';
+  import { useUserStore } from './stores/useUserInfo';
+
+  const userStore = useUserStore();
+  userStore.setUserInfo(10,'토큰')
+  console.log("userStore id값: ",userStore.userId)
+  console.log("userStore token값: ",userStore.token)
 
 const route = useRoute();
 import FooterView from './components/common/FooterView.vue';
