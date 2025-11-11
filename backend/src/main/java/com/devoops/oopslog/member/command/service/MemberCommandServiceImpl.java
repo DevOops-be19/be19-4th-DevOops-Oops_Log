@@ -7,6 +7,7 @@ import com.devoops.oopslog.member.command.entity.UserAuth;
 import com.devoops.oopslog.member.command.repository.LoginHistoryCommandRepository;
 import com.devoops.oopslog.member.command.repository.MemberCommandRepository;
 import com.devoops.oopslog.member.command.repository.UserAuthCommandRepository;
+import com.devoops.oopslog.member.query.service.MemberQueryService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -24,10 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -38,18 +36,21 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     private final ModelMapper modelMapper;
     private final RedisTemplate<String, String> redisTemplate;
     private final UserAuthCommandRepository userAuthCommandRepository;
+    private final MemberQueryService memberQueryService;
 
     public MemberCommandServiceImpl(MemberCommandRepository memberCommandRepository,
                                     BCryptPasswordEncoder bCryptPasswordEncoder,
                                     ModelMapper modelMapper, RedisTemplate<String, String> redisTemplate,
                                     LoginHistoryCommandRepository loginHistoryCommandRepository,
-                                    UserAuthCommandRepository userAuthCommandRepository) {
+                                    UserAuthCommandRepository userAuthCommandRepository,
+                                    MemberQueryService memberQueryService) {
         this.memberCommandRepository = memberCommandRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.modelMapper = modelMapper;
         this.redisTemplate = redisTemplate;
         this.loginHistoryCommandRepository = loginHistoryCommandRepository;
         this.userAuthCommandRepository = userAuthCommandRepository;
+        this.memberQueryService = memberQueryService;
     }
 
     @Override
@@ -158,7 +159,13 @@ public class MemberCommandServiceImpl implements MemberCommandService {
 
         // 회원 권한 꺼내기
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        List<Map<String, String>> authList = memberQueryService.getAuthList(member.getId());
+        log.info(authList.toString());
+        authList.forEach(userAuth->{
+            grantedAuthorities.add(new SimpleGrantedAuthority(userAuth.get("auth_name").toString()));
+        });
+
+
 //        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
         // 커스텀한 User 객체 이용
