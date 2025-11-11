@@ -12,6 +12,13 @@
 <script setup>
   import {ref} from 'vue';
   import {RouterView, useRoute} from 'vue-router';
+  import { useUserStore } from './stores/useUserInfo';
+
+  const userStore = useUserStore();
+  userStore.setUserInfo(10,'토큰',['ROLE_USER'])
+  console.log("userStore id값: ",userStore.userId)
+  console.log("userStore token값: ",userStore.token)
+  console.log("userStore role값: ",userStore.auth)
 
 const route = useRoute();
 import FooterView from './components/common/FooterView.vue';
