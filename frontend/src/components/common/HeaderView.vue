@@ -28,17 +28,6 @@
     </li>
 
     <li class="menu-item">
-      <span class="icon"><PenIcon /></span>
-      <a href="/write">새 페이지 쓰기</a>
-    </li>
-
-    <li class="menu-item">
-      <span class="icon"><BookIcon /></span>
-      <a href="/logs">내 기록</a>
-      <span class="badge"></span>
-    </li>
-
-    <li class="menu-item">
       <span class="icon"><UsersIcon /></span>
       <a href="/oops">Oops_Log</a>
     </li>
