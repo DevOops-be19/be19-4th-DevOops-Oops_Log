@@ -63,7 +63,7 @@ const router = createRouter({
       name: 'Contact',
       component: ContactView
     },
-   {
+    {
     path: '/notice',
     name: 'Notice',
     component: NoticeView, // 공지 리스트 or 레이아웃
@@ -185,6 +185,8 @@ const router = createRouter({
       path: '/verify-code/:email',
       name: 'VerifyCode',
       component: VerifyCodeView
+    },
+    {
       path: '/notice/updateComment/:commentId/:noticeId',
       name: 'UpdateComment',
       component: CommentEdit
