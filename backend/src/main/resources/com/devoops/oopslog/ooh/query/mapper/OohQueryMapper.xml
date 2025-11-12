@@ -105,5 +105,6 @@
           FROM ooh_record A
           JOIN member B ON A.USER_ID = B.ID
          WHERE A.ID = #{oohId}
+           AND A.IS_DELETED = 'N'
     </select>
 </mapper>

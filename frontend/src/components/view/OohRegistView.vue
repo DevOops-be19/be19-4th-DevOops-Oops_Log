@@ -51,6 +51,7 @@
       />
       <div class="count">{{ (form.oohContent || '').length }}자</div>
     </section>
+    
 
     <!-- AI 분석 카드(버튼+피드백은 이 컴포넌트 안에서 처리) -->
     <section class="field">
@@ -67,18 +68,20 @@
 </template>
 
 <script setup>
+import axios from 'axios'
 import { ref, reactive, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/useUserInfo'
 import { useToastStore } from "@/stores/useToast";
 import { createOoh } from '../api/ooh'
 import { fetchOohTagOptions } from '../api/tag'
-import AiAnalyze from '../common/AiAnalyze.vue'
+
+// import AiAnalyze from '../common/AiAnalyze.vue'
 
 const router = useRouter()
 const userStore = useUserStore()
 const toastStore = useToastStore()
-
+ 
 // 사용자 식별
 const currentUserId = computed(() => Number(userStore.id || 0))
 
@@ -95,6 +98,7 @@ const form = reactive({
   oohIsPrivate: 'N',
   oohTitle: '',
   oohContent: '',
+  aiAnswer: '',
 })
 
 const tagOptions = ref([])
@@ -130,7 +134,7 @@ async function submit() {
       tagIds: selectedTagIds.value.map(Number),
     })
     toastStore.showToast('등록 완료!')
-    router.push({ name: 'oohList' })
+    router.push({ name: 'Ooh' })
   } catch (e) {
     console.error(e)
     const msg = e?.response?.data?.message || e?.response?.data?.error || '등록에 실패했습니다.'
@@ -140,9 +144,11 @@ async function submit() {
   }
 }
 
-function onAIResult({ content, feedback, relatedTags }) {
-  // 필요 시 추천 태그 반영/로그 등 후처리
-  // console.log('AI 결과:', feedback, relatedTags)
+function onAIResult({ feedback, relatedTags }) {
+  form.aiAnswer = feedback || ''
+  // 필요하면 AI가 추천한 감정 태그도 반영
+  // selectedTagIds.value = 관련 tag id 매칭 로직 추가 가능
+  toastStore.showToast('AI 피드백이 반영되었습니다.')
 }
 
 function onCancel() {

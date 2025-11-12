@@ -186,11 +186,7 @@ const router = createRouter({
       name: 'VerifyCode',
       component: VerifyCodeView
     },
-<<<<<<< HEAD
-    { 
-=======
     {
->>>>>>> develop_v2
       path: '/notice/updateComment/:commentId/:noticeId',
       name: 'UpdateComment',
       component: CommentEdit
