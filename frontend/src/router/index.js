@@ -18,6 +18,8 @@ import MyPageView from '../components/view/MyPageView.vue';
 import LoginView from '@/components/view/LoginView.vue';
 import SignUpView from '@/components/view/SignUpView.vue';
 import FindIdView from '@/components/view/FindIdView.vue';
+import FindPwView from '@/components/view/FindPwView.vue';
+import VerifyCodeView from '@/components/view/VerifyCodeView.vue';
 
 // 건일님
 import AdminMember from '@/components/admin/AdminMember.vue';
@@ -111,11 +113,16 @@ const router = createRouter({
       name: 'FindId',
       component: FindIdView
     },
-    // { 
-    //   path: '/find-pw',
-    //   name: 'FindPw',
-    //   component: SignUpView
-    // },
+    { 
+      path: '/find-pw',
+      name: 'FindPw',
+      component: FindPwView
+    },
+    { 
+      path: '/verify-code/:email',
+      name: 'VerifyCode',
+      component: VerifyCodeView
+    },
 
     // { 
     //   path: '/',

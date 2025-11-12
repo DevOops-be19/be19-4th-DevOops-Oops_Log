@@ -64,8 +64,8 @@ const findId = () => {
 };
 
 const findPw = () => {
-  toastStore.showToast("비밀번호 찾기 페이지로 이동합니다.");
-  // router.push("/find-password");
+  // toastStore.showToast("비밀번호 찾기 페이지로 이동합니다.");
+  router.push("/find-pw");
 };
 </script>
 
