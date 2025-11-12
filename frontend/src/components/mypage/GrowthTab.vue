@@ -51,7 +51,7 @@ import axios from 'axios'
 import { useUserStore } from '@/stores/useUserInfo'
 
 const userStore = useUserStore()
-const userId = userStore.user?.id || 20
+const userId = userStore.id
 
 const oops = ref(0)
 const ooh = ref(0)
