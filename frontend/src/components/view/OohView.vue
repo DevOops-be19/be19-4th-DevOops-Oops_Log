@@ -1,13 +1,11 @@
-<!-- src/views/OopsView.vue -->
+<!-- src/views/OohView.vue -->
 <template>
-  <div class="oops-view">
+  <div class="ooh-view">
     <!-- 상단 -->
     <div class="top">
       <button class="back" type="button" @click="router.back()">
         <span class="arrow"></span><span class="back-text">돌아가기</span>
       </button>
-
-
             <!-- 기록 버튼 -->
       <button
         v-if="canWrite"
@@ -32,19 +30,17 @@
       <p style="margin-top:8px">검색어: {{ keyword }}</p>
     </div>
 
-
-
     <!-- 목록 -->
     <section class="list">
         <RecordCard
-        v-for="p in items"
-        :key="p.id"
-        :post="p"
-        :fetch-likes="true"
-        @update:likes="(val) => { p.likes = val }"
-        @bookmark="onBookmark"
-        @meToo="onMeToo"
-      />
+          v-for="p in items"
+          :key="p.id"
+          :post="p"
+          record-type="ooh"
+          :fetch-likes="true"
+          @update:likes="val => p.likes = val"
+          @click="() => goDetail(p.id)"  
+        />
 
       <div v-if="loading" class="skeleton"></div>
       <div v-if="error" class="error">
@@ -56,18 +52,44 @@
       <!-- 무한스크롤 센티넬 -->
       <div ref="sentinel" class="sentinel"></div>
     </section>
+      <router-view />
   </div>
 </template>
 
 <script setup>
+import axios from "axios";
 import { ref, onMounted, onBeforeUnmount, nextTick, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import RecordCard from '../record/RecordCard.vue'
 import RecordSearchBar from '../record/RecordSearchBar.vue'
-import { fetchOopsList } from '../api/oops'
+import { fetchOohList } from '../api/ooh'
+import { useToastStore } from "@/stores/useToast";
+import { useUserStore } from "@/stores/useUserInfo";
+
+const userStore = useUserStore()
+const toastStore = useToastStore();
+
+// const currentUserId = computed(() => Number(userStore.id || 0))
+// const isLoggedIn   = computed(() => !!userStore.token && currentUserId.value > 0)
 
 const canWrite = ref(true)
-function goWrite() { router.push('/oops/insertOops') }
+function goWrite() {             
+  if (!userStore.token) {
+    toastStore.showToast("로그인이 필요합니다.")
+    router.push({ name: 'Login' })
+    return
+  }
+  router.push({ name: 'InsertOoh' })
+}
+
+function goDetail(id) {
+  try {
+    router.push({ name: 'DetailOoh', params: { id: String(id) } })
+  } catch (e) {
+    console.warn('라우터가 이상합니다.', e)
+    router.push({ path: `/ooh/${id}/detail` })
+  }
+}
 
 const router = useRouter()
 
@@ -106,9 +128,9 @@ function adaptListResponse(data) {
   if (data?.content) {
     return { list: data.content, hasNextPage: data.last === false }
   }
-  // 3) 커스텀(oopsList/hasNextPage)
-  if (data?.oopsList) {
-    return { list: data.oopsList, hasNextPage: !!data.hasNextPage }
+  // 3) 커스텀(oohList/hasNextPage)
+  if (data?.oohList) {
+    return { list: data.oohList, hasNextPage: !!data.hasNextPage }
   }
   // 4) 범용(list/items/rows)
   const list = data?.list ?? data?.items ?? data?.rows ?? []
@@ -121,11 +143,11 @@ function normalizeItem(it) {
   const pick = (...keys) => keys.find(k => it?.[k] !== undefined)
     ? it[keys.find(k => it?.[k] !== undefined)]
     : undefined
-  const id        = pick('id', 'oopsId', 'oops_id')
-  const title     = pick('oopsTitle', 'title', 'oops_title')
-  const body      = pick('oopsContent', 'content', 'oops_content', 'text', 'body')
-  const isPrivate = pick('oopsIsPrivate', 'isPrivate', 'oops_is_private') === 'Y'
-  const createdAt = pick('oopsCreateDate', 'createdAt', 'createDate', 'create_time')
+  const id        = pick('id', 'oohId', 'ooh_id')
+  const title     = pick('oohTitle', 'title', 'ooh_title')
+  const body      = pick('oohContent', 'content', 'ooh_content', 'text', 'body')
+  const isPrivate = pick('oohIsPrivate', 'isPrivate', 'ooh_is_private') === 'Y'
+  const createdAt = pick('oohCreateDate', 'createdAt', 'createDate', 'create_time')
   const name      = pick('name', 'writerName', 'authorName', 'nickname') || '익명'
   const tags      = pick('tagNames', 'tags', 'tag_names') || []
   const likes     = pick('likeCount', 'likes', 'like_count') ?? 0
@@ -141,8 +163,8 @@ async function loadNext(q = '') {
   error.value = ''
 
   try {
-    const raw = await fetchOopsList({ page: page.value, size: size.value, title: q, content: q })
-    // console.log('[/oops/all]', raw) // 필요 시 살리기
+    const raw = await fetchOohList({ page: page.value, size: size.value, title: q, content: q })
+    // console.log('[/ooh/all]', raw) // 필요 시 살리기
     const { list, hasNextPage } = adaptListResponse(raw)
     const mapped = list.map(normalizeItem)
     items.value.push(...mapped)
@@ -150,7 +172,7 @@ async function loadNext(q = '') {
     page.value += 1
   } catch (e) {
     console.error(e)
-    error.value = 'Oops 목록을 불러오지 못했습니다.'
+    error.value = 'Ooh 목록을 불러오지 못했습니다.'
   } finally {
     loading.value = false
   }
@@ -201,7 +223,7 @@ function onMeToo(p)     { console.log('meToo', p.id) }
 :root {
   --bg:#f6f1e0; --ink:#55433b; --soft:#eae4cf; --borderSoft: rgba(136,170,130,.25);
 }
-.oops-view{
+.ooh-view{
   width: 896px;
   margin: 0 auto;
   padding-top: 88px;

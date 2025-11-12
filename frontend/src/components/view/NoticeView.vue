@@ -70,7 +70,10 @@ const keyword = ref('')
 
 /* 작성 버튼 (권한에 맞게 교체) */
 const canWrite = ref(true)
-function goWrite() { router.push('/notice/insertNotice') }
+function goWrite() { 
+  console.log('insertNotice')
+  router.push('/notice/insertNotice') 
+}
 
 /* 목록 상태 */
 const items = ref([])

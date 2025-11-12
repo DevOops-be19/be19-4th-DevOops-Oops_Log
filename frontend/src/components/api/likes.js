@@ -1,9 +1,4 @@
 import api from './axios';
-import { useUserStore } from '@/stores/useUserInfo';
-
-// const userStore = useUserStore();
-// const token = userStore.token;
-// const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5dW4iLCJhdXRoIjpbIlJPTEVfVVNFUiJdLCJleHAiOjE3NjI4ODA3NjF9.9OOi0F7-l7C8aVmJdMR1_r2GyRHj0Wt60MqjJ1oFKxnO4uViGW7sRckxM0Pm1KG59nzkGoDtPawhzmFmDDwc7w';
 
 // oops에 좋아요 insert or delete
 export async function pushOopsLikes(oopsId) {
@@ -14,20 +9,21 @@ export async function pushOopsLikes(oopsId) {
 }
 
 // ooh에 좋아요 insert or delete
-export async function pushOohLikes({oohId}) {
-    const { data } = await api.get(`/likes/${oohId}/ooh-like`);
-    return data;
+export async function pushOohLikes(oohId) {
+  const { data } = await api.get(`/likes/${oohId}/ooh-like`);
+  return data;
 }
 
+
 // 자신이 좋아요 누른 oops기록인지 확인
-export async function checkOopsLikesExist({oopsId}) {
+export async function checkOopsLikesExist(oopsId) {
     const { data } = await api.get(`/likes/${oopsId}/oopslikes-exist`);
     return data;
 }
 
 // 자신이 좋아요 누른 ooh기록인지 확인(게시글 상세조회 시 onmount()에 사용)
 // 결과: 'exist' or 'does not exist'
-export async function checkOohLikesExist({oohId}) {
+export async function checkOohLikesExist(oohId) {
     const { data } = await api.get(`/likes/${oohId}/oohlikes-exist`);
     return data;
 }
@@ -39,7 +35,7 @@ export async function checkOopsLikesCount(oopsId) {
 }
 
 // ooh 좋아요 수 조회
-export async function checkOohLikesCount({oohId}) {
+export async function checkOohLikesCount(oohId) {
     const { data } = await api.get(`/likes/${oohId}/oohlikes-count`);
     return data;
 }

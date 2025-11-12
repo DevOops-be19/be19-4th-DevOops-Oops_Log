@@ -12,12 +12,15 @@ import ContactView from '../components/view/ContactView.vue';
 import NoticeView from '../components/view/NoticeView.vue';
 import NoticeRegistView from '../components/view/NoticeRegistView.vue';
 import NoticeEditView from '../components/view/NoticeEditView.vue';
-import OopsView from '../components/view/OopsView.vue'
-import OopsEditView from '../components/view/OopsEditView.vue';
-import OopsRegistView from '../components/view/OopsRegistView.vue';
+// import OopsView from '../components/view/OopsView.vue'
+// import OopsEditView from '../components/view/OopsEditView.vue';
+// import OopsRegistView from '../components/view/OopsRegistView.vue';
+// import OopsDetailView from '../components/view/OopsDetailView.vue';
 import OohView from '../components/view/OohView.vue'
 import OohEditView from '../components/view/OohEditView.vue';
 import OohRegistView from '../components/view/OohRegistView.vue';
+
+import OohDetailView from '../components/view/OohDetailView.vue';
 
 
 // 지현님
@@ -54,33 +57,61 @@ const router = createRouter({
       component: ContactView
     },
    {
-  path: '/notice',
-  name: 'Notice',
-  component: NoticeView, // 공지 리스트 or 레이아웃
-  children: [
-    { path: 'insert', name: 'InsertNotice', component: NoticeRegistView},
-    { path: 'update/:id', name: 'UpdateNotice', component: NoticeEditView}
-  ]
-},
+    path: '/notice',
+    name: 'Notice',
+    component: NoticeView, // 공지 리스트 or 레이아웃
+    },
     { 
-      path: '/oops',
-      name: 'Oops',
-      component: OopsView,
-      children: [
-        { path: 'insert', name: 'InsertOops', component: OopsRegistView},
-        { path: 'update/:id', name: 'UpdateOops', component: OopsEditView}
-      ]
-    }, 
+      path: '/notice/insertNotice',
+      name: 'InsertNotice',
+      component: NoticeRegistView
+    },
+    { 
+      path: '/notice/updateNotice/:id',
+      name: 'UpdateNotice',
+      component: NoticeEditView
+    },
+    // { 
+    //   path: '/oops',
+    //   name: 'Oops',
+    //   component: OopsView,
+    // },
+    // { 
+    //   path: '/oops/insertOops',
+    //   name: 'InsertOops',
+    //   component: OopsRegistView,
+    // },
+    // { 
+    //   path: '/oops/updateOops/:id',
+    //   name: 'UpdateOops',
+    //   component: OopsEditView,
+    // },
+    // { 
+    //   path: '/oops/:id',
+    //   name: 'DetailOops',
+    //   component: OopsDetailView,
+    // },
     { 
       path: '/ooh',
       name: 'Ooh',
       component: OohView,
-      children: [
-        { path: 'insert', name: 'InsertOoh', component: OohRegistView},
-        { path: 'update/:id', name: 'UpdateOoh', component: OohEditView}
-      ]
-    }, 
-
+    },
+    { 
+      path: '/ooh/insertOoh',
+      name: 'InsertOoh',
+      component: OohRegistView,
+    },
+    { 
+      path: '/ooh/updateOoh/:id',
+      name: 'UpdateOoh',
+      component: OohEditView,
+    },
+    { 
+      path: '/ooh/:id/detail',
+      name: 'DetailOoh',
+      component: OohDetailView,
+      props: true,
+    },
 
    // router/index.js
     {
