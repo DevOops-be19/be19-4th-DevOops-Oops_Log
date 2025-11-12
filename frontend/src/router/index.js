@@ -12,7 +12,16 @@ import ContactView from '../components/view/ContactView.vue';
 import NoticeView from '../components/view/NoticeView.vue';
 import NoticeRegistView from '../components/view/NoticeRegistView.vue';
 import NoticeEditView from '../components/view/NoticeEditView.vue';
-import MyPageView from '../components/view/MyPageView.vue';
+// import OopsView from '../components/view/OopsView.vue'
+// import OopsEditView from '../components/view/OopsEditView.vue';
+// import OopsRegistView from '../components/view/OopsRegistView.vue';
+// import OopsDetailView from '../components/view/OopsDetailView.vue';
+import OohView from '../components/view/OohView.vue'
+import OohEditView from '../components/view/OohEditView.vue';
+import OohRegistView from '../components/view/OohRegistView.vue';
+
+import OohDetailView from '../components/view/OohDetailView.vue';
+
 
 // 지현님
 import LoginView from '@/components/view/LoginView.vue';
@@ -27,6 +36,7 @@ import AdminReport from '@/components/admin/AdminReport.vue';
 import AdminTag from '@/components/admin/AdminTag.vue';
 
 // 서진님
+import CommentEdit from '@/components/view/CommentEdit.vue';
 
 // 순우님
 
@@ -51,24 +61,63 @@ const router = createRouter({
       name: 'Contact',
       component: ContactView
     },
-    { 
-      path: '/notice',
-      name: 'Notice',
-      component: NoticeView
+   {
+    path: '/notice',
+    name: 'Notice',
+    component: NoticeView, // 공지 리스트 or 레이아웃
     },
     { 
       path: '/notice/insertNotice',
       name: 'InsertNotice',
       component: NoticeRegistView
-      // meta: { requiresAuth: true, adminOnly: true } // 이건 권한 생기면 
-
     },
     { 
       path: '/notice/updateNotice/:id',
       name: 'UpdateNotice',
       component: NoticeEditView
-      // meta: { requiresAuth: true, adminOnly: true } // 이건 권한 생기면 
     },
+    // { 
+    //   path: '/oops',
+    //   name: 'Oops',
+    //   component: OopsView,
+    // },
+    // { 
+    //   path: '/oops/insertOops',
+    //   name: 'InsertOops',
+    //   component: OopsRegistView,
+    // },
+    // { 
+    //   path: '/oops/updateOops/:id',
+    //   name: 'UpdateOops',
+    //   component: OopsEditView,
+    // },
+    // { 
+    //   path: '/oops/:id',
+    //   name: 'DetailOops',
+    //   component: OopsDetailView,
+    // },
+    { 
+      path: '/ooh',
+      name: 'Ooh',
+      component: OohView,
+    },
+    { 
+      path: '/ooh/insertOoh',
+      name: 'InsertOoh',
+      component: OohRegistView,
+    },
+    { 
+      path: '/ooh/updateOoh/:id',
+      name: 'UpdateOoh',
+      component: OohEditView,
+    },
+    { 
+      path: '/ooh/:id/detail',
+      name: 'DetailOoh',
+      component: OohDetailView,
+      props: true,
+    },
+
    // router/index.js
     {
       path: '/mypage',
@@ -122,6 +171,10 @@ const router = createRouter({
       path: '/verify-code/:email',
       name: 'VerifyCode',
       component: VerifyCodeView
+      path: '/notice/updateComment/:commentId/:noticeId',
+      name: 'UpdateComment',
+      component: CommentEdit
+      // meta: { requiresAuth: true, adminOnly: true } // 이건 권한 생기면 
     },
 
     // { 
