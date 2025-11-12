@@ -171,6 +171,8 @@ const router = createRouter({
       path: '/verify-code/:email',
       name: 'VerifyCode',
       component: VerifyCodeView
+    },
+    {
       path: '/notice/updateComment/:commentId/:noticeId',
       name: 'UpdateComment',
       component: CommentEdit
