@@ -39,6 +39,8 @@ import AdminTag from '@/components/admin/AdminTag.vue';
 import CommentEdit from '@/components/view/CommentEdit.vue';
 
 // 순우님
+import BookMark from '../components/bookmark/BookMark.vue';
+import Follow from '../components/follow/Follow.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -61,7 +63,7 @@ const router = createRouter({
       name: 'Contact',
       component: ContactView
     },
-   {
+    {
     path: '/notice',
     name: 'Notice',
     component: NoticeView, // 공지 리스트 or 레이아웃
@@ -129,13 +131,25 @@ const router = createRouter({
         { path: 'ooh',       name:'mypage-ooh',       component: () => import('../components/mypage/OohTab.vue'),       meta:{label:'Ooh 기록'} },
         { path: 'growth',    name:'mypage-growth',    component: () => import('../components/mypage/GrowthTab.vue'),    meta:{label:'성장 그래프', keepAlive:true} },
         { path: 'reco',      name:'mypage-reco',      component: () => import('../components/mypage/RecommendTab.vue'), meta:{label:'추천게시글'} },
-        { path: 'bookmarks', name:'mypage-bookmarks', component: () => import('../components/mypage/BookmarksTab.vue'), meta:{label:'북마크기록'} },
-        { path: 'followers', name:'mypage-followers', component: () => import('../components/mypage/FollowersTab.vue'), meta:{label:'팔로우기록'} },
+        { path: 'bookmarks', name:'mypage-bookmarks', component: BookMark,
+        meta:{label:'북마크기록'} },
+        { path: 'followers', name:'mypage-followers', component: Follow,
+        meta:{label:'팔로우기록'} },
         { path: 'settings',  name:'mypage-settings',  component: () => import('../components/mypage/SettingsTab.vue'),  meta:{label:'설정'} },
       ]
     },
 
 
+    { 
+      path: '/bookmarks',
+      name: 'BookMark',
+      component: BookMark
+    },
+    { 
+      path: '/follow',
+      name: 'Follow',
+      component: Follow 
+    },
     {
       path: '/admin',
       component: () => import('@/components/view/AdminLayout.vue'),
@@ -171,6 +185,8 @@ const router = createRouter({
       path: '/verify-code/:email',
       name: 'VerifyCode',
       component: VerifyCodeView
+    },
+    {
       path: '/notice/updateComment/:commentId/:noticeId',
       name: 'UpdateComment',
       component: CommentEdit
