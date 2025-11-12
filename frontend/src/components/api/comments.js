@@ -100,7 +100,7 @@ export async function hardDeleteComment(commentId) {
 }
 
 // oops기록에 댓글 작성
-export async function writeCommentAtOops({ content, oopsId, token }) {
+export async function writeCommentAtOops( oopsId, content, token ) {
   const body = { content };
   const { data } = await api.post(`/comments/oops-insert/${oopsId}`, body, {
     headers: {
@@ -112,7 +112,7 @@ export async function writeCommentAtOops({ content, oopsId, token }) {
 }
 
 // ooh기록에 댓글 작성
-export async function writeCommentAtOoh({ content, oohId, token }) {
+export async function writeCommentAtOoh( oohId, content, token ) {
   const body = { content };
   const { data } = await api.post(`/comments/ooh-insert/${oohId}`, body, {
     headers: {
