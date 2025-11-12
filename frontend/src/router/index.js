@@ -23,6 +23,7 @@ import AdminMember from '@/components/admin/AdminMember.vue';
 import AdminReport from '@/components/admin/AdminReport.vue';
 import AdminTag from '@/components/admin/AdminTag.vue';
 // 서진님
+import CommentEdit from '@/components/view/CommentEdit.vue';
 
 // 순우님
 
@@ -103,6 +104,12 @@ const router = createRouter({
       path: '/signup',
       name: 'Signup',
       component: SignUpView
+    },
+    { 
+      path: '/notice/updateComment/:commentId/:noticeId',
+      name: 'UpdateComment',
+      component: CommentEdit
+      // meta: { requiresAuth: true, adminOnly: true } // 이건 권한 생기면 
     },
 
     // { 
