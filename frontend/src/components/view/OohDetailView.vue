@@ -380,13 +380,9 @@ async function onDelete() {
   display:flex; align-items:center; gap:12px; color:#6f6758; font-size:14px;
 }
 .like-btn{
-  display:inline-flex; align-items:center; justify-content:center;
-  gap:0; padding:0 10px; border-radius:10px; border:1px solid #bfd7bc;
-  background:#e6f2e4; color:#355c33; cursor:pointer; font-weight:700; line-height:1;
-  text-align:center; transition: transform .12s ease, box-shadow .12s ease, background .12s ease;
+  background: none; border: none; transform:translateY(3px);
 }
-.like-btn:hover{ transform:translateY(-1px); box-shadow:0 6px 16px rgba(34,30,20,.08); }
-.like-btn.active{ background:#d7eee3; border-color:#a7cfbb; }
+.like-btn:hover{ transform:translateY(2px); }
 .count{ display:inline-flex; align-items:center; gap:6px; }
 .icon{ font-size:14px; line-height:1; }
 .dot{ opacity:.45; }
