@@ -26,11 +26,15 @@ import OohDetailView from '../components/view/OohDetailView.vue';
 // 지현님
 import LoginView from '@/components/view/LoginView.vue';
 import SignUpView from '@/components/view/SignUpView.vue';
+import FindIdView from '@/components/view/FindIdView.vue';
+import FindPwView from '@/components/view/FindPwView.vue';
+import VerifyCodeView from '@/components/view/VerifyCodeView.vue';
 
 // 건일님
 import AdminMember from '@/components/admin/AdminMember.vue';
 import AdminReport from '@/components/admin/AdminReport.vue';
 import AdminTag from '@/components/admin/AdminTag.vue';
+
 // 서진님
 import CommentEdit from '@/components/view/CommentEdit.vue';
 
@@ -154,6 +158,19 @@ const router = createRouter({
       component: SignUpView
     },
     { 
+      path: '/find-id',
+      name: 'FindId',
+      component: FindIdView
+    },
+    { 
+      path: '/find-pw',
+      name: 'FindPw',
+      component: FindPwView
+    },
+    { 
+      path: '/verify-code/:email',
+      name: 'VerifyCode',
+      component: VerifyCodeView
       path: '/notice/updateComment/:commentId/:noticeId',
       name: 'UpdateComment',
       component: CommentEdit
