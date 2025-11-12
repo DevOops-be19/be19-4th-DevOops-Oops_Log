@@ -1,5 +1,6 @@
 package com.devoops.oopslog.achivement.query.controller;
 
+import com.devoops.oopslog.achivement.query.dto.AchivementInfoDTO;
 import com.devoops.oopslog.achivement.query.dto.AchivementSummaryDTO;
 import com.devoops.oopslog.achivement.query.dto.OohRecordCountDTO;
 import com.devoops.oopslog.achivement.query.dto.OopsRecordCountDTO;
@@ -21,6 +22,12 @@ public class AchivementReadController {
     @Autowired
     public AchivementReadController(AchivementReadService achivementReadService) {
         this.achivementReadService = achivementReadService;
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<AchivementInfoDTO> getAchivementInfo(@PathVariable Long userId) {
+        AchivementInfoDTO result = achivementReadService.getAchivementInfo(userId);
+        return ResponseEntity.ok().body(result);
     }
 
     @GetMapping("/{userId}/daily")

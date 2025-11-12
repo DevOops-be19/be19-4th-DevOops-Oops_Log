@@ -19,25 +19,33 @@ public class AchivementReadServiceImpl implements AchivementReadService {
 
 
     @Override
+    public AchivementInfoDTO getAchivementInfo(Long userId) {
+        int oopsCount = achivementReadMapper.countOopsRecord(userId);
+        int oohCount = achivementReadMapper.countOohRecord(userId);
+        List<FindYearMonthDTO> findYearOops = achivementReadMapper.findYearMonthOopsById(userId);
+        List<FindYearMonthDTO> findYearOoh = achivementReadMapper.findYearMonthOohById(userId);
+
+        AchivementInfoDTO achivementInfoDTO = new AchivementInfoDTO();
+        achivementInfoDTO.setOopsCount(oopsCount);
+        achivementInfoDTO.setOohCount(oohCount);
+        achivementInfoDTO.setFindYearOops(findYearOops);
+        achivementInfoDTO.setFindYearOoh(findYearOoh);
+
+        return achivementInfoDTO;
+    }
+
+    @Override
     public AchivementSummaryDTO getUserAchivementSummary(Long userId, int year, int month) {
         List<OopsRecordCountDTO> topOopsRecords = achivementReadMapper.selectDailyUserOopsRecord(userId, year, month);
         List<OohRecordCountDTO> topOohRecords =  achivementReadMapper.selectDailyUserOohRecord(userId, year, month);
-        int oopsCount = achivementReadMapper.countOopsRecord(userId);
-        int oohCount = achivementReadMapper.countOohRecord(userId);
         List<TagCountDTO> topOopsTags = achivementReadMapper.selectTopOopsTagByMonth(userId, year, month);
         List<TagCountDTO> topOohTags = achivementReadMapper.selectTopOohTagByMonth(userId, year, month);
-        List<FindYearMonthDTO> findYearOops = achivementReadMapper.findYearMonthOopsById(userId);
-        List<FindYearMonthDTO> findYearOoh = achivementReadMapper.findYearMonthOohById(userId);
 
         AchivementSummaryDTO summary = new AchivementSummaryDTO();
         summary.setOopsRecords(topOopsRecords);
         summary.setOohRecords(topOohRecords);
-        summary.setOopsCount(oopsCount);
-        summary.setOohCount(oohCount);
         summary.setTopOopsTags(topOopsTags);
         summary.setTopOohTags(topOohTags);
-        summary.setFindYearOops(findYearOops);
-        summary.setFindYearOoh(findYearOoh);
 
         return summary;
     }
