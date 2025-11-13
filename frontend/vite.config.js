@@ -10,7 +10,7 @@ export default defineConfig({
     // Vue에서 /api로 호출하면 스프링(8080)으로 프록시
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'http://localhost/boot',
         changeOrigin: true,
         // 프론트의 /api/* → 백엔드의 /* 로 전달
         rewrite: (path) => path.replace(/^\/api/, ''),

@@ -4,6 +4,7 @@ import com.devoops.oopslog.comments.command.dto.CommentCommandDTO;
 import com.devoops.oopslog.comments.command.service.CommentsCommandService;
 import com.devoops.oopslog.common.SseService;
 import com.devoops.oopslog.member.command.dto.UserImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.Authentication;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/comments")
+@Slf4j
 public class CommentsCommandController {
     private final CommentsCommandService commentsCommandService;
     private final SseService sseService;
@@ -38,7 +40,12 @@ public class CommentsCommandController {
 //        long userId = 20;   // 임시값 지정
         String result = commentsCommandService.registOopsComment(newComment, oops_id, userId);
 
+        try{
         sseService.sseSend(Long.parseLong(result),"댓글이 작성되었습니다.");
+
+        }catch(Exception e){
+            log.info("해당 회원 접속 안함");
+        }
 
         return result;
     }

@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-  import {ref} from 'vue';
+  import {onMounted, onUpdated, ref} from 'vue';
   import {RouterView, useRoute} from 'vue-router';
   import { useUserStore } from './stores/useUserInfo';
 
@@ -24,8 +24,31 @@ const route = useRoute();
 import FooterView from './components/common/FooterView.vue';
 import HeaderView from './components/common/HeaderView.vue';
 import ToastContainer from './components/common/ToastContainer.vue';
+import { useToastStore } from './stores/useToast';
+ const toastStore = useToastStore();
   console.log("현재회원: ",userStore.memberId);
   console.log("토큰:",userStore.token)
+  const eventSource = ref(new EventSource(`http://localhost/boot/member/sse-sub/${userStore.id}`));
+
+  onMounted(()=>{
+    try {
+      console.log("onmounted")
+      eventSource.value.onopen(()=>{
+        console.log("sse connected");
+      })
+    } catch (error) {
+      console.log("sse error");
+    }
+  })
+
+  eventSource.value.onmessage = (event)=>{
+    const message = JSON.parse(event.data);
+    console.log(message.message);
+    toastStore.showToast(message.message);
+    }
+  
+  // eventSource.onmessage
+
 </script>
 
 

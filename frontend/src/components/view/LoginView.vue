@@ -46,7 +46,8 @@ const handleLogin = async () => {
 
   toastStore.showToast("로그인 되었습니다.");
 
-  router.push("/");
+  await router.push("/");
+  location.reload();
   } catch (error) {
     console.log(error);
     toastStore.showToast(error.response.data.error)
