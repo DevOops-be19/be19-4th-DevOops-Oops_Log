@@ -1,17 +1,14 @@
 <!--AI -->
 <template>
-  <article class="ai-card">
     <header class="head">
       <div class="head-left">
         <span class="dot-icon" aria-hidden="true"></span>
-        <!-- 🔄 [변경] 제목을 'AI 분석'으로, 입력창은 부모에서만 -->
-        <h2 class="title">AI 분석</h2>
       </div>
     </header>
 
     <div class="divider" aria-hidden="true"></div>
 
-    <section class="body">
+    
 
       <!-- ✅ [유지/변경] 부모에서 온 text만 분석 -->
       <button
@@ -40,8 +37,6 @@
           </div>
         </div>
       </div>
-    </section>
-  </article>
 </template>
 
 <script setup>
