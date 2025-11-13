@@ -59,6 +59,18 @@
         <div class="count"><span class="icon">좋아요</span> {{ likesCount }}</div>
         <div class="dot">•</div>
         <div class="count"><span class="icon">댓글</span> {{ totalComments }}</div>
+        <div class="report-wrap" v-if="!isMine">
+          <button class="report-btn" @click="openReportModal">
+            <span class="icon">신고</span>
+          </button>
+        </div>
+        <ReportModal
+          :visible="reportVisible"
+          target-type="ooh"
+          :target-id="ooh?.id"
+          @close="reportVisible = false"
+          @submitted="onReportSubmitted"
+        />
       </footer>
     </div>
 
@@ -87,6 +99,7 @@ import OohComments from '../record/OohComments.vue'
 import { useToastStore } from "@/stores/useToast";
 import { useUserStore } from "@/stores/useUserInfo"; 
 import { pushOohLikes, checkOohLikesExist } from '../api/likes'
+import ReportModal from '@/components/common/ReportModal.vue'
 
 const toastStore = useToastStore();
 const userStore  = useUserStore(); 
@@ -107,6 +120,20 @@ const likedByMe  = ref(false)
 const newComment     = ref('')
 const editCommentId  = ref(null)
 const editContent    = ref('')
+
+const reportVisible = ref(false);
+
+function openReportModal() {
+  if (!userStore.id) {
+    toastStore.showToast("로그인이 필요합니다.")
+    return;
+  }
+  reportVisible.value = true;
+}
+
+function onReportSubmitted() {
+  toastStore.showToast("신고가 접수되었습니다.")
+}
 
 
 // ✅ 현재 로그인한 유저 ID
@@ -449,4 +476,36 @@ async function onDelete() {
   line-height:1.8;
   font-size:14.5px;
 }
+
+.report-wrap {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.report-btn {
+  background: none;
+  border: 0;
+  padding: 4px 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #a12c0f;
+  opacity: 0.85;
+  border-radius: 8px;
+  transition: opacity .15s ease, color .15s ease, transform .15s ease;
+}
+
+.report-btn:hover {
+  opacity: 1;
+  color: #5e574b;
+  transform: translateY(-1px);
+}
+
+.report-btn .icon {
+  font-size: 14px;
+  font-weight: 600;
+  padding-bottom: 1px;
+}
+
 </style>
