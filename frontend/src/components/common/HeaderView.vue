@@ -128,9 +128,11 @@ const loginPage = ()=>{
   router.push('/login')
   open.value = false;
 }
-const logoutPage = ()=>{
+const logoutPage = async ()=>{
   sessionStorage.removeItem('userInfo');
-  window.location.href = '/main';
+  open.value = false;
+  await router.replace('/');
+  location.reload();
 }
 const myPage = ()=>{
   open.value = false;
