@@ -76,12 +76,25 @@ const toastStore = useToastStore();
 // 현재 사용자/관리자 여부 계산 추가
 const currentUserId = computed(() => Number(userStore.id || 0))
 
+
+// 관리자 판별: userStore.auth 기준
+// auth: [{ auth_name: 'ROLE_ADMIN' }, { auth_name: 'ROLE_USER' }] 같이 있을떄
 const isAdmin = computed(() => {
-  const single = userStore.role || userStore.userRole || userStore.user?.role
-  const list   = userStore.roles || userStore.user?.roles || userStore.authorities || []
-  const norm = (x) => (typeof x === 'string') ? x : (x?.authority || x?.name || '')
-  const hasAdmin = (r) => String(norm(r)).toUpperCase().includes('ADMIN')
-  return hasAdmin(single) || (Array.isArray(list) && list.some(hasAdmin))
+  const authList = userStore.auth || []
+
+  if (!Array.isArray(authList)) return false
+
+  return authList.some(a => {
+    // a가 문자열로 올 수도 있고, 객체로 올 수도 있으니 둘 다 케이스 처리
+    const raw =
+      typeof a === 'string'
+        ? a
+        : (a.auth_name || a.authName || a.role || a.authority || a.name || '')
+
+    const upper = String(raw).toUpperCase()
+    // ROLE_ADMIN 이거나 ADMIN 이라는 단어가 들어있으면 관리자
+    return upper.includes('ROLE_ADMIN') || upper === 'ADMIN'
+  })
 })
 
 const canWrite = ref(true)
@@ -180,10 +193,18 @@ async function loadNext(q = '') {
     const { list, hasNextPage } = adaptListResponse(raw)
     const mapped = list.map(normalizeItem)
 
-    // ✅ 비공개(Y)는 글쓴이 본인 or 관리자만 보이도록 필터링
-    const visible = mapped.filter(p =>
-      !p.isPrivate || p.userId === currentUserId.value || isAdmin.value
-    )
+       // ✅ 관리자면 조건 없이 전부 보이게
+    //    관리자 아니면: 공개글 + (내 비공개글만)
+    const visible = mapped.filter(p => {
+      if (isAdmin.value) return true           // 관리자 → 다 보임
+      if (!p.isPrivate) return true            // 공개 글 → 다 보임
+      return p.userId === currentUserId.value  // 비공개 글 → 작성자 본인만
+    })
+onMounted(() => {
+  console.log('[OohView] userStore.$state =>', JSON.stringify(userStore.$state, null, 2))
+  console.log('[OohView] isAdmin.value =>', isAdmin.value)
+})
+
 
     items.value.push(...visible)
     hasNext.value = hasNextPage
