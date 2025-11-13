@@ -86,7 +86,7 @@ function goDetail(id) {
   try {
     router.push({ name: 'DetailOops', params: { id: String(id) } })
   } catch (e) {
-    console.warn('라우터가 이상합니다.', e)
+    toastStore.showToast ('라우터가 이상합니다.', e)
     router.push({ path: `/oops/${id}/detail` })
   }
 }
