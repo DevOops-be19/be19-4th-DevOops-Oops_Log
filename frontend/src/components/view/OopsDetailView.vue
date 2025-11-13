@@ -1,7 +1,7 @@
 <template>
   <div class="page">
-    <button class="back-link" type="button" @click="goList">
-      <span class="arrow">←</span> 돌아가기
+    <button class="back" type="button" @click="router.back()">
+      <span class="arrow"></span><span class="back-text">돌아가기</span>
     </button>
 
     <div class="card" v-if="oops">
@@ -12,7 +12,7 @@
             <div class="name">{{ oops.userName }}</div>
             <div class="date">{{ formattedDate }}</div>
           </div>
-          
+          <span class="badge is-oops">oops</span>
           <button 
             v-if="!isMine && currentUserId" 
             class="btn follow-btn" 
@@ -65,7 +65,6 @@
         <div class="count"><span class="icon">좋아요</span> {{ likesCount }}</div>
         <div class="dot">•</div>
         <div class="count"><span class="icon">댓글</span> {{ totalComments }}</div>
-        
         <div class="dot" v-if="currentUserId">•</div>
         <button 
           class="btn-footer" 
@@ -84,6 +83,7 @@
           @close="reportVisible = false"
           @submitted="onReportSubmitted"
         />
+        
       </footer>
     </div>
 
@@ -110,10 +110,10 @@ import OopsComments from '../record/OopsComments.vue'
 import { useToastStore } from "@/stores/useToast";
 import { useUserStore } from "@/stores/useUserInfo"; 
 import { pushOopsLikes, checkOopsLikesExist } from '../api/likes'
+import ReportModal from '@/components/common/ReportModal.vue';
 import { addBookmark, removeBookmark, fetchMyBookmarks } from '../api/bookmarks'
 import { followUser, unfollowUser, fetchMyFollowing } from '../api/follow'
 
-import ReportModal from '@/components/common/ReportModal.vue';
 
 const toastStore = useToastStore();
 const userStore  = useUserStore(); 
@@ -468,15 +468,12 @@ async function toggleFollow() {
   padding:28px 16px 88px;
   display:flex; flex-direction:column; align-items:center;
 }
-.back-link{
-  align-self:flex-start; width:100%; max-width:960px;
-  display:inline-flex; gap:8px; align-items:center;
-  background:transparent; border:0; cursor:pointer;
-  font-size:14px; color:#7a6f5b; opacity:.8;
-  transition:opacity .15s ease, transform .15s ease;
+.back{
+  display:flex; align-items:center; gap:8px; margin-bottom:10px;
+  background:none; border:0; cursor:pointer; color:var(--ink);
 }
-.back-link:hover{ opacity:1; transform:translateX(-2px); }
-.arrow{ font-weight:700; }
+.arrow{ width:8px; height:8px; border-left:2px solid var(--ink); border-bottom:2px solid var(--ink); transform:rotate(45deg); }
+.back-text{ font-size:16px; line-height:24px; }
 
 .card{
   width:100%; max-width:960px;
@@ -592,33 +589,6 @@ async function toggleFollow() {
   font-size:14.5px;
 }
 
-/* [수정] CSS 추가 */
-.follow-btn {
-  padding: 4px 10px;
-  font-size: 12px;
-  border-radius: 8px;
-  border: 1px solid #bfd7bc;
-  background: #e6f2e4;
-  color: #355c33;
-  font-weight: 700;
-  cursor: pointer;
-  margin-left: 10px;
-}
-.follow-btn:hover { background: #d6e2d4; }
-.follow-btn:disabled { opacity: 0.5; }
-
-/* ✅ 북마크 버튼 CSS */
-.btn-footer {
-  background: none;
-  border: none;
-  color: #6f6758;
-  font-size: 14px;
-  cursor: pointer;
-  padding: 4px;
-}
-.btn-footer:hover { text-decoration: underline; }
-.btn-footer:disabled { opacity: 0.5; }
-
 .report-wrap {
   margin-left: auto;     /* 왼쪽에서 밀어내서 오른쪽 끝으로 이동 */
   display: flex;
@@ -653,4 +623,47 @@ async function toggleFollow() {
   padding-bottom: 1px;
 }
 
+/* [수정] CSS 추가 */
+.follow-btn {
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  border: 1px solid #bfd7bc;
+  background: #e6f2e4;
+  color: #355c33;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.follow-btn:hover { background: #d6e2d4; }
+.follow-btn:disabled { opacity: 0.5; }
+
+/* ✅ 북마크 버튼 CSS */
+.btn-footer {
+  background: none;
+  border: none;
+  color: #6f6758;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+}
+.btn-footer:hover { text-decoration: underline; }
+.btn-footer:disabled { opacity: 0.5; }
+.badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  align-self: center; /* 수직 정렬을 위해 추가 */
+}
+.badge.is-ooh {
+  background-color: rgba(136, 170, 130, 0.2);
+  color: #5a7255;
+}
+.badge.is-oops {
+  background-color: rgba(85, 67, 59, 0.1);
+  color: #55433B;
+}
 </style>
