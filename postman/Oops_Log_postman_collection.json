@@ -58,16 +58,6 @@
 									"key": "content",
 									"value": "공지",
 									"disabled": true
-								},
-								{
-									"key": "size",
-									"value": "10",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "1",
-									"disabled": true
 								}
 							]
 						}
@@ -118,7 +108,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/notice/updateNotice/23",
+							"raw": "http://localhost:8080/notice/updateNotice/28",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -127,7 +117,7 @@
 							"path": [
 								"notice",
 								"updateNotice",
-								"23"
+								"28"
 							]
 						}
 					},
@@ -236,6 +226,49 @@
 					"response": []
 				},
 				{
+					"name": "Ooh 기록 상세조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ooh/1/detail",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ooh",
+								"1",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "content",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Ooh 기록 작성",
 					"request": {
 						"method": "POST",
@@ -267,11 +300,21 @@
 				{
 					"name": "Ooh 기록 수정",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLshqHtmJXshJ0iLCJhdXRoIjpbIlJPTEVfVVNFUiJdLCJleHAiOjE3NjI5OTI4MTJ9.voBSpko55HJ6lgh5SfOpIHoPc-7-Ycm8l0HbvNLUvIhGXt8N0MLDIPg7DT2o3YwRJaf4xyViLDj_3F3Gk_AZWQ",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"oohTitle\": \"발표 피드백 반영 완료\",\r\n  \"oohContent\": \"질문받은 부분 정리해서 문서 업데이트까지 마침\",\r\n  \"oohIsPrivate\": \"N\"\r\n}",
+							"raw": "{\r\n  \"oohTitle\": \"발표 피드백 반영 완료\",\r\n  \"oohContent\": \"질문받은 부분 정리해서 문서 업데이트까지 마침\",\r\n  \"oohIsPrivate\": \"N\",\r\n  \"tagIds\": [1,2,3]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -279,7 +322,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/ooh/updateOoh/24",
+							"raw": "http://localhost:8080/ooh/updateOoh/58",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -288,7 +331,7 @@
 							"path": [
 								"ooh",
 								"updateOoh",
-								"24"
+								"58"
 							]
 						}
 					},
@@ -309,7 +352,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/ooh/deleteOoh/25",
+							"raw": "http://localhost:8080/ooh/deleteOoh/22",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -318,7 +361,7 @@
 							"path": [
 								"ooh",
 								"deleteOoh",
-								"25"
+								"22"
 							]
 						}
 					},
@@ -327,6 +370,16 @@
 				{
 					"name": "Ooh 기록 하드 삭제",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{song}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -339,7 +392,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/ooh/hardDeleteOoh/25",
+							"raw": "http://localhost:8080/ooh/hardDeleteOoh/17",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -348,7 +401,7 @@
 							"path": [
 								"ooh",
 								"hardDeleteOoh",
-								"25"
+								"17"
 							]
 						}
 					},
@@ -560,21 +613,11 @@
 						}
 					],
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "",
-									"type": "string"
-								}
-							]
-						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"member_id\":\"kjandgo2\",\r\n    \"member_pw\":\"kjandgo2\"\r\n}",
+							"raw": "{\r\n    \"member_id\":\"송형석\",\r\n    \"member_pw\":\"thdgudtjr\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -601,15 +644,13 @@
 						{
 							"listen": "test",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Successful POST request\", function () {",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
 									"});",
 									""
-								],
-								"type": "text/javascript",
-								"packages": {},
-								"requests": {}
+								]
 							}
 						}
 					],
@@ -618,7 +659,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"memberId\":\"kjandgo2\",\n    \"memberPw\":\"kjandgo2\",\n    \"email\":\"rptmffld0204@gmail.com\",\n    \"name\":\"강지현22\",\n    \"birth\":\"2018-02-02\",\n    \"gender\":\"M\"\n}",
+							"raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -626,14 +667,12 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/member/sign-up",
+							"raw": "{{base_url}}/info",
 							"host": [
-								"localhost"
+								"{{base_url}}"
 							],
-							"port": "8080",
 							"path": [
-								"member",
-								"sign-up"
+								"info"
 							]
 						},
 						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
@@ -664,7 +703,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{token}}",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJramFuZGdvIiwiYXV0aCI6WyJST0xFX1VTRVIiXSwiZXhwIjoxNzYyNjI5OTYzfQ.2aJFMCt8Avq_xGq20QMAdwExGvw3EA1ogqmYfT5P2YjH4ezNS0DMcWhlcdfknbb7kr88q6DjlV9rw6KqBAuMPw",
 									"type": "string"
 								}
 							]
@@ -729,11 +768,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{gateway}}member/find-pw",
+							"raw": "localhost:8080/member/find-pw",
 							"host": [
-								"{{gateway}}member"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"member",
 								"find-pw"
 							]
 						}
@@ -747,7 +788,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"rptmffld0204@naver.com\",\r\n    \"verifyCode\":\"977707\"\r\n}",
+							"raw": "{\r\n    \"email\":\"rptmffld0204@naver.com\",\r\n    \"verifyCode\":\"803444\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -755,11 +796,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{gateway}}member/verify-pw",
+							"raw": "localhost:8080/member/verify-pw",
 							"host": [
-								"{{gateway}}member"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
+								"member",
 								"verify-pw"
 							]
 						}
@@ -773,7 +816,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\":\"25\",\r\n    \"memberId\":\"kjandgo\",\r\n    \"memberPw\":\"kjandgo\",\r\n    \"email\":\"rptmffld0204@naver.com\"\r\n}",
+							"raw": "{\r\n    \"id\":\"39\",\r\n    \"memberId\":\"uni_student_jo\",\r\n    \"memberPw\":\"uni_student_jo\",\r\n    \"email\":\"student2@example.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -800,16 +843,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/member/sse-sub/25",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"member",
-								"sse-sub",
-								"25"
-							]
+							"raw": ""
 						}
 					},
 					"response": []
@@ -1086,7 +1120,7 @@
 							"raw": "{\r\n    \"email\": \"kang12131@example.com\",\r\n    \"pwd\": \"pwd045\"\r\n}"
 						},
 						"url": {
-							"raw": "localhost:8080/admin/member?page=2&size=10",
+							"raw": "localhost:8080/admin/member",
 							"host": [
 								"localhost"
 							],
@@ -1098,11 +1132,13 @@
 							"query": [
 								{
 									"key": "page",
-									"value": "2"
+									"value": "2",
+									"disabled": true
 								},
 								{
 									"key": "size",
-									"value": "10"
+									"value": "10",
+									"disabled": true
 								}
 							]
 						}
@@ -1973,17 +2009,27 @@
 				{
 					"name": "좋아요한기록인지 확인(oops)",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE3NjI5MTk2ODZ9.a1TzcjmaGUSpEKZfyYh7-oxDyuGOCPlfA921hQwGqSkZ7NxYaaU5HtHFwYtSTU9u0479BQRmJ-ssytq8EkmuDA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/likes/20/oopslikes-exist",
+							"raw": "localhost:8080/likes/22/oopslikes-exist",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"likes",
-								"20",
+								"22",
 								"oopslikes-exist"
 							]
 						}
