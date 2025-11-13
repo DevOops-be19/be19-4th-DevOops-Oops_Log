@@ -74,6 +74,16 @@
           v-if="currentUserId">
           {{ isBookmarked ? '북마크 됨' : '북마크' }}
         </button>
+        <div class="report-wrap" v-if="!isMine">
+           <button class="report-btn" @click="openReportModal"><span class="icon">신고</span></button>
+        </div>
+        <ReportModal
+          :visible="reportVisible"
+          target-type="oops"
+          :target-id="oops?.id"
+          @close="reportVisible = false"
+          @submitted="onReportSubmitted"
+        />
       </footer>
     </div>
 
@@ -103,6 +113,7 @@ import { pushOopsLikes, checkOopsLikesExist } from '../api/likes'
 import { addBookmark, removeBookmark, fetchMyBookmarks } from '../api/bookmarks'
 import { followUser, unfollowUser, fetchMyFollowing } from '../api/follow'
 
+import ReportModal from '@/components/common/ReportModal.vue';
 
 const toastStore = useToastStore();
 const userStore  = useUserStore(); 
@@ -128,6 +139,20 @@ const followCheckLoading = ref(true);
 const newComment     = ref('')
 const editCommentId  = ref(null)
 const editContent    = ref('')
+
+const reportVisible = ref(false)
+
+function openReportModal() {
+  if (!userStore.id) {
+    toastStore.showToast("로그인이 필요합니다.")
+    return
+  }
+  reportVisible.value = true
+}
+
+function onReportSubmitted() {
+  toastStore.showToast("신고가 접수되었습니다.")
+}
 
 
 // ✅ 현재 로그인한 유저 ID
@@ -593,4 +618,39 @@ async function toggleFollow() {
 }
 .btn-footer:hover { text-decoration: underline; }
 .btn-footer:disabled { opacity: 0.5; }
+
+.report-wrap {
+  margin-left: auto;     /* 왼쪽에서 밀어내서 오른쪽 끝으로 이동 */
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ===== 신고하기 버튼 ===== */
+.report-btn {
+  background: none;
+  border: 0;
+  padding: 4px 6px;
+  cursor: pointer;
+
+  font-size: 14px;
+  color: #a12c0f;        /* 카드 date, meta 색상과 일치 */
+  opacity: 0.85;
+  
+  border-radius: 8px;     /* 다른 버튼들과 통일감 */
+  transition: opacity .15s ease, color .15s ease, transform .15s ease;
+}
+
+.report-btn:hover {
+  opacity: 1;
+  color: #5e574b;         /* 조금 진한 브라운 */
+  transform: translateY(-1px);
+}
+
+.report-btn .icon {
+  font-size: 14px;
+  font-weight: 600;
+  padding-bottom: 1px;
+}
+
 </style>
