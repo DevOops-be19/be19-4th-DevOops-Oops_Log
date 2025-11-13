@@ -225,6 +225,14 @@ async function checkLikeExist() {
 onMounted(async () => {
   const id = route.params.id
   loading.value = true
+
+  // ✅ 디테일 페이지 진입 시 스크롤 맨 위로 올리기
+  window.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: 'auto',   // 'smooth'로 바꾸면 부드럽게 올라감 (원하면 변경 가능)
+  })
+
   try {
     const detail = await api.get(`/ooh/${id}/detail`)
     const raw = detail.data || {}
