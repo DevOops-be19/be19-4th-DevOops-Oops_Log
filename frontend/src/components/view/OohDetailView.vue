@@ -126,11 +126,6 @@ const isFollowing = ref(false);
 const bookmarkCheckLoading = ref(true);
 const followCheckLoading = ref(true);
 
-const newComment     = ref('')
-const editCommentId  = ref(null)
-const editContent    = ref('')
-
-
 // ✅ 현재 로그인한 유저 ID
 const currentUserId = computed(() => Number(userStore.id || 0))
 //AI 답변
