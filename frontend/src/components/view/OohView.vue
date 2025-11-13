@@ -30,7 +30,7 @@
       <p style="margin-top:8px">검색어: {{ keyword }}</p>
     </div>
 
-    <!-- 목록 -->
+    <!-- 목록(private 추가(자신 혹은 관리자만 출력)) -->
     <section class="list">
         <RecordCard
           v-for="p in items"
@@ -38,6 +38,10 @@
           :post="p"
           record-type="ooh"
           :fetch-likes="true"
+
+          :can-see-private="(p.userId === currentUserId) || isAdmin"  
+          :admin-view="isAdmin"         
+          
           @update:likes="val => p.likes = val"
           @click="() => goDetail(p.id)"  
         />
@@ -58,7 +62,7 @@
 
 <script setup>
 import axios from "axios";
-import { ref, onMounted, onBeforeUnmount, nextTick, watch } from 'vue'
+import { ref, computed ,onMounted, onBeforeUnmount, nextTick, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import RecordCard from '../record/RecordCard.vue'
 import RecordSearchBar from '../record/RecordSearchBar.vue'
@@ -69,8 +73,16 @@ import { useUserStore } from "@/stores/useUserInfo";
 const userStore = useUserStore()
 const toastStore = useToastStore();
 
-// const currentUserId = computed(() => Number(userStore.id || 0))
-// const isLoggedIn   = computed(() => !!userStore.token && currentUserId.value > 0)
+// 현재 사용자/관리자 여부 계산 추가
+const currentUserId = computed(() => Number(userStore.id || 0))
+
+const isAdmin = computed(() => {
+  const single = userStore.role || userStore.userRole || userStore.user?.role
+  const list   = userStore.roles || userStore.user?.roles || userStore.authorities || []
+  const norm = (x) => (typeof x === 'string') ? x : (x?.authority || x?.name || '')
+  const hasAdmin = (r) => String(norm(r)).toUpperCase().includes('ADMIN')
+  return hasAdmin(single) || (Array.isArray(list) && list.some(hasAdmin))
+})
 
 const canWrite = ref(true)
 function goWrite() {             
@@ -86,7 +98,7 @@ function goDetail(id) {
   try {
     router.push({ name: 'DetailOoh', params: { id: String(id) } })
   } catch (e) {
-    console.warn('라우터가 이상합니다.', e)
+    toastStore.showToast ('라우터가 이상합니다.', e)
     router.push({ path: `/ooh/${id}/detail` })
   }
 }
@@ -144,6 +156,7 @@ function normalizeItem(it) {
     ? it[keys.find(k => it?.[k] !== undefined)]
     : undefined
   const id        = pick('id', 'oohId', 'ooh_id')
+  const userId    = pick('userId', 'oohUserId', 'writerId', 'authorId')
   const title     = pick('oohTitle', 'title', 'ooh_title')
   const body      = pick('oohContent', 'content', 'ooh_content', 'text', 'body')
   const isPrivate = pick('oohIsPrivate', 'isPrivate', 'ooh_is_private') === 'Y'
@@ -152,7 +165,7 @@ function normalizeItem(it) {
   const tags      = pick('tagNames', 'tags', 'tag_names') || []
   const likes     = pick('likeCount', 'likes', 'like_count') ?? 0
 
-  return { id, userName: name, title, content: body, isPrivate, createdAt, tags, likes }
+  return { id, userId, userName: name, title, content: body, isPrivate, createdAt, tags, likes }
 }
 /* ------------------------------------------- */
 
@@ -164,10 +177,15 @@ async function loadNext(q = '') {
 
   try {
     const raw = await fetchOohList({ page: page.value, size: size.value, title: q, content: q })
-    // console.log('[/ooh/all]', raw) // 필요 시 살리기
     const { list, hasNextPage } = adaptListResponse(raw)
     const mapped = list.map(normalizeItem)
-    items.value.push(...mapped)
+
+    // ✅ 비공개(Y)는 글쓴이 본인 or 관리자만 보이도록 필터링
+    const visible = mapped.filter(p =>
+      !p.isPrivate || p.userId === currentUserId.value || isAdmin.value
+    )
+
+    items.value.push(...visible)
     hasNext.value = hasNextPage
     page.value += 1
   } catch (e) {
