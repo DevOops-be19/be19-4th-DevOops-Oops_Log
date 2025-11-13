@@ -54,12 +54,12 @@ const feed = ref([])
 const isLoading = ref(true)
 const searchQuery = ref('')
 const userStore = useUserStore() // 스토어 사용 
-// const userId = computed(() => userStore.id) // 스토어에서 userId 가져오기 (주석 처리)
 
 const fetchFeed = async () => {
   isLoading.value = true;
 
-  if (!userStore.id) {
+  // 토큰 유무도 함께 체크
+  if (!userStore.id || !userStore.token) {
     isLoading.value = false
     feed.value = []
     console.error('로그인 정보가 없습니다.')
@@ -67,8 +67,12 @@ const fetchFeed = async () => {
   }
   
   try {
-    // /api/follow/feed/my (인증된 사용자) 호출
-    const res = await axios.get(`/api/follow/feed/my`) 
+    // axios.get 호출에 headers 객체를 추가하여 토큰 주입
+    const res = await axios.get(`/api/follow/feed/my`, {
+      headers: {
+        'Authorization': `Bearer ${userStore.token}`
+      }
+    }) 
     feed.value = res.data // DTO 배열을 feed ref에 저장
   } catch (err) {
     console.error('팔로우 피드를 불러오는 중 오류 발생:', err)
