@@ -31,7 +31,7 @@ const handleFindPw = async () => {
   }
 
   try{
-    await axios.post('/api/member/find-pw',{
+    await axios.post('http://localhost/boot/member/find-pw',{
       memberId:memberId.value,
       name:username.value,
       email:email.value,

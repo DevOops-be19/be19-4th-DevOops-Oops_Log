@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: '/api',      // Vite proxy 때문에 프론트는 /api로 호출
+  baseURL: 'http://localhost/boot',      // Vite proxy 때문에 프론트는 /api로 호출
   withCredentials: true // 쿠키 자동 포함
 })
 

@@ -83,7 +83,7 @@ const toggleState = async (member) => {
     const newState = member.user_state === 'A' ? 'S' : 'A'
 
     const res = await axios.patch(
-      `/api/admin/member/${member.id}/state`,
+      `http://localhost/boot/admin/member/${member.id}/state`,
       null,
       { params: { state: newState } }
     )
@@ -101,7 +101,7 @@ const toggleState = async (member) => {
 
 const fetchMembers = async () => {
   try {
-    const res = await axios.get(`/api/admin/member?page=${page.value}&size=${size.value}`)
+    const res = await axios.get(`http://localhost/boot/admin/member?page=${page.value}&size=${size.value}`)
     members.value = res.data
     hasNextPage.value = res.data.length === size.value
   } catch (err) {

@@ -144,7 +144,7 @@ const pageSize = 10
 
 const fetchTags = async () => {
   try {
-    const res = await axios.get('/api/admin/tag')
+    const res = await axios.get('http://localhost/boot/admin/tag')
     tags.value = res.data
   } catch (err) {
     console.error('태그 목록 조회 오류:', err)
@@ -157,7 +157,7 @@ const addTag = async () => {
     return
   }
   try {
-    await axios.post('/api/admin/tag', {
+    await axios.post('http://localhost/boot/admin/tag', {
       tagName: newTagName.value,
       tagType: newTagType.value,
     })
@@ -177,7 +177,7 @@ const selectTag = (tag) => {
 const deleteTag = async (id) => {
   if (!confirm('정말로 이 태그를 삭제하시겠습니까?')) return
   try {
-    await axios.delete(`/api/admin/tag/${id}`)
+    await axios.delete(`http://localhost/boot/admin/tag/${id}`)
     alert('태그가 삭제되었습니다.')
     selectedTag.value = null
     fetchTags()

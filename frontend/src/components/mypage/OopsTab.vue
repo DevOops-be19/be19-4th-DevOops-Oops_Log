@@ -55,7 +55,7 @@ onMounted(async () => {
     }
 
     // ✅ API 호출
-    const res = await axios.get(`/api/oops/${userId}/mypage`)
+    const res = await axios.get(`http://localhost/boot/oops/${userId}/mypage`)
     if (Array.isArray(res.data)) {
       // ✅ RecordCard 표준 구조에 맞게 매핑
       list.value = res.data.map(it => ({

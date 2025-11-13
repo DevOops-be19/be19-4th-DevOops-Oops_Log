@@ -73,7 +73,7 @@ let oohTagChart = null
 // 1️⃣ 최초 로드: 연/월/총기록
 async function fetchInitialData() {
   try {
-    const res = await axios.get(`/api/achivement/${userId}`)
+    const res = await axios.get(`http://localhost/boot/achivement/${userId}`)
     const data = res.data
 
     // ✅ 총 기록 (상단 카드용)
@@ -114,7 +114,7 @@ async function fetchDailyData() {
   if (total.value === 0) return
 
   try {
-    const res = await axios.get(`/api/achivement/${userId}/daily`, {
+    const res = await axios.get(`http://localhost/boot/achivement/${userId}/daily`, {
       params: { year: selectedYear.value, month: selectedMonth.value }
     })
     const data = res.data

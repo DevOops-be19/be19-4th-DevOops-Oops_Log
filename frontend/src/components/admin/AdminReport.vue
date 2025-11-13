@@ -103,7 +103,7 @@ const hasNextPage = ref(true)
 
 const fetchReports = async () => {
   try {
-    const res = await axios.get(`/api/report/all?page=${page.value}&size=${size.value}`)
+    const res = await axios.get(`http://localhost/boot/report/all?page=${page.value}&size=${size.value}`)
     reports.value = res.data
     hasNextPage.value = res.data.length === size.value
   } catch (err) {
@@ -113,7 +113,7 @@ const fetchReports = async () => {
 
 const selectReport = async (id) => {
   try {
-    const res = await axios.get(`/api/report/${id}`)
+    const res = await axios.get(`http://localhost/boot/report/${id}`)
     selectedReport.value = res.data
   } catch (err) {
     console.error('신고 상세 조회 오류:', err)

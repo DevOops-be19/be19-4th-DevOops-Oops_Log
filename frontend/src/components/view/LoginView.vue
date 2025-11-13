@@ -25,7 +25,7 @@ const handleLogin = async () => {
   console.log("로그인 시도:", username.value, password.value);
   // 로그인 요청
   try {
-  const response = await axios.post('/api/login', {
+  const response = await axios.post('http://localhost/boot/login', {
     member_id: username.value,
     member_pw: password.value
   });

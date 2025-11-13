@@ -52,7 +52,7 @@ onMounted(async () => {
       return
     }
 
-    const res = await axios.get(`/api/ooh/${userId}/mypage`)
+    const res = await axios.get(`http://localhost/boot/ooh/${userId}/mypage`)
     if (Array.isArray(res.data)) {
       // RecordCard에 맞게 key 매핑
       list.value = res.data.map(it => ({

@@ -157,7 +157,7 @@ function onAIResult({ feedback, relatedTags }){
 // (A) 부모에서 직접 AI 호출(자식 컴포넌트 호출 없이도 동작)
 async function requestAI() {
   try {
-    const { data } = await axios.post('/api/ai/analyze', { content: form.oopsContent })
+    const { data } = await axios.post('http://localhost/boot/ai/analyze', { content: form.oopsContent })
     form.aiAnswer = data?.feedback || ''
     aiEmoTagNames.value = Array.isArray(data?.relatedTags) ? data.relatedTags : []
   } catch (e) {

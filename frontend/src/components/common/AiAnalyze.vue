@@ -60,7 +60,7 @@ async function analyzeContent () {
   loading.value = true
   try {
     // ✅ 부모의 text로 분석 요청
-    const { data } = await axios.post('/api/ai/analyze', { content: props.text })
+    const { data } = await axios.post('http://localhost/boot/ai/analyze', { content: props.text })
     feedback.value = data?.feedback || ''
     relatedTags.value = Array.isArray(data?.relatedTags) ? data.relatedTags : []
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useUserStore } from '@/stores/useUserInfo'
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: 'http://localhost/boot',
   withCredentials: true,
 });
 
