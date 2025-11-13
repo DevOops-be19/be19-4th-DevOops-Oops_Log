@@ -130,13 +130,9 @@ const loginPage = ()=>{
 }
 const logoutPage = async ()=>{
   sessionStorage.removeItem('userInfo');
-<<<<<<< HEAD
-  window.location.href = '/main';
-=======
   open.value = false;
   await router.replace('/');
   location.reload();
->>>>>>> develop_v2
 }
 const myPage = ()=>{
   open.value = false;
