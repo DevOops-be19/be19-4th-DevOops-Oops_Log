@@ -1,33 +1,66 @@
 package com.devoops.oopslog.admin.query.service;
 
 import com.devoops.oopslog.admin.query.dto.AllMemberDTO;
-import org.junit.jupiter.api.Assertions;
+import com.devoops.oopslog.admin.query.dto.AllTagDTO;
+import com.devoops.oopslog.admin.query.mapper.AdminReadMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
-@SpringBootTest
-@Transactional
-@Rollback
-class AdminReadServiceImplTest {
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-    @Autowired
-    private AdminReadService adminReadService;
+public class AdminReadServiceImplTest {
 
-    @DisplayName("관리자 회원 조회 테스트")
+    private AdminReadMapper adminReadMapper;
+    private AdminReadServiceImpl adminReadService;
+
+    @BeforeEach
+    void setUp() {
+        adminReadMapper = mock(AdminReadMapper.class);
+        adminReadService = new AdminReadServiceImpl(adminReadMapper);
+    }
+
+    // =========================================================
     @Test
-    public void testSelectMember() {
-        Assertions.assertDoesNotThrow(() -> {
-            List<AllMemberDTO> list =
-                    adminReadService.getAllMember(
-                      1,5
-                    );
-            list.forEach(System.out::println);
-        });
+    @DisplayName("전체 회원 목록 조회 - 페이지네이션 계산 검증")
+    void testGetAllMemberPagination() {
+        int page = 2;
+        int size = 10;
+        int expectedOffset = 10;  // (page - 1) * size = 10
+
+        List<AllMemberDTO> mockList = Arrays.asList(
+                new AllMemberDTO(),
+                new AllMemberDTO()
+        );
+
+        when(adminReadMapper.selectAllMember(size, expectedOffset))
+                .thenReturn(mockList);
+
+        List<AllMemberDTO> result = adminReadService.getAllMember(page, size);
+
+        assertEquals(mockList.size(), result.size());
+        verify(adminReadMapper, times(1))
+                .selectAllMember(size, expectedOffset);
+    }
+
+    // =========================================================
+    @Test
+    @DisplayName("전체 태그 조회 성공")
+    void testGetAllTag() {
+        List<AllTagDTO> mockTags = Arrays.asList(
+                new AllTagDTO(),
+                new AllTagDTO()
+        );
+
+        when(adminReadMapper.selectAllTag()).thenReturn(mockTags);
+
+        List<AllTagDTO> result = adminReadService.getAllTag();
+
+        assertEquals(2, result.size());
+        verify(adminReadMapper, times(1)).selectAllTag();
     }
 }

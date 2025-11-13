@@ -37,8 +37,8 @@ public class ReportReadServiceImplTest {
         int expectedOffset = (page - 1) * size;
 
         List<AllReportDTO> mockList = Arrays.asList(
-          new AllReportDTO(1L, new Date(), "U", null, 101L, 201L, null, null),
-          new AllReportDTO(2L, new Date(), "Y", null, 102L, null, null, 303L)
+          new AllReportDTO(1L, new Date(), "U", "스팸", 101L, 201L, null, null),
+          new AllReportDTO(2L, new Date(), "Y", "욕설", 102L, null, null, 303L)
         );
 
         when(reportReadMapper.selectAllReport(size, expectedOffset)).thenReturn(mockList);
