@@ -51,6 +51,7 @@ const handleLogin = async () => {
     console.log(error);
     toastStore.showToast(error.response.data.error)
   }
+  
 };
 
 const signUp = () => {

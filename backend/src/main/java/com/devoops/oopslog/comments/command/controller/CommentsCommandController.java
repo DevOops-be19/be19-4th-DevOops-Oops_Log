@@ -2,8 +2,10 @@ package com.devoops.oopslog.comments.command.controller;
 
 import com.devoops.oopslog.comments.command.dto.CommentCommandDTO;
 import com.devoops.oopslog.comments.command.service.CommentsCommandService;
+import com.devoops.oopslog.common.SseService;
 import com.devoops.oopslog.member.command.dto.UserImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +14,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/comments")
 public class CommentsCommandController {
     private final CommentsCommandService commentsCommandService;
+    private final SseService sseService;
 
     @Autowired
-    public CommentsCommandController(CommentsCommandService commentsCommandService) {
+    public CommentsCommandController(CommentsCommandService commentsCommandService,
+                                     SseService sseService) {
         this.commentsCommandService = commentsCommandService;
+        this.sseService = sseService;
     }
 
     @PostMapping("/oops-insert/{oops_id}")
@@ -32,6 +37,8 @@ public class CommentsCommandController {
         long userId = userImpl.getId();
 //        long userId = 20;   // 임시값 지정
         String result = commentsCommandService.registOopsComment(newComment, oops_id, userId);
+
+        sseService.sseSend(Long.parseLong(result),"댓글이 작성되었습니다.");
 
         return result;
     }
