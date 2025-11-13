@@ -253,12 +253,17 @@ function onCancel(){ router.back() }
   border-color:rgba(136,170,130,.45)
 }
 .btn.primary{
-  background: var(--light-green);
-  color:#234;
+  background: #7a8d56;
+  color:rgb(255, 255, 255);
   border-color: var(--light-green);
 }
 .btn:disabled{ opacity:.4; cursor:not-allowed }
-.actions{ display:flex; gap:8px; justify-content:flex-end; margin-top:18px }
+.actions{ 
+  display:flex; 
+  gap:8px; 
+  justify-content:flex-end; 
+  margin-top:18px; 
+}
 .hint{ font-size:12px; color:var(--ink); opacity:.6; margin-top:6px }
 .error{ color:#b00020; margin-top:8px }
 
