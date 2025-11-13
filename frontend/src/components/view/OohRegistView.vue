@@ -223,7 +223,10 @@ function onCancel(){ router.back() }
 :root { --ink:#55433B; --green:#88AA82; }
 :root { --light-green: #D8F1D5; }
 
-.wrap{ max-width:720px; margin:0 auto; padding:24px }
+.wrap{ 
+  max-width:720px; 
+  margin:0 auto; 
+  padding:0px }
 .title{ font-size:20px; color:var(--ink); margin-bottom:14px }
 .field{ margin-bottom:16px }
 .label{ display:block; margin-bottom:8px; color:var(--ink); font-weight:600 }

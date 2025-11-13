@@ -83,14 +83,6 @@ async function analyzeContent () {
   --green:#88aa82; --green10:rgba(136,170,130,.08);
   --border:#88aa82; --borderSoft:rgba(136,170,130,.30);
 }
-
-.ai-card {
-  border: 1.6px solid var(--border);
-  background: var(--green10);
-  border-radius: 10px;
-  padding: 16px 20px;
-  transition: box-shadow .2s ease, background-color .2s ease;
-}
 /* header 스타일 */
 .head {
   display: flex; align-items: center; justify-content: space-between;
@@ -130,7 +122,7 @@ async function analyzeContent () {
 
 .analyze-btn {
   margin-top: 12px;
-  background: var(--green);
+  background: #7a8d56;
   color: #fff;
   font-weight: 600;
   border: none;
