@@ -134,12 +134,12 @@ Oops_Log는 당신이 완벽하지 않아도 괜찮다고 말합니다. 오늘 �
 
 ## 2-1. WBS
 
-<img src = "./image/WBS.png" width = "1000"> </img><br>
+<img src = "./image/devoopsWBS.png" width = "1000"> </img><br>
 
 ## 2-2. 요구사항 명세서 
 
-<img src = "./image/요구사항1.png" width = "1000"> </img>
-<img src = "./image/요구사항2.png" width = "1000"> </img> <br>
+<img src = "./image/요구사항명세서1.png" width = "1000"> </img>
+<img src = "./image/요구사항명세서2.png" width = "1000"> </img> <br>
 
 ---
 
@@ -152,7 +152,7 @@ Oops_Log는 당신이 완벽하지 않아도 괜찮다고 말합니다. 오늘 �
 
 <details>
     <summary>Policy-Context</summary>
-<img src = "./image/policycontext.jpg" width = "1000"> </img>
+<img src = "./image/devoopsDDD.png" width = "1000"> </img>
 </details>
 
 <details>
