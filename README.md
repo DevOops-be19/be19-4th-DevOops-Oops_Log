@@ -232,7 +232,24 @@ Oops_Log는 당신이 완벽하지 않아도 괜찮다고 말합니다. 오늘 �
 
 ---
 
-## 🤖 8. 젠킨스 파이프라인 파일 스크립트 코드
+## 🧪 8. 단위 테스트
+
+<details>
+    <summary>단위 테스트</summary>
+<img src = "./image/단위1.png" width = "1000"> </img>
+<img src = "./image/단위2.png" width = "1000"> </img>
+	<details>
+    		<summary>세부 내용</summary>
+		<img src = "./image/단위세부.png" width = "1000"> </img>
+	</details>
+</details>
+
+
+<br>
+
+---
+
+## 🤖 9. 젠킨스 파이프라인 파일 스크립트 코드
 
 ```groovy
 pipeline {
@@ -359,7 +376,7 @@ pipeline {
 
 ---
 
-## 💻 9. 기술 스택
+## 💻 10. 기술 스택
 <div align=left><h3>BACKEND</h3></div>
 
 <div align=left> 
@@ -424,7 +441,7 @@ pipeline {
 
 ---
 
-## ✍️ 10. 개인 회고록
+## ✍️ 11. 개인 회고록
 
 ### 강지현
 
