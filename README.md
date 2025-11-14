@@ -225,7 +225,15 @@ Oops_Log는 당신이 완벽하지 않아도 괜찮다고 말합니다. 오늘 �
 
 <details>
     <summary>CI/CD 테스트</summary>
+
+- jenkins stage view
+
 <img src = "./image/cicd.png" width = "1000"> </img>
+
+- argoCD pipeline
+	
+<img width="1836" height="841" alt="스크린샷 2025-11-14 120616" src="https://github.com/user-attachments/assets/b65391e9-d513-4d7c-9e08-e7b37ae763fa" />
+
 </details>
 
 <br>
