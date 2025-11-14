@@ -1,0 +1,2159 @@
+{
+	"info": {
+		"_postman_id": "e6c39e51-0cda-46bf-b42d-801d91d006a5",
+		"name": "Oops_Log",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48692114",
+		"_collection_link": "https://thdgudtjr0415-2428537.postman.co/workspace/%EC%86%A1%ED%98%95%EC%84%9D's-Workspace~da7967c4-e4e3-493f-85ef-31e1dda47f6b/collection/48692114-e6c39e51-0cda-46bf-b42d-801d91d006a5?action=share&source=collection_link&creator=48692114"
+	},
+	"item": [
+		{
+			"name": "record",
+			"item": [
+				{
+					"name": "공지사항 조회 및 검색",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/notice/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"notice",
+								"all"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "점검",
+									"disabled": true
+								},
+								{
+									"key": "content",
+									"value": "공지",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "공지사항 작성",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"noticeUserId\": 1,\r\n  \"noticeTitle\": \"점검 안내\",\r\n  \"noticeContent\": \"11월 10일 02:00~04:00 서버 점검이 진행됩니다.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/notice/insertNotice",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"notice",
+								"insertNotice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "공지사항 수정",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"noticeContent\": \"점검 시간: 02:30~04:30으로 변경되었습니다.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/notice/updateNotice/28",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"notice",
+								"updateNotice",
+								"28"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "공지사항 소프트 삭제",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/notice/deleteNotice/23",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"notice",
+								"deleteNotice",
+								"23"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "공지사항 하드삭제",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/notice/hardDeleteNotice/23",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"notice",
+								"hardDeleteNotice",
+								"23"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ooh 기록 조회 및 검색",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ooh/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ooh",
+								"all"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "content",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ooh 기록 상세조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/ooh/1/detail",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ooh",
+								"1",
+								"detail"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "3",
+									"disabled": true
+								},
+								{
+									"key": "title",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "content",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ooh 기록 작성",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"oohUserId\": 2,\r\n  \"oohTitle\": \"오늘 첫 팀 발표 성공!\",\r\n  \"oohContent\": \"팀원들과의 협업이 잘 돼서 발표 완벽하게 끝냈다 😊\",\r\n  \"oohIsPrivate\": \"N\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ooh/insertOoh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ooh",
+								"insertOoh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ooh 기록 수정",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLshqHtmJXshJ0iLCJhdXRoIjpbIlJPTEVfVVNFUiJdLCJleHAiOjE3NjI5OTI4MTJ9.voBSpko55HJ6lgh5SfOpIHoPc-7-Ycm8l0HbvNLUvIhGXt8N0MLDIPg7DT2o3YwRJaf4xyViLDj_3F3Gk_AZWQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"oohTitle\": \"발표 피드백 반영 완료\",\r\n  \"oohContent\": \"질문받은 부분 정리해서 문서 업데이트까지 마침\",\r\n  \"oohIsPrivate\": \"N\",\r\n  \"tagIds\": [1,2,3]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ooh/updateOoh/58",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ooh",
+								"updateOoh",
+								"58"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ooh 기록 소프트 삭제",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ooh/deleteOoh/22",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ooh",
+								"deleteOoh",
+								"22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ooh 기록 하드 삭제",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{song}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ooh/hardDeleteOoh/17",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ooh",
+								"hardDeleteOoh",
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Oops 기록 조회 및 검색",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/oops/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oops",
+								"all"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "content",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Oops 기록 작성",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"oopsUserId\": 2,\r\n  \"oopsTitle\": \"발표 중 자료 일부 누락 😅\",\r\n  \"oopsContent\": \"긴장해서 마지막 슬라이드를 깜빡하고 넘기지 못했다. 다음엔 리허설 때 체크리스트 꼭 만들자!\",\r\n  \"oopsIsPrivate\": \"N\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/oops/insertOops",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oops",
+								"insertOops"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "content",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Oops 기록 수정",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"oopsTitle\": \"발표 중 자료 일부 누락2 😅\",\r\n  \"oopsContent\": \"긴장해서 마지막 슬라이드를 깜빡하고 넘기지 못했다. 다음엔 리허설 때 체크리스트 꼭 만들자!\",\r\n  \"oopsIsPrivate\": \"N\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/oops/updateOops/25",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oops",
+								"updateOops",
+								"25"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Oops 기록 소프트 삭제",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/oops/deleteOops/25",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oops",
+								"deleteOops",
+								"25"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Oops 기록 하드 삭제",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/oops/hardDeleteOops/25",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oops",
+								"hardDeleteOops",
+								"25"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "로그인",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"member_id\":\"송형석\",\r\n    \"member_pw\":\"thdgudtjr\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "회원가입",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Add your name in the body\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/info",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"info"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "health",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJramFuZGdvIiwiYXV0aCI6WyJST0xFX1VTRVIiXSwiZXhwIjoxNzYyNjI5OTYzfQ.2aJFMCt8Avq_xGq20QMAdwExGvw3EA1ogqmYfT5P2YjH4ezNS0DMcWhlcdfknbb7kr88q6DjlV9rw6KqBAuMPw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/member/health",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"member",
+								"health"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "아이디 찾기",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"rptmffld0204@naver.com\",\r\n    \"name\":\"강지현\",\r\n    \"birth\":\"2018-02-02\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/member/find-id",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"member",
+								"find-id"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "비밀번호 찾기",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"memberId\":\"kjandgo\",\r\n    \"email\":\"rptmffld0204@naver.com\",\r\n    \"name\":\"강지현\",\r\n    \"birth\":\"2018-02-02\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/member/find-pw",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"member",
+								"find-pw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "인증번호 입력",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"rptmffld0204@naver.com\",\r\n    \"verifyCode\":\"803444\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/member/verify-pw",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"member",
+								"verify-pw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "개인정보 수정",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"39\",\r\n    \"memberId\":\"uni_student_jo\",\r\n    \"memberPw\":\"uni_student_jo\",\r\n    \"email\":\"student2@example.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/member/modify",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"member",
+								"modify"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "sse test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "follow,bookmark",
+			"item": [
+				{
+					"name": "유저의 팔로잉 목록 조회",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/follow/following/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"follow",
+								"following",
+								"10"
+							]
+						},
+						"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+					},
+					"response": []
+				},
+				{
+					"name": "유저의 팔로워 조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/follow/followers/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"follow",
+								"followers",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "팔로우 삭제",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-USER-ID",
+								"value": "2",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"followerId\": 20,\r\n    \"followeeId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/follow",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"follow"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "팔로우 추가",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"followerId\": 10,\r\n    \"followeeId\": 9\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/follow",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"follow"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "북마크 조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/bookmarks/user/16",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"bookmarks",
+								"user",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "북마크 삭제",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 2,\r\n    \"recordType\": \"oops\",\r\n    \"recordId\": 11\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/bookmarks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"bookmarks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "북마크 추가",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 2,\r\n    \"recordType\": \"oops\",\r\n    \"recordId\": 11\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/bookmarks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"bookmarks"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "관리자 전체회원조회",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"kang12131@example.com\",\r\n    \"pwd\": \"pwd045\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/admin/member",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"member"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "관리자 전체신고조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/report/all?page=1&size=10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"report",
+								"all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "관리자 해당신고조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/report/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"report",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "관리자 전체태그조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/tag",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"tag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "해당회원의 웁스와 옵스 게시글 개수 조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/achivement/20/daily?year=2024&month=8",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"achivement",
+								"20",
+								"daily"
+							],
+							"query": [
+								{
+									"key": "year",
+									"value": "2024"
+								},
+								{
+									"key": "month",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "해당회원의 성장페이지 요약 조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/achivement/summary/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"achivement",
+								"summary",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "사용자 게시글 신고",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"categoryId\": 1,\r\n  \"userId\": 6,\r\n  \"oopsId\": 12\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/report",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"report"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "관리자 게시글 신고상태변경",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/report/3/state?state=N",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"report",
+								"3",
+								"state"
+							],
+							"query": [
+								{
+									"key": "state",
+									"value": "N"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "관리자 태그 추가",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tagName\": \"자기개발\",\r\n    \"tagType\": \"ooh\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admin/tag",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"tag"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "관리자 태그 삭제",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/tag/63",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"tag",
+								"63"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "사용자 Ooh 기록 작성",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"oohUserId\": 2,\r\n  \"oohTitle\": \"오늘 첫 팀 발표 성공!\",\r\n  \"oohContent\": \"팀원들과의 협업이 잘 돼서 발표 완벽하게 끝냈다 😊\",\r\n  \"oohIsPrivate\": \"N\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/ooh/insertOoh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ooh",
+								"insertOoh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "사용자 Oops 기록 작성",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"oopsUserId\": 2,\r\n  \"oopsTitle\": \"발표 중 자료 일부 누락 😅\",\r\n  \"oopsContent\": \"긴장해서 마지막 슬라이드를 깜빡하고 넘기지 못했다. 다음엔 리허설 때 체크리스트 꼭 만들자!\",\r\n  \"oopsIsPrivate\": \"N\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/oops/insertOops",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oops",
+								"insertOops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AI 응답 생성",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"content\":\"오늘 하루 너무 우울했어\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/ai/analyze",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ai",
+								"analyze"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "태그,댓글, 좋아요",
+			"item": [
+				{
+					"name": "태그등록(관리자)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tag_name\":\"아\",\n    \"tag_type\":\"ooh\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/tag/tag-insert",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tag",
+								"tag-insert"
+							]
+						},
+						"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "태그수정(관리자)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful PUT request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tag_name\": \"aaaa\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/tag/tag-modify/61",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tag",
+								"tag-modify",
+								"61"
+							]
+						},
+						"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "태그삭제(관리자)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful DELETE request\", function () {",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tag_name\":\"아\",\n    \"tag_type\":\"ooh\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/tag/tag-delete/61",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tag",
+								"tag-delete",
+								"61"
+							]
+						},
+						"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+					},
+					"response": []
+				},
+				{
+					"name": "oops작성(with태그)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oopsId\": 22,\r\n    \"oopsUserId\": 22,\r\n    \"oopsIsPrivate\": \"N\",\r\n    \"oopsTitle\": \"프콘트엔드 스터디 발표 완료\",\r\n    \"oopsContent\": \"주간 스터디에서 'React Query' 주제로 발표 잘 마쳤다. 다들 피드백이 좋았다.\",\r\n    \"oopsAIAnswer\": \"지식 공유는 최고의 0ops입니다! 배운 것을 발표하며 더 깊게 이해하셨군요.\",\r\n    \"oopsCreateDate\": \"2024-08-15T18:00:00\",\r\n    \"oopsModifyDate\": \"2024-08-15T18:00:00\",\r\n    \"oopsIsDeleted\": \"N\",\r\n    \"name\": \"박차단\",\r\n    \"tagIds\": [22, 23]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/oops/insertOops",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oops",
+								"insertOops"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ooh작성(with태그)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/ooh/insertOoh",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ooh",
+								"insertOoh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "oops게시글사용된태그조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/tag/oopstag-read/22",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tag",
+								"oopstag-read",
+								"22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "태그목록조회(oops)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/tag/oopstag-select",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tag",
+								"oopstag-select"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ooh게시글사용된태그조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/tag/oohtag-read/10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tag",
+								"oohtag-read",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "태그목록조회(ooh)",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tag_name\":\"아\",\n    \"tag_type\":\"ooh\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/tag/oohtag-select",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tag",
+								"oohtag-select"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ooh댓글조회",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"tag_name\":\"아\",\n    \"tag_type\":\"ooh\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/comments/ooh-read/10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments",
+								"ooh-read",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "oops댓글조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/comments/oops-read/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments",
+								"oops-read",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "공지사항댓글조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/comments/notice-read/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments",
+								"notice-read",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "oops댓글작성",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\":\"안녕하세요~\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/comments/oops-insert/10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments",
+								"oops-insert",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ooh댓글작성",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\":\"hello~\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/comments/ooh-insert/10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments",
+								"ooh-insert",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "공지사항댓글작성",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\":\"hihi~~\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/comments/notice-insert/10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments",
+								"notice-insert",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "댓글수정",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\":\"aaaaaabbbbc\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/comments/update-comment/30",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments",
+								"update-comment",
+								"30"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "댓글삭제",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/comments/delete-comment/30",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comments",
+								"delete-comment",
+								"30"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "oops좋아요수조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/likes/18/oopslikes-count",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"likes",
+								"18",
+								"oopslikes-count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ooh좋아요수조회",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/likes/1/oohlikes-count",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"likes",
+								"1",
+								"oohlikes-count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "oops좋아요 등록 및 삭제",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/likes/20/oops-like",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"likes",
+								"20",
+								"oops-like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ooh좋아요 등록 및 삭제",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/likes/20/ooh-like",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"likes",
+								"20",
+								"ooh-like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "좋아요한기록인지 확인(oops)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImF1dGgiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdLCJleHAiOjE3NjI5MTk2ODZ9.a1TzcjmaGUSpEKZfyYh7-oxDyuGOCPlfA921hQwGqSkZ7NxYaaU5HtHFwYtSTU9u0479BQRmJ-ssytq8EkmuDA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/likes/22/oopslikes-exist",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"likes",
+								"22",
+								"oopslikes-exist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "좋아요한기록인지 확인(ooh)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/likes/20/oohlikes-exist",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"likes",
+								"20",
+								"oohlikes-exist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "oops수정(with태그)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/oops/updateOops/29",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"oops",
+								"updateOops",
+								"29"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ooh수정(with태그)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"{\r",
+									"    \"tagIds\":[3,4,5]\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/ooh/updateOoh/23",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ooh",
+								"updateOoh",
+								"23"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "사용된태그삭제(ooh)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/tag/oohtag-delete/54/10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tag",
+								"oohtag-delete",
+								"54",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "사용된태그삭제(oops)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/tag/oopstag-delete/22/29",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"tag",
+								"oopstag-delete",
+								"22",
+								"29"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

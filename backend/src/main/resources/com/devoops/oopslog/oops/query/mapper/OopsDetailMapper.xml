@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.devoops.oopslog.oops.query.mapper.OopsDetailMapper">
+
+    <resultMap id="OopsDetailMap" type="com.devoops.oopslog.oops.query.dto.OopsDetailDTO">
+        <id    property="id"         column="id"/>
+        <result property="isPrivate" column="is_private"/>
+        <result property="title"     column="title"/>
+        <result property="content"   column="content"/>
+        <result property="aiAnswer"  column="ai_answer"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="userId"     column="user_id"/>
+        <result property="userName"   column="user_name"/>   <!-- alias 맞추기 -->
+        <result property="likedByMe"  column="liked_by_me"/>
+        <result property="likesCount" column="likes_count"/>
+    </resultMap>
+
+    <select id="selectOopsBaseById" resultMap="OopsDetailMap" parameterType="long">
+        SELECT
+        A.ID,
+        A.TITLE,
+        A.CONTENT,
+        A.IS_PRIVATE,
+        A.AI_ANSWER,
+        A.CREATE_DATE,
+        A.MODIFY_DATE,
+        A.USER_ID,
+        M.NAME AS user_name
+        FROM oops_record A
+        JOIN member M ON M.ID = A.USER_ID
+        WHERE A.ID = #{oopsId}
+        AND A.IS_DELETED = 'N'
+        LIMIT 1
+    </select>
+
+    <!-- 일반 태그 3개: 감정이 아닌 것 -->
+    <select id="selectTagNamesByOopsId" resultType="string" parameterType="long">
+        SELECT T.TAG_NAME
+        FROM oops_tag OT
+        JOIN tag T ON T.ID = OT.TAG_ID
+        WHERE OT.OOps_ID = #{oopsId}
+        AND UPPER(T.TAG_TYPE) NOT IN ('EMOTION', 'EMO')   <!-- ✅ CATEGORY → TAG_TYPE, 대소문자 무시 -->
+        ORDER BY T.TAG_NAME
+        LIMIT 3
+    </select>
+
+    <!-- 감정 태그 3개 -->
+    <select id="selectEmotionNamesByOopsId" resultType="string" parameterType="long">
+        SELECT T.TAG_NAME
+        FROM oops_tag OT
+        JOIN tag T ON T.ID = OT.TAG_ID
+        WHERE OT.OOps_ID = #{oopsId}
+        AND UPPER(T.TAG_TYPE) IN ('EMOTION', 'EMO')       <!-- ✅ CATEGORY → TAG_TYPE, 대소문자 무시 -->
+        ORDER BY T.TAG_NAME
+        LIMIT 3
+    </select>
+
+    <select id="selectLikesCountByOopsId" resultType="long" parameterType="long">
+        SELECT COUNT(*) FROM likes WHERE oops_id = #{oopsId}
+    </select>
+
+    <!-- 댓글 상위 N개 -->
+    <resultMap id="OopsDetailCommentMap" type="com.devoops.oopslog.oops.query.dto.OopsDetailCommentDTO">
+        <id     property="id"        column="ID"/>
+        <result property="author"    column="AUTHOR"/>
+        <result property="content"   column="CONTENT"/>
+        <result property="createdAt" column="CREATE_DATE"/>
+    </resultMap>
+
+    <select id="selectCommentsByOopsId" resultMap="OopsDetailCommentMap">
+        SELECT
+            C.ID,
+            '익명' AS AUTHOR,        -- 항상 익명 표기
+            C.CONTENT,
+            C.CREATE_DATE
+        FROM comments C
+        WHERE C.OOPS_ID = #{oopsId}
+          AND C.IS_DELETED = 'N'
+        ORDER BY C.ID DESC
+            LIMIT #{limit}
+    </select>
+
+    <select id="selectCommentsTotal" resultType="long" parameterType="long">
+        SELECT COUNT(*) FROM comments
+        WHERE OOPS_ID = #{oopsId}
+          AND IS_DELETED = 'N'
+    </select>
+</mapper>
