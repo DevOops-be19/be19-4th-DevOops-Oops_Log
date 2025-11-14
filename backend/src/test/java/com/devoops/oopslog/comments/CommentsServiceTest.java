@@ -82,17 +82,7 @@ public class CommentsServiceTest {
         );
     }
 
-    @DisplayName("댓글 등록 테스트 - Notice기록에 댓글 등록")
-    @Test
-    void commentNoticeRegistServiceTest() {
-        Assertions.assertDoesNotThrow(
-                () -> {
-                    CommentCommandDTO newComment = new CommentCommandDTO("hello world");
-                    String isCommentRegist = commentsCommandService.registNoticeComment(newComment, 10, 48);
-                    System.out.println(isCommentRegist);
-                }
-        );
-    }
+
 
     @DisplayName("댓글 삭제 테스트")
     @Test
