@@ -189,7 +189,7 @@ Oops_Log는 당신이 완벽하지 않아도 괜찮다고 말합니다. 오늘 �
 
 <details>
     <summary>물리 모델링</summary>
-<img src = "./image/물리.jpg" width = "1000"> </img>
+<img src = "./image/erd.png" width = "1000"> </img>
 </details>
 
 <br>
