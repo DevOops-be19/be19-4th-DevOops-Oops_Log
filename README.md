@@ -187,7 +187,7 @@ Oops_Log는 당신이 완벽하지 않아도 괜찮다고 말합니다. 오늘 �
 
 <details>
     <summary>논리 모델링</summary>
-<img src = "./image/논리.jpg" width = "1000"> </img>
+<img src = "./image/논리.png" width = "1000"> </img>
 </details>
 
 <details>
