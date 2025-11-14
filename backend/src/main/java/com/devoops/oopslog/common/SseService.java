@@ -53,7 +53,7 @@ public class SseService {
 
         try {
             emitter.send(SseEmitter.event().data(
-                    Map.of("message", message)
+                    Map.of("message", "\""+message+"\" 게시물에 댓글이 달렸습니다.")
             ));
         } catch (IOException e) {
             throw new RuntimeException(e);

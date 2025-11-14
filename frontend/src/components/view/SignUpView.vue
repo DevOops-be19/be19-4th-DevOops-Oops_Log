@@ -136,7 +136,7 @@ const handleSubmit = async () => {
   }
 
   try {
-    const response = await axios.post('http://localhost/boot/member/sign-up',{
+    const response = await axios.post('/api/member/sign-up',{
       memberId:memberId.value,
       memberPw:password.value,
       email:email.value,

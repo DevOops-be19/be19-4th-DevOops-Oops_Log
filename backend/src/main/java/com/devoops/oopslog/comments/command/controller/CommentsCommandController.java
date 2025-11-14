@@ -11,6 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.StringTokenizer;
+
 @RestController
 @RequestMapping("/comments")
 @Slf4j
@@ -39,15 +41,16 @@ public class CommentsCommandController {
         long userId = userImpl.getId();
 //        long userId = 20;   // 임시값 지정
         String result = commentsCommandService.registOopsComment(newComment, oops_id, userId);
+        StringTokenizer st = new StringTokenizer(result,",");
 
         try{
-        sseService.sseSend(Long.parseLong(result),"댓글이 작성되었습니다.");
+        sseService.sseSend(Long.parseLong(st.nextToken()),st.nextToken());
 
         }catch(Exception e){
             log.info("해당 회원 접속 안함");
         }
 
-        return result;
+        return "oops comments complete";
     }
 
     @PostMapping("/ooh-insert/{ooh_id}")
@@ -65,8 +68,16 @@ public class CommentsCommandController {
 
 //        long userId = 20;   // 임시값 지정
         String result = commentsCommandService.registOohComment(newComment, ooh_id, userId);
+        StringTokenizer st = new StringTokenizer(result,",");
 
-        return result;
+        try{
+            sseService.sseSend(Long.parseLong(st.nextToken()),st.nextToken());
+
+        }catch(Exception e){
+            log.info("해당 회원 접속 안함");
+        }
+
+        return "ooh comments complete";
     }
 
     @PostMapping("/notice-insert/{notice_id}")

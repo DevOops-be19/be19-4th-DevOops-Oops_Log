@@ -28,7 +28,7 @@ import { useToastStore } from './stores/useToast';
  const toastStore = useToastStore();
   console.log("현재회원: ",userStore.memberId);
   console.log("토큰:",userStore.token)
-  const eventSource = ref(new EventSource(`http://localhost/boot/member/sse-sub/${userStore.id}`));
+  const eventSource = ref(new EventSource(`/api/member/sse-sub/${userStore.id}`));
 
   onMounted(()=>{
     try {
@@ -36,12 +36,13 @@ import { useToastStore } from './stores/useToast';
       eventSource.value.onopen(()=>{
         console.log("sse connected");
       })
+        
     } catch (error) {
       console.log("sse error");
     }
   })
 
-  eventSource.value.onmessage = (event)=>{
+eventSource.value.onmessage = (event)=>{
     const message = JSON.parse(event.data);
     console.log(message.message);
     toastStore.showToast(message.message);

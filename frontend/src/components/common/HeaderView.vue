@@ -105,6 +105,7 @@ import MobileNav from './MobileNav.vue'
 import { useUserStore } from '@/stores/useUserInfo'
 import { useRouter } from 'vue-router'
 import { useToastStore } from '@/stores/useToast'
+import { useSseStore } from '@/stores/useSse'
 
 /* 인라인 아이콘 (외부 라이브러리 X) */
 const HomeIcon = { template: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none"
@@ -134,6 +135,7 @@ const loginFlag = ref(false)
 const userStore = useUserStore();
 const router = useRouter();
 const toastStore = useToastStore();
+const sseStore = useSseStore();
 const isManager = ref(false)
 const userId = userStore.memberId;
 const signupDate = userStore.signUpDate;
@@ -144,6 +146,8 @@ const loginPage = ()=>{
 const logoutPage = async ()=>{
   sessionStorage.removeItem('userInfo');
   open.value = false;
+  sseStore.disconnect();
+  sseStore.clearMessages();
   await router.replace('/');
   location.reload();
 }
