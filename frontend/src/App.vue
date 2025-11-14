@@ -28,7 +28,7 @@ import { useToastStore } from './stores/useToast';
  const toastStore = useToastStore();
   console.log("현재회원: ",userStore.memberId);
   console.log("토큰:",userStore.token)
-  const eventSource = ref(new EventSource(`/api/member/sse-sub/${userStore.id}`));
+  const eventSource = ref(new EventSource(`http://localhost/boot/member/sse-sub/${userStore.id}`));
 
   onMounted(()=>{
     try {
