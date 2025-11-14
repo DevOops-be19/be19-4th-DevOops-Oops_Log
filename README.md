@@ -154,7 +154,7 @@ Oops_Log는 당신이 완벽하지 않아도 괜찮다고 말합니다. 오늘 �
 
 ---
 
-## 2. 기능 명세서
+## 📋 2. 기능 명세서
 
 ## 2-1. WBS
 
@@ -167,7 +167,7 @@ Oops_Log는 당신이 완벽하지 않아도 괜찮다고 말합니다. 오늘 �
 
 ---
 
-## 3. DDD 설계
+## 📐 3. DDD 설계
 
 <details>
     <summary>이벤트 도메인</summary>
@@ -183,7 +183,7 @@ Oops_Log는 당신이 완벽하지 않아도 괜찮다고 말합니다. 오늘 �
 
 ---
 
-## 4. DB 설계
+## 💾 4. DB 설계
 
 <details>
     <summary>논리 모델링</summary>
@@ -199,7 +199,7 @@ Oops_Log는 당신이 완벽하지 않아도 괜찮다고 말합니다. 오늘 �
 
 ---
 
-## 5. Figma
+## 🎨 5. Figma
 
 <details>
     <summary>Figma 디자인</summary>
@@ -210,7 +210,7 @@ Oops_Log는 당신이 완벽하지 않아도 괜찮다고 말합니다. 오늘 �
 
 ---
 
-## 6. CI/CD 프로젝트 아키텍쳐
+## 🔄 6. CI/CD 프로젝트 아키텍쳐
 
 <details>
     <summary>CI/CD</summary>
@@ -221,7 +221,7 @@ Oops_Log는 당신이 완벽하지 않아도 괜찮다고 말합니다. 오늘 �
 
 ---
 
-## 7. CI/CD 테스트
+## 🧪 7. CI/CD 테스트
 
 <details>
     <summary>CI/CD 테스트</summary>
@@ -232,7 +232,7 @@ Oops_Log는 당신이 완벽하지 않아도 괜찮다고 말합니다. 오늘 �
 
 ---
 
-## 8. 젠킨스 파이프라인 파일 스크립트 코드
+## 🤖 8. 젠킨스 파이프라인 파일 스크립트 코드
 
 ```groovy
 pipeline {
@@ -359,7 +359,7 @@ pipeline {
 
 ---
 
-## 10. 기술 스택
+## 💻 9. 기술 스택
 <div align=left><h3>BACKEND</h3></div>
 
 <div align=left> 
@@ -424,7 +424,7 @@ pipeline {
 
 ---
 
-## 11. 개인 회고록
+## ✍️ 10. 개인 회고록
 
 ### 강지현
 
