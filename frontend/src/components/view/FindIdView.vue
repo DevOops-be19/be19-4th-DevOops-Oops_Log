@@ -29,7 +29,7 @@ const handleFindId = async () => {
   }
 
   try{
-    await axios.post('/api/member/find-id',{
+    await axios.post('http://localhost/boot/member/find-id',{
       name:username.value,
       email:email.value,
       birth:birth.value

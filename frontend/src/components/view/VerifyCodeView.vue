@@ -30,7 +30,7 @@ const handleFindPw = async () => {
   }
 
   try{
-    const response = await axios.put('/api/member/verify-pw',{
+    const response = await axios.put('http://localhost/boot/member/verify-pw',{
       email:email.value,
       verifyCode:verifyCode.value
     })

@@ -50,7 +50,7 @@ const save = async () => {
     return;
   }
   try {
-    await axios.put('/api/member/modify',{
+    await axios.put('http://localhost/boot/member/modify',{
       id:userStore.id,
       memberId:memberId.value,
       memberPw:password.value,
