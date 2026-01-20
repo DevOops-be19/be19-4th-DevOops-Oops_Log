@@ -52,7 +52,7 @@ onMounted(async () => {
       return
     }
 
-    const res = await axios.get(`http://localhost/boot/ooh/${userId}/mypage`)
+    const res = await axios.get(`/boot/ooh/${userId}/mypage`)
     if (Array.isArray(res.data)) {
       // RecordCard에 맞게 key 매핑
       list.value = res.data.map(it => ({
@@ -66,7 +66,6 @@ onMounted(async () => {
       }))
     } else {
       list.value = []
-      console.warn("예상치 못한 응답:", res.data)
     }
   } catch (e) {
     console.error(e)

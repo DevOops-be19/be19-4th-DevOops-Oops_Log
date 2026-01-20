@@ -329,22 +329,17 @@ async function fetchLikesCount() {
 
 async function toggleLike() {
   const userId = ooh.value.userId
-  console.log("좋아요를 위한 ooh기록자 ID:", userId)
-  console.log("토큰:", token);
-  console.log("로그인사용자:", userStore.id);
   if (!userId) 
     return toastStore.showToast('로그인이 필요합니다.')
   if (userStore.id == userId) return toastStore.showToast('본인의 기록에는 좋아요를 누를 수 없습니다.')
   try {
     const response = await pushOohLikes(ooh.value.id, token);
 
-    console.log("response:", response);
     if (response == "likes created") {
                 likedByMe.value = true;
             } else {
                 likedByMe.value = false;
             }
-            console.log("likedByme", likedByMe.value);
     await fetchLikesCount()
   } catch (err) {
     console.error(err)

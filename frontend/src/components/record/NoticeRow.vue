@@ -52,7 +52,6 @@ import { useUserStore } from '@/stores/useUserInfo'
 
 const userStore = useUserStore()
 const role = userStore.auth[0];
-console.log("로그인한 사용자의 권한:", role);
 
 const props = defineProps({
   item: { type: Object, required: true },

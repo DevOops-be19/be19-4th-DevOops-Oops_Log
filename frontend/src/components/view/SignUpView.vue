@@ -115,13 +115,6 @@ onMounted(() => {
 });
 
 const handleSubmit = async () => {
-  console.log("",memberId.value,"\n",
-    password.value,"\n",
-    name.value,"\n",
-    email.value,"\n",
-    birth.value,"\n",
-    gender.value,"\n",
-  )
   if (!memberId.value || !email.value || !password.value || !confirmPassword.value || !name.value || !birth.value || !gender.value) {
     toastStore.showToast("모든 항목을 입력해주세요");
     return;
@@ -136,7 +129,7 @@ const handleSubmit = async () => {
   }
 
   try {
-    const response = await axios.post('http://localhost/boot/member/sign-up',{
+    const response = await axios.post('/boot/member/sign-up',{
       memberId:memberId.value,
       memberPw:password.value,
       email:email.value,
@@ -144,7 +137,6 @@ const handleSubmit = async () => {
       birth:birth.value,
       gender:gender.value
     })
-    console.log("axios 통신 완료");
     router.push('/login')
     toastStore.showToast("환영합니다! 당신의 서재가 준비되었습니다");
     router.push('/')

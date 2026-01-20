@@ -122,7 +122,6 @@ function onReportSubmitted() {
 
 onMounted(() => {
   user.value = userStore.id;
-  console.log("현재로그인한 사용자ID:", user.value);
 })
 
 const props = defineProps({
@@ -141,7 +140,6 @@ const editId = ref(null)
 const editText = ref('')
 
 function formatDate(iso) {
-  console.log("시간", iso)
   if(!iso) return '방금 전'
   const d = new Date(iso); if(isNaN(d)) return '방금 전'
   const diff=(Date.now()-d.getTime())/1000
@@ -166,7 +164,6 @@ async function fetchList() {
 
     if (Array.isArray(arr)) {
       list.value = arr        // 서버가 빈 배열을 주면 그대로 표시(=댓글 없음)
-      console.log("댓글 List:", list);
       total.value = arr.length
     } else {
       // 구조 파싱 실패 → 초기 comments fallback
@@ -187,8 +184,6 @@ async function fetchList() {
 async function send() {
   if (!draft.value.trim()) return toastStore.showToast("메시지를 입력해주세요.");
   try {
-console.log("oops기록 ID:", props.oopsId);
-console.log("입력할 내용:", draft.value);
     const saved = await writeCommentAtOops(props.oopsId, draft.value, token);
     const item = saved?.comment ?? saved?.data ?? saved ?? { id:Date.now(), content:draft.value, create_date:new Date().toISOString() };
     list.value.unshift(item);
@@ -221,7 +216,6 @@ async function confirmEdit(commentId) {
   }
 }
 async function remove(commentId) {
-  console.log("댓글 ID: ",commentId);
   if (!confirm('정말 삭제하시겠어요?')) return
   try {
     await hardDeleteComment(commentId);

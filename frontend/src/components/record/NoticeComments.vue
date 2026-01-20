@@ -66,7 +66,6 @@ const user = ref(null);
 
 onMounted(() => {
   user.value = userStore.id;
-  console.log("현재로그인한 사용자ID:", user.value);
 })
 
 const router = useRouter();
@@ -110,7 +109,6 @@ async function loadMore(){
   loading.value=true; error.value=''
   try{
     const list = await fetchNoticeComments(numericId.value,{page:page.value,size:size.value})
-    console.log("댓글 list:", list.list);
     const arr = Array.isArray(list)? list : (list.list ?? [])
     const next = Array.isArray(list)? (arr.length===size.value) : !!list.hasNextPage
     const tc = Array.isArray(list)? (totalCount.value||arr.length) : (list.totalCount ?? totalCount.value)
@@ -124,8 +122,6 @@ async function onSubmit(){
   if(!text.value || !canLoad.value) return
   submitting.value=true; error.value=''
   try{
-    console.log("noticeId =", numericId.value);
-    console.log("token:", token);
     const saved = await writeCommentAtNotice(numericId.value, text.value, token)
     const item = saved?.comment ?? saved?.data ?? saved ?? { id:Date.now(), content:text.value, create_date:new Date().toISOString() }
     comments.value.unshift(item)
@@ -135,8 +131,6 @@ async function onSubmit(){
 }
 
 function onEdit(commentId, noticeId) {
-  console.log("댓글ID:", commentId);
-  console.log("noticeId:", noticeId);
   router.push({
     name: 'UpdateComment',
     params: { 
@@ -147,11 +141,9 @@ function onEdit(commentId, noticeId) {
 }
 
 async function onDelete(commentId){
-  console.log("댓글 ID: ",commentId);
   if(!canLoad.value || deletingId.value) return
   if(!confirm('이 댓글을 삭제하시겠어요?')) return
   deletingId.value=commentId
-  console.log("댓글 ID: ",commentId);
   try{ await hardDeleteComment(commentId); comments.value = comments.value.filter(x=>x.id!==commentId); totalCount.value=Math.max(0,totalCount.value-1) }
   finally{ 
     deletingId.value=null;

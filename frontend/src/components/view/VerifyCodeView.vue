@@ -23,23 +23,20 @@ onMounted(()=>{
 })
 
 const handleFindPw = async () => {
-  console.log(email.value,verifyCode.value)
   if (!verifyCode.value) {
     toastStore.showToast("인증번호가 입력되지 않았습니다.");
     return;
   }
 
   try{
-    const response = await axios.put('http://localhost/boot/member/verify-pw',{
+    const response = await axios.put('/boot/member/verify-pw',{
       email:email.value,
       verifyCode:verifyCode.value
     })
     const data = response.data
-    console.log(data);
     toastStore.showToast("인증 성공");
     tempPwFlag.value=true;
     tempPw.value = data.newPw;
-    // router.push('/login')
   }catch(error){
     toastStore.showToast("유효한 인증번호가 아닙니다.");
   }

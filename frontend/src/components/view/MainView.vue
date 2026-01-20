@@ -71,7 +71,6 @@ watch(() => userStore.token, (newToken) => {
   loginFlag.value = !!newToken
 })
 const handleClick = () => {
-  console.log(loginFlag.value);
   if (loginFlag.value) {
     goOops()
   } else {

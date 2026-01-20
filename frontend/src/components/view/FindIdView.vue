@@ -19,17 +19,13 @@ onMounted(()=>{
 })
 
 const handleFindId = async () => {
-  console.log("",username.value,"\n",
-    email.value,"\n",
-    birth.value,"\n",
-  )
   if (!username.value || !email.value || !birth.value) {
     toastStore.showToast("모든 항목을 입력해주세요");
     return;
   }
 
   try{
-    await axios.post('http://localhost/boot/member/find-id',{
+    await axios.post('/boot/member/find-id',{
       name:username.value,
       email:email.value,
       birth:birth.value

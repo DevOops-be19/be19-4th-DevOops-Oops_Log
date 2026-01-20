@@ -50,7 +50,6 @@ onMounted(async () => {
   
   try {
     const { list } = await fetchNoticeComments(noticeId, { page: 1, size: 100 })
-    console.log("list:", list);
     const comment = list.find(
       (c) => String(c.id) === String(commentId)
     );
@@ -60,7 +59,6 @@ onMounted(async () => {
   return;
 }
     content.value = comment ? comment.content : '';
-    console.log("content:", content.value);
 
   } catch (e) {
     console.error(e)
@@ -76,9 +74,6 @@ async function onSave() {
   error.value = ''
 
   try {
-    console.log("받아온 댓글id: ", commentId);
-
-    console.log("입력할 content:", content.value);
     await updateComment(commentId, 
       content.value
     , token)

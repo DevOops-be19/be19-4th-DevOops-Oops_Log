@@ -22,10 +22,9 @@ const handleLogin = async () => {
     toastStore.showToast("아이디와 비밀번호를 입력해주세요.");
     return;
   }
-  console.log("로그인 시도:", username.value, password.value);
   // 로그인 요청
   try {
-  const response = await axios.post('http://localhost/boot/login', {
+  const response = await axios.post('/boot/login', {
     member_id: username.value,
     member_pw: password.value
   });

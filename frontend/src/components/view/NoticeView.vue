@@ -66,7 +66,6 @@ import { useUserStore } from '@/stores/useUserInfo'
 
 const userStore = useUserStore()
 const role = userStore.auth[0];
-console.log("로그인한 사용자의 권한:", role);
 
 const router = useRouter()
 
@@ -75,7 +74,6 @@ const keyword = ref('')
 
 /* 작성 버튼 (권한에 맞게 교체) */
 function goWrite() { 
-  console.log('insertNotice')
   router.push('/notice/insertNotice') 
 }
 

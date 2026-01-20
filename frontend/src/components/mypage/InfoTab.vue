@@ -37,10 +37,6 @@ onMounted(()=>{
 })
 
 const save = async () => {
-   console.log("",memberId.value,"\n",
-   email.value,"\n",
-   password.value,"\n",
-  )
   if (!memberId.value || !email.value || !password.value || !confirmPassword.value) {
     toastStore.showToast("모든 항목을 입력해주세요");
     return;
@@ -50,7 +46,7 @@ const save = async () => {
     return;
   }
   try {
-    await axios.put('http://localhost/boot/member/modify',{
+    await axios.put('/boot/member/modify',{
       id:userStore.id,
       memberId:memberId.value,
       memberPw:password.value,

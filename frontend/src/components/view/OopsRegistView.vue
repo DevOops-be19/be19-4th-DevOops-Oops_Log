@@ -47,7 +47,7 @@
         class="textarea"
         rows="8"
         v-model.trim="form.oopsContent"
-        placeholder="오늘의 빛남을 적어보세요…"
+        placeholder="오늘은 어떤 작은 Oops가 있었나요???"
       />
       <div class="count">{{ (form.oopsContent || '').length }}자</div>
     </section>
@@ -157,7 +157,7 @@ function onAIResult({ feedback, relatedTags }){
 // (A) 부모에서 직접 AI 호출(자식 컴포넌트 호출 없이도 동작)
 async function requestAI() {
   try {
-    const { data } = await axios.post('http://localhost/boot/ai/analyze', { content: form.oopsContent })
+    const { data } = await axios.post('/boot/ai/analyze', { content: form.oopsContent })
     form.aiAnswer = data?.feedback || ''
     aiEmoTagNames.value = Array.isArray(data?.relatedTags) ? data.relatedTags : []
   } catch (e) {

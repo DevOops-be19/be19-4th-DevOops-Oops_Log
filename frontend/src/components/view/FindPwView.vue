@@ -20,18 +20,13 @@ onMounted(()=>{
 })
 
 const handleFindPw = async () => {
-  console.log("",memberId.value,"\n",
-    username.value,"\n",
-    email.value,"\n",
-    birth.value,"\n",
-  )
   if (!memberId.value || !username.value || !email.value || !birth.value) {
     toastStore.showToast("모든 항목을 입력해주세요");
     return;
   }
 
   try{
-    await axios.post('http://localhost/boot/member/find-pw',{
+    await axios.post('/boot/member/find-pw',{
       memberId:memberId.value,
       name:username.value,
       email:email.value,

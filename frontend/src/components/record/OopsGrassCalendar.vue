@@ -28,7 +28,6 @@ const endDate = ref(new Date()); // 캘린더의 마지막 날짜(오늘)
 
 onMounted(async () => {
     const isCounted = await dailyCountOopsRecord(token);
-    console.log("기록집계 성공여부: ", isCounted);
 
     if (isCounted == 'success') {
 

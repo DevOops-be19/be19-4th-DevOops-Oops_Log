@@ -188,6 +188,7 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         return userImpl;
         // 사용자의 id,pw,권한,하위 정보들을 provider로 전송
 //        return new User(member.getMemberId(), member.getMemberPw(), true, true, true, true, grantedAuthorities);
+
     }
 
 }

@@ -83,7 +83,7 @@ const toggleState = async (member) => {
     const newState = member.user_state === 'A' ? 'S' : 'A'
 
     const res = await axios.patch(
-      `http://localhost/boot/admin/member/${member.id}/state`,
+      `/boot/admin/member/${member.id}/state`,
       null,
       { params: { state: newState } }
     )
@@ -91,7 +91,6 @@ const toggleState = async (member) => {
     // 성공하면 화면에 즉시 반영
     member.user_state = newState
 
-    console.log(`회원 상태 변경됨: ${member.id} → ${newState}`)
   } catch (err) {
     console.error('상태 변경 중 오류 발생:', err)
     alert('상태 변경에 실패했습니다.')
@@ -101,7 +100,7 @@ const toggleState = async (member) => {
 
 const fetchMembers = async () => {
   try {
-    const res = await axios.get(`http://localhost/boot/admin/member?page=${page.value}&size=${size.value}`)
+    const res = await axios.get(`/boot/admin/member?page=${page.value}&size=${size.value}`)
     members.value = res.data
     hasNextPage.value = res.data.length === size.value
   } catch (err) {

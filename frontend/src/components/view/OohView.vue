@@ -201,8 +201,7 @@ async function loadNext(q = '') {
       return p.userId === currentUserId.value  // 비공개 글 → 작성자 본인만
     })
 onMounted(() => {
-  console.log('[OohView] userStore.$state =>', JSON.stringify(userStore.$state, null, 2))
-  console.log('[OohView] isAdmin.value =>', isAdmin.value)
+
 })
 
 
@@ -253,9 +252,9 @@ onBeforeUnmount(() => {
 })
 
 /* 카드 액션 (원하면 실제 API 연결) */
-function onLike(post)   { console.log('like', post.id) }
-function onBookmark(p)  { console.log('bookmark', p.id) }
-function onMeToo(p)     { console.log('meToo', p.id) }
+function onLike(post)   { console.log('like') }
+function onBookmark(p)  { console.log('bookmark') }
+function onMeToo(p)     { console.log('meToo') }
 </script>
 
 <style scoped>
